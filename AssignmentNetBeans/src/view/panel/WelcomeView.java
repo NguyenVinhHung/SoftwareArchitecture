@@ -35,14 +35,7 @@ public class WelcomeView extends CustomPanel {
             }            
         });
         
-        add(playBtn);
-        
-        addMouseMotionListener(new MouseAdapter() {
-            @Override
-            public void mouseMoved(MouseEvent e) {
-                System.out.println(e.getX() + " - " + e.getY());
-            }            
-        });
+        add(playBtn);       
     }
 
     @Override

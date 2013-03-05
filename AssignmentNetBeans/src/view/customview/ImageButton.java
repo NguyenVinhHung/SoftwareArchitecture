@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.custombutton;
+package view.customview;
 
 import java.awt.Graphics;
 import java.awt.Image;
@@ -11,10 +11,17 @@ import java.awt.Image;
  *
  * @author HungHandsome
  */
-public abstract class ImageButton extends AbsCusButton {
+public abstract class ImageButton extends InteractiveView {
 
     private Image normalImg;
     private Image hoverImg;
+    
+    public ImageButton(int x, int y, int width, int height,
+            Image normalImg, Image hoverImg) {
+        super(x, y, width, height);
+        this.normalImg = normalImg;
+        this.hoverImg = hoverImg;
+    }
     
     @Override
     public void draw(Graphics g) {
@@ -29,4 +36,13 @@ public abstract class ImageButton extends AbsCusButton {
      * Handle button click event.
      */
     public abstract void onClick();
+
+    public void setNormalImg(Image normalImg) {
+        this.normalImg = normalImg;
+    }
+
+    public void setHoverImg(Image hoverImg) {
+        this.hoverImg = hoverImg;
+    }
+    
 }

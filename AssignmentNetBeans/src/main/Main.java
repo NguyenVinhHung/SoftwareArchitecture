@@ -31,7 +31,7 @@ public class Main extends JFrame {
         
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(FRAME_WIDTH, FRAME_HEIGHT);
-        setResizable(false);
+//        setResizable(false);
         setLocationRelativeTo(null);
         setVisible(true);
     }
@@ -79,4 +79,9 @@ public class Main extends JFrame {
         validate();
         currPanel.updateUI();
     }
+
+    public JPanel getCurrPanel() {
+        return currPanel;
+    }
+    
 }
