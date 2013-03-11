@@ -14,22 +14,24 @@ public class Pokemon {
     
     private String name;
     private Map<String, Skill> skills;
-    private int[] types = new int[2];
+    private int[] types;
     private int atk;
     private int def;
     private int agi;
     private int accuracy;
     private int hp;
 
-    public Pokemon(String name, int[] types, 
+    public Pokemon(String name, int[] types, Map<String, Skill> skills,
                     int atk, int def, int agi, int accuracy, int hp) {
         this.name = name;
         this.types = types;
+        this.skills = skills;
         this.atk = atk;
         this.def = def;
         this.agi = agi;
         this.accuracy = accuracy;
         this.hp = hp;
+        
     }
 
     public String getName() {
