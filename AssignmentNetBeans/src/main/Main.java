@@ -37,7 +37,7 @@ public class Main extends JFrame {
         
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(FRAME_W, FRAME_H);
-//        setResizable(false);
+        setResizable(false);
         setLocationRelativeTo(null);
         setVisible(true);
     }

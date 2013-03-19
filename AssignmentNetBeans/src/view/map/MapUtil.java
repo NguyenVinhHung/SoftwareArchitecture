@@ -5,6 +5,9 @@
 package view.map;
 
 import java.awt.Color;
+import java.awt.Image;
+import javax.swing.ImageIcon;
+import utility.FileUtility;
 
 /**
  *
@@ -25,6 +28,14 @@ public class MapUtil {
     
     public static final Color[] TILE_COLORS = {
         Color.BLACK, Color.GREEN, Color.BLUE, Color.RED, Color.cyan
+    };
+    
+    public static final Image TILES[] = {
+        new ImageIcon(FileUtility.GROUND_TILE).getImage(),
+        new ImageIcon(FileUtility.GRASS_TILE).getImage(),
+        new ImageIcon(FileUtility.WATER_TILE).getImage(),
+        new ImageIcon(FileUtility.MAGMA_TILE).getImage(),
+        new ImageIcon(FileUtility.SAND_TILE).getImage()
     };
     
     public static final int MAP_ARRAYS[][][] = {
