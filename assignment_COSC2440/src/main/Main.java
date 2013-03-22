@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package main;
 
 import javax.swing.JFrame;
@@ -12,7 +8,7 @@ import view.map.MatchPanel;
 
 /**
  *
- * @author HungHandsome
+ *
  */
 public class Main extends JFrame {
 
@@ -29,7 +25,7 @@ public class Main extends JFrame {
         
 //        currPanel = new WelcomeView();
         
-        GameMap map = new GameMap(MapUtil.MAP_ARRAYS[0]);
+        GameMap map = new GameMap(MapUtil.MAP_ARRS[0]);
         currPanel = new MatchPanel(map);
         
         

@@ -11,6 +11,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import main.Main;
 import main.ViewUtilities;
+import utility.FileUtility;
 
 /**
  *
@@ -21,7 +22,7 @@ public class WelcomeView extends CustomPanel {
     private JPanel playBtn;
     
     public WelcomeView() {
-        bg = new ImageIcon(ViewUtilities.WELCOME_IMG).getImage();
+        bg = new ImageIcon(FileUtility.WELCOME_IMG).getImage();
         playBtn = new JPanel();
         
         setLayout(null);

@@ -12,6 +12,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import main.ViewUtilities;
+import utility.FileUtility;
 import view.customview.RawButton;
 
 /**
@@ -38,8 +39,8 @@ public class LoginView extends CustomPanel {
     private RawButton noBtn;
     
     public LoginView() {
-        bg = new ImageIcon(ViewUtilities.WELCOME_IMG).getImage();
-        popup = new ImageIcon(ViewUtilities.POPUP_IMG).getImage();
+        bg = new ImageIcon(FileUtility.WELCOME_IMG).getImage();
+        popup = new ImageIcon(FileUtility.POPUP_IMG).getImage();
         user = new JTextField(TEXT_FIELD_COLS);
         password = new JPasswordField(TEXT_FIELD_COLS);
         

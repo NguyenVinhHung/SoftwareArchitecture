@@ -1,14 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.pokemon;
 
 import java.util.Map;
 
 /**
  *
- * @author HungHandsome
+ *
  */
 public class Pokemon {
     
@@ -20,9 +16,13 @@ public class Pokemon {
     private int agi;
     private int accuracy;
     private int hp;
+    private int mana;
+
+    private int x;
+    private int y;
 
     public Pokemon(String name, int[] types, Map<String, Skill> skills,
-                    int atk, int def, int agi, int accuracy, int hp) {
+                    int atk, int def, int agi, int accuracy, int hp, int mana) {
         this.name = name;
         this.types = types;
         this.skills = skills;
@@ -31,7 +31,7 @@ public class Pokemon {
         this.agi = agi;
         this.accuracy = accuracy;
         this.hp = hp;
-        
+        this.mana = mana;
     }
 
     public String getName() {
@@ -93,5 +93,12 @@ public class Pokemon {
     public void setHp(int hp) {
         this.hp = hp;
     }
-    
+
+    public int getMana() {
+        return mana;
+    }
+
+    public void setMana(int mana) {
+        this.mana = mana;
+    }
 }
