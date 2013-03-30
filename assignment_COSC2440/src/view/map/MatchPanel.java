@@ -19,6 +19,18 @@ public class MatchPanel extends JPanel {
         map = m;
     }
 
+    public MatchPanel(int[][] mapArr) {
+        map = new GameMap(this, mapArr);
+
+        setLayout(null);
+
+//        for(int i=0; i<map.getMapArrays().length; i++) {
+//            for(int j=0; j<map.getMapArrays()[0].length; j++) {
+//                add(map.getTilePanels()[i][j]);
+//            }
+//        }
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         map.draw(g);

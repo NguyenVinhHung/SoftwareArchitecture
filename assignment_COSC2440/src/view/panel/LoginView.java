@@ -11,7 +11,8 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import main.ViewUtilities;
+
+import main.Main;
 import utility.FileUtility;
 import view.customview.RawButton;
 
@@ -35,23 +36,23 @@ public class LoginView extends CustomPanel {
     private Image popup;
     private JTextField user;
     private JPasswordField password;
-    private RawButton yesBtn;
-    private RawButton noBtn;
+    private RawButton okBtn;
+    private RawButton cancelBtn;
     
     public LoginView() {
         bg = new ImageIcon(FileUtility.WELCOME_IMG).getImage();
         popup = new ImageIcon(FileUtility.POPUP_IMG).getImage();
         user = new JTextField(TEXT_FIELD_COLS);
         password = new JPasswordField(TEXT_FIELD_COLS);
-        
+
         setLayout(null);
-        
+
         user.setBounds(X2, Y1, TEXT_FIELD_WIDTH, TEXT_FIELD_HEIGHT);
         password.setBounds(X2, Y2, TEXT_FIELD_WIDTH, TEXT_FIELD_HEIGHT);
-        
+
         add(user);
         add(password);
-        
+
         initButtons();
     }
 
@@ -67,28 +68,30 @@ public class LoginView extends CustomPanel {
         g.drawString("Username", X1, Y1+20);
         g.drawString("Password", X1, Y2+20);
         
-        yesBtn.draw(g);
-        noBtn.draw(g);
+        okBtn.draw(g);
+        cancelBtn.draw(g);
     }
     
     private void initButtons() {
-        yesBtn = new RawButton("Ok", OK_X, BUTTON_Y, 
+        okBtn = new RawButton("Login", OK_X, BUTTON_Y,
                 RawButton.DEFAULT_WIDTH, RawButton.DEFAULT_HEIGHT) {
             @Override
             public void onClick() {
-                System.out.println("Ok");
+                System.out.println("Login");
             }
         };
         
-        noBtn = new RawButton("Cancel", CANCEL_X, BUTTON_Y, 
+        cancelBtn = new RawButton("Cancel", CANCEL_X, BUTTON_Y,
                 RawButton.DEFAULT_WIDTH, RawButton.DEFAULT_HEIGHT) {
             @Override
             public void onClick() {
                 System.out.println("Cancel");
+                cancelBtn.setHover(false);
+                Main.getInstance().switchBack();
             }
         };
         
-        add(yesBtn);
-        add(noBtn);
+        add(okBtn);
+        add(cancelBtn);
     }
 }

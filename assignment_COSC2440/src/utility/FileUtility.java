@@ -24,6 +24,8 @@ public class FileUtility {
         IMAGE_URL + "red_blaster.png"
     };
 
+    public static final String SELECTED_TILE = IMAGE_URL + "selected_tile.png";
+
     public static final String WELCOME_IMG = IMAGE_URL + "welcome.png";
     public static final String POPUP_IMG = IMAGE_URL + "popup.png";
 }

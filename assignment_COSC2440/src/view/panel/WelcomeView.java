@@ -10,8 +10,8 @@ import java.awt.event.MouseEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import main.Main;
-import main.ViewUtilities;
 import utility.FileUtility;
+import view.customview.RawButton;
 
 /**
  *
@@ -20,6 +20,7 @@ import utility.FileUtility;
 public class WelcomeView extends CustomPanel {
     
     private JPanel playBtn;
+    private RawButton regBtn;
     
     public WelcomeView() {
         bg = new ImageIcon(FileUtility.WELCOME_IMG).getImage();
@@ -36,15 +37,31 @@ public class WelcomeView extends CustomPanel {
             }            
         });
         
-        add(playBtn);       
+        add(playBtn);
+
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        regBtn = new RawButton("Register", 400, 628, RawButton.DEFAULT_WIDTH, RawButton.DEFAULT_HEIGHT) {
+            @Override
+            public void onClick() {
+                System.out.println("Register");
+//                Main.getInstance().switchPanel(new RegisterView());
+                Main.getInstance().toRegisterView();
+                regBtn.setHover(false);
+            }
+        };
+
+        add(regBtn);
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         g.drawImage(bg, 0, 0, getWidth(), getHeight(), null);
+        regBtn.draw(g);
     }
     
     private void playBtnClicked() {
-        Main.getInstance().switchPanel(new LoginView());
+//        Main.getInstance().switchPanel(new LoginView());
+        Main.getInstance().toLoginView();
     }
 }
