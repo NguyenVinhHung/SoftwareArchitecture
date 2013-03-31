@@ -43,7 +43,7 @@ public class MapUtil {
         new ImageIcon(FileUtility.TILES[RED_BLASTER]).getImage()
     };
 
-    public static final Image SELECTED_TILE = new ImageIcon(FileUtility.SELECTED_TILE).getImage();
+    public static final Image SELECTED_TILE = new ImageIcon(FileUtility.SELECTED_TILE_URL).getImage();
 
     public static final int MAP_ARRS[][][] = {
         {

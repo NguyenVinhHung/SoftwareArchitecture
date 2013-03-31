@@ -18,12 +18,12 @@ public abstract class CustomPanel extends JPanel {
     protected Image bg;
     
     public CustomPanel() {
-        addMouseMotionListener(new MouseAdapter() {
-            @Override
-            public void mouseDragged(MouseEvent e) {
-                System.out.println(e.getX() + " - " + e.getY());
-            }            
-        });
+//        addMouseMotionListener(new MouseAdapter() {
+//            @Override
+//            public void mouseDragged(MouseEvent e) {
+//                System.out.println(e.getX() + " - " + e.getY());
+//            }
+//        });
     }
     
 }

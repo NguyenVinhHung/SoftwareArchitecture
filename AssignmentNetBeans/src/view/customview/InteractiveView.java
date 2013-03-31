@@ -63,7 +63,7 @@ public abstract class InteractiveView extends JPanel {
         this.y = y;
         this.width = width;
         this.height = height;
-    }    
+    }
 
     public void setX(int x) {
         setBounds(x, y, width, height);
@@ -80,7 +80,11 @@ public abstract class InteractiveView extends JPanel {
     public void setHeight(int height) {
         setBounds(x, y, width, height);
     }
-    
+
+    public void setHover(boolean hover) {
+        this.hover = hover;
+    }
+
     public boolean isHover() {
         return hover;
     }

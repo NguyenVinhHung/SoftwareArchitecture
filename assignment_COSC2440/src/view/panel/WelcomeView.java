@@ -23,7 +23,7 @@ public class WelcomeView extends CustomPanel {
     private RawButton regBtn;
     
     public WelcomeView() {
-        bg = new ImageIcon(FileUtility.WELCOME_IMG).getImage();
+        bg = new ImageIcon(FileUtility.WELCOME_IMG_URL).getImage();
         playBtn = new JPanel();
         
         setLayout(null);
@@ -44,7 +44,7 @@ public class WelcomeView extends CustomPanel {
             @Override
             public void onClick() {
                 System.out.println("Register");
-//                Main.getInstance().switchPanel(new RegisterView());
+//                Main.getInstance().pushPanel(new RegisterView());
                 Main.getInstance().toRegisterView();
                 regBtn.setHover(false);
             }
@@ -61,7 +61,7 @@ public class WelcomeView extends CustomPanel {
     }
     
     private void playBtnClicked() {
-//        Main.getInstance().switchPanel(new LoginView());
+//        Main.getInstance().pushPanel(new LoginView());
         Main.getInstance().toLoginView();
     }
 }

@@ -1,57 +1,73 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package main;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import view.map.GameMap;
-import view.map.MapUtil;
-import view.map.MatchPanel;
+
+import utility.SpringUtil;
+import view.panel.LoginView;
+import view.panel.RegisterView;
+
+import java.util.Stack;
 
 /**
  *
- * @author HungHandsome
+ *
  */
 public class Main extends JFrame {
 
     public static final int FRAME_W = 1024;
     public static final int FRAME_H = 768;
-    
+
+//    private static ApplicationContext serverCtx;
     private static Main frame;
     
     private JPanel currPanel;
-    private JPanel tempPanel;
+    private Stack<JPanel> tempPanels;
     
-    public Main() {
-        super("");
-        
+//    public Main() {
+//        super("");
+//
 //        currPanel = new WelcomeView();
-        
-        GameMap map = new GameMap(MapUtil.MAP_ARRAYS[0]);
-        currPanel = new MatchPanel(map);
-        
-        
+////        currPanel = new RegisterView();
+//
+////        GameMap map = new GameMap(MapUtil.MAP_ARRS[0]);
+////        currPanel = new MatchPanel(MapUtil.MAP_ARRS[0]);
+//
+//
+//        add(currPanel);
+//
+//        setDefaultCloseOperation(EXIT_ON_CLOSE);
+//        setSize(FRAME_W, FRAME_H);
+//        setResizable(false);
+//        setLocationRelativeTo(null);
+//        setVisible(true);
+//    }
+    
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+//        serverCtx = new ClassPathXmlApplicationContext("client_beans.xml");
+//        frame = (Main)serverCtx.getClientBean("main");
+
+        frame = (Main)SpringUtil.getClientBean("main");
+
+//        TimeCounter t = new TimeCounter();
+//        t.startCounting();
+    }
+
+    public void init() {
+        System.out.println("init");
+
         add(currPanel);
-        
+
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(FRAME_W, FRAME_H);
         setResizable(false);
         setLocationRelativeTo(null);
         setVisible(true);
     }
-    
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        frame = new Main();
-        
-        TimeCounter t = new TimeCounter();
-//        t.startCounting();
-    }
-    
+
     /**
      * Returns the singleton instance of the Main class.
      * @return the singleton instance
@@ -62,23 +78,31 @@ public class Main extends JFrame {
         }
         return frame;        
     }
-    
-//    public void switchPanel(JPanel newPanel) {
-//        tempPanel = currPanel;
-//        currPanel = newPanel;
-//        currPanel.updateUI();
-//    }
-    
-    public void switchPanel(JPanel newPanel) {
-        tempPanel = currPanel;
+
+    public void toRegisterView() {
+        pushPanel((RegisterView) SpringUtil.getClientBean("registerPanel"));
+    }
+
+    public void toLoginView() {
+        pushPanel((LoginView) SpringUtil.getClientBean("loginPanel"));
+    }
+
+    public void pushPanel(JPanel newPanel) {
+//        tempPanels = currPanel;
+        tempPanels.push(currPanel);
         setCurrPanel(newPanel);
     }
 
-    public void switchBack() {
-        setCurrPanel(tempPanel);
+    public void popPanel() {
+        setCurrPanel(tempPanels.pop());
     }
 
     public void setCurrPanel(JPanel curr) {
+        if(currPanel == null) {
+            currPanel = curr;
+            return;
+        }
+
         remove(currPanel);
         currPanel = curr;
         add(currPanel);
@@ -89,5 +113,8 @@ public class Main extends JFrame {
     public JPanel getCurrPanel() {
         return currPanel;
     }
-    
+
+    public void setTempPanels(Stack<JPanel> tempPanels) {
+        this.tempPanels = tempPanels;
+    }
 }

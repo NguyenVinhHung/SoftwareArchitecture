@@ -18,7 +18,7 @@ public class Main extends JFrame {
     public static final int FRAME_W = 1024;
     public static final int FRAME_H = 768;
 
-//    private static ApplicationContext ctx;
+//    private static ApplicationContext serverCtx;
     private static Main frame;
     
     private JPanel currPanel;
@@ -47,10 +47,10 @@ public class Main extends JFrame {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-//        ctx = new ClassPathXmlApplicationContext("client_beans.xml");
-//        frame = (Main)ctx.getBean("main");
+//        serverCtx = new ClassPathXmlApplicationContext("client_beans.xml");
+//        frame = (Main)serverCtx.getClientBean("main");
 
-        frame = (Main)SpringUtil.getBean("main");
+        frame = (Main)SpringUtil.getClientBean("main");
 
 //        TimeCounter t = new TimeCounter();
 //        t.startCounting();
@@ -80,20 +80,20 @@ public class Main extends JFrame {
     }
 
     public void toRegisterView() {
-        switchPanel((RegisterView)SpringUtil.getBean("registerPanel"));
+        pushPanel((RegisterView) SpringUtil.getClientBean("registerPanel"));
     }
 
     public void toLoginView() {
-        switchPanel((LoginView)SpringUtil.getBean("loginPanel"));
+        pushPanel((LoginView) SpringUtil.getClientBean("loginPanel"));
     }
 
-    public void switchPanel(JPanel newPanel) {
+    public void pushPanel(JPanel newPanel) {
 //        tempPanels = currPanel;
         tempPanels.push(currPanel);
         setCurrPanel(newPanel);
     }
 
-    public void switchBack() {
+    public void popPanel() {
         setCurrPanel(tempPanels.pop());
     }
 

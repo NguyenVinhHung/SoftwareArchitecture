@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+        "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+    <bean id="main" class="main.Main" init-method="init">
+        <property name="currPanel" ref="welcomePanel" />
+        <property name="tempPanels" ref="tempPanels" />
+    </bean>
+
+    <bean id="tempPanels" class="java.util.Stack">
+    </bean>
+
+    <bean id="welcomePanel" class="view.panel.WelcomeView">
+    </bean>
+
+    <bean id="loginPanel" class="view.panel.LoginView">
+        <!--
+        <property name="user" ref="userTextfield" value="30" />
+        <property name="password" ref="pwTextfield" value="30" />
+        -->
+    </bean>
+
+    <bean id="registerPanel" class="view.panel.RegisterView">
+    </bean>
+
+    <!--
+    <bean id="userTextfield" class="javax.swing.JTextField">
+    </bean>
+
+    <bean id="pwTextfield" class="javax.swing.JPasswordField">
+    </bean>
+    -->
+
+</beans>

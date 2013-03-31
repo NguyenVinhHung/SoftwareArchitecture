@@ -7,7 +7,6 @@ package view.panel;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -33,15 +32,15 @@ public class LoginView extends CustomPanel {
     public static final int CANCEL_X = OK_X + 120;
     public static final int BUTTON_Y = 425;
     
-    private Image popup;
+//    private Image popup;
     private JTextField user;
     private JPasswordField password;
     private RawButton okBtn;
     private RawButton cancelBtn;
     
     public LoginView() {
-        bg = new ImageIcon(FileUtility.WELCOME_IMG).getImage();
-        popup = new ImageIcon(FileUtility.POPUP_IMG).getImage();
+        bg = new ImageIcon(FileUtility.WELCOME_IMG_URL).getImage();
+//        popup = new ImageIcon(FileUtility.POPUP_IMG_URL).getImage();
         user = new JTextField(TEXT_FIELD_COLS);
         password = new JPasswordField(TEXT_FIELD_COLS);
 
@@ -59,7 +58,7 @@ public class LoginView extends CustomPanel {
     @Override
     protected void paintComponent(Graphics g) {
         g.drawImage(bg, 0, 0, getWidth(), getHeight(), null);
-        g.drawImage(popup, 0, 0, getWidth(), getHeight(), null);
+        g.drawImage(FileUtility.POPUP_IMG, 0, 0, getWidth(), getHeight(), null);
         
         g.setColor(Color.WHITE);
         
@@ -87,7 +86,7 @@ public class LoginView extends CustomPanel {
             public void onClick() {
                 System.out.println("Cancel");
                 cancelBtn.setHover(false);
-                Main.getInstance().switchBack();
+                Main.getInstance().popPanel();
             }
         };
         

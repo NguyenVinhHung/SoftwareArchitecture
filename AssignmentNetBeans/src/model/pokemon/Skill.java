@@ -14,12 +14,14 @@ public class Skill {
     private int type;
     private int damage;
     private int accuracy;
+    private int manaUse;
 
-    public Skill(String name, int type, int damage, int accuracy) {
+    public Skill(String name, int type, int damage, int accuracy, int manaUse) {
         this.name = name;
         this.type = type;
         this.damage = damage;
         this.accuracy = accuracy;
+        this.manaUse = manaUse;
     }
 
     public String getName() {

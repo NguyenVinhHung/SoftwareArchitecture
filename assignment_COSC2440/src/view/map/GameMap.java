@@ -29,7 +29,7 @@ public class GameMap {
     
     public GameMap(final MatchPanel parent, int[][] mapArrs) {
         try {
-            sc = new SocketCommunicator(new Socket("localhost", Server.PORT_NUM));
+            sc = new SocketCommunicator(new Socket(Server.IP, Server.PORT_NUM));
         } catch(Exception ex) {
         }
 
