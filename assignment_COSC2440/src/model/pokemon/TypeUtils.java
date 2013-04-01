@@ -41,8 +41,7 @@ public class TypeUtils {
         {}  // Normal
     };
     
-    public static int calculateDamage(Skill skill, 
-                                        Pokemon user, Pokemon receiver) {
+    public static int calculateDamage(Skill skill, Pokemon user, Pokemon receiver) {
         int dmg = skill.getDamage();
         int sklType = skill.getType();
         

@@ -15,7 +15,7 @@ import javax.swing.JPanel;
  */
 public abstract class CustomPanel extends JPanel {
     
-    protected Image bg;
+//    protected Image bg;
     
     public CustomPanel() {
 //        addMouseMotionListener(new MouseAdapter() {

@@ -23,7 +23,6 @@ public class SocketCommunicator {
 //    public SocketCommunicator(Socket s, Player p) {
     public SocketCommunicator(Socket s) {
         socket = s;
-//        player = p;
         
         try {
             from = new ObjectInputStream(socket.getInputStream());
@@ -35,6 +34,21 @@ public class SocketCommunicator {
             to = new ObjectOutputStream(socket.getOutputStream());
         } catch(Exception ex) {        
             System.out.println("Error getting OUTPUT STREAM");
+        }
+    }
+
+    public SocketCommunicator(Socket s, ObjectOutputStream output, ObjectInputStream input, Player p) {
+        socket = s;
+        from = input;
+        to = output;
+        player = p;
+    }
+
+    public void sendRequestHeader(int request) {
+        System.out.println("Sending request header");
+        try {
+            to.writeInt(request);
+        } catch(Exception ex) {
         }
     }
 
@@ -53,6 +67,19 @@ public class SocketCommunicator {
         }
     }
 
+    public void close() {
+        try {
+            from.close();
+            to.close();
+            socket.close();
+        } catch(Exception ex) {
+        }
+    }
+
+    public String getUsername() {
+        return player.getUsername();
+    }
+
     public Socket getSocket() {
         return socket;
     }
@@ -63,5 +90,9 @@ public class SocketCommunicator {
 
     public ObjectOutputStream getTo() {
         return to;
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 }

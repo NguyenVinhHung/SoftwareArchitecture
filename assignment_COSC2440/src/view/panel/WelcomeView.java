@@ -18,50 +18,55 @@ import view.customview.RawButton;
  * @author HungHandsome
  */
 public class WelcomeView extends CustomPanel {
-    
+
+    public static final int PLAY_X = 433;
+    public static final int REG_X = 1;
+    public static final int BTN_Y = 630;
+    public static final int BTN_W = 131;
+    public static final int BTN_H = 50;
+
     private JPanel playBtn;
-    private RawButton regBtn;
+    private JPanel regBtn;
     
     public WelcomeView() {
-        bg = new ImageIcon(FileUtility.WELCOME_IMG_URL).getImage();
+//        bg = new ImageIcon(FileUtility.WELCOME_IMG_URL).getImage();
         playBtn = new JPanel();
+        regBtn = new JPanel();
         
         setLayout(null);
         
         playBtn.setOpaque(false);
-        playBtn.setBounds(228, 628, 131, 50);
+        playBtn.setBounds(PLAY_X, BTN_Y, BTN_W, BTN_H);
         playBtn.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
                 playBtnClicked();
             }            
         });
-        
-        add(playBtn);
 
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        regBtn = new RawButton("Register", 400, 628, RawButton.DEFAULT_WIDTH, RawButton.DEFAULT_HEIGHT) {
+        regBtn.setOpaque(false);
+        regBtn.setBounds(REG_X, BTN_Y, BTN_W, BTN_H);
+        regBtn.addMouseListener(new MouseAdapter() {
             @Override
-            public void onClick() {
-                System.out.println("Register");
-//                Main.getInstance().pushPanel(new RegisterView());
-                Main.getInstance().toRegisterView();
-                regBtn.setHover(false);
+            public void mouseReleased(MouseEvent e) {
+                regBtnClicked();
             }
-        };
+        });
 
+        add(playBtn);
         add(regBtn);
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }
 
     @Override
     protected void paintComponent(Graphics g) {
-        g.drawImage(bg, 0, 0, getWidth(), getHeight(), null);
-        regBtn.draw(g);
+        g.drawImage(FileUtility.WELCOME_IMG, 0, 0, getWidth(), getHeight(), null);
     }
     
     private void playBtnClicked() {
-//        Main.getInstance().pushPanel(new LoginView());
         Main.getInstance().toLoginView();
+    }
+
+    private void regBtnClicked() {
+        Main.getInstance().toRegisterView();
     }
 }

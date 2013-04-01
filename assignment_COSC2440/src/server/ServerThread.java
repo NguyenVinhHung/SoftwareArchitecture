@@ -1,11 +1,15 @@
 package server;
 
 import model.Player;
+import model.RoomPublicInfo;
 import utility.DatabaseUtil;
 
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.Vector;
 
 /**
  * Created with IntelliJ IDEA.
@@ -16,6 +20,7 @@ import java.net.Socket;
  */
 public class ServerThread implements Runnable {
 
+    private SocketCommunicator communicator;
     private Socket socket;
     private Player player;
 
@@ -51,17 +56,38 @@ public class ServerThread implements Runnable {
 
         try {
             ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
+            ObjectOutputStream output = new ObjectOutputStream(socket.getOutputStream());
             int service;
 
+            System.out.println("ServerThread started");
+
             while (true) {
+                System.out.println("ServerThread is running");
                 service = input.readInt();
+                System.out.println("Service number: " + service);
+
                 switch (service) {
                     case Services.REGISTER: {
-                        register(input);
+                        register(input, output);
                         return;
                     }
                     case Services.LOGIN: {
-                        login();
+                        if(login(input, output)) {
+                            System.out.println("Login successful");
+                            break;
+                        } else {
+                            System.out.println("Login failed");
+                            return;
+                        }
+                    }
+                    case Services.ROOM_LIST: {
+                        System.out.println("retreiveRoomList");
+                        Object obj = input.readObject();
+                        retreiveRoomList(output);
+                        break;
+                    }
+                    case Services.CREATE_ROOM: {
+                        createRoom(input, output);
                         break;
                     }
                     case Services.LOGOUT: {
@@ -76,25 +102,104 @@ public class ServerThread implements Runnable {
 
     }
 
-    private void register(ObjectInputStream input) {
+    private void register(ObjectInputStream input, ObjectOutputStream output) {
+        System.out.println("Adding new account");
         try {
-            ObjectOutputStream output = new ObjectOutputStream(socket.getOutputStream());
             String username = input.readUTF();
             String pw = input.readUTF();
 
+//            input.close();
+
             if(DatabaseUtil.addPlayer(username, pw) == null) {
+                System.out.println("Adding account failed due to duplicate name");
                 output.writeInt(Services.REGISTER_FAILED_DUPLICATE_NAME);
             } else {
+                System.out.println("Adding new account success");
                 output.writeInt(Services.REGISTER_SUCCESS);
             }
 
             output.flush();
+
+            input.close();
             output.close();
+            socket.close();
         } catch(Exception ex) {
+            System.out.println("Adding account has error");
         }
     }
 
-    private void login() {
+    private boolean login(ObjectInputStream input, ObjectOutputStream output) {
+        System.out.println("Login");
+        try {
+            String username = input.readUTF();
+            String pw = input.readUTF();
+            Player p = DatabaseUtil.getPlayers().get(username);
 
+            if(p == null) {
+                output.writeInt(Services.LOGIN_WRONG_USER);
+                output.flush();
+                input.close();
+                output.close();
+                socket.close();
+                return false;
+            } else if(!p.getPw().equals(pw)) {
+                output.writeInt(Services.LOGIN_WRONG_PW);
+                output.flush();
+                input.close();
+                output.close();
+                socket.close();
+                return false;
+            } else {
+                output.writeInt(Services.LOGIN_SUCCESS);
+                output.writeObject(p);
+                output.flush();
+
+                OnlinePlayerList opl = (OnlinePlayerList)ServerSpring.getBean("onlinePlayerList");
+                communicator = new SocketCommunicator(socket, output, input, p);
+                opl.loginPlayer(communicator);
+                return true;
+            }
+        } catch(Exception ex) {
+            System.out.println("Adding account has error");
+            return false;
+        }
+    }
+
+    private void retreiveRoomList(ObjectOutputStream output) throws IOException {
+        OnlinePlayerList opl = (OnlinePlayerList)ServerSpring.getBean("onlinePlayerList");
+        ArrayList<RoomPublicInfo> roomInfos = new ArrayList<RoomPublicInfo>();
+        Vector<Room> rooms = opl.getRooms();
+
+        System.out.println("Retreive room list intialize");
+
+        for(int i=0; i<rooms.size(); i++) {
+            System.out.println("Retreive room list " + i);
+            int type = rooms.get(i).getType();
+            roomInfos.add(new RoomPublicInfo("Room " + (i+1), type + " Vs " + type, rooms.get(i).getHostName()));
+        }
+
+        System.out.println("Retreive room list end getting array");
+
+        output.writeObject(roomInfos);
+        System.out.println("Retreive room list send back to user");
+    }
+
+    private void createRoom(ObjectInputStream input, ObjectOutputStream output) throws Exception {
+        System.out.println("Creating room");
+
+        OnlinePlayerList opl = (OnlinePlayerList)ServerSpring.getBean("onlinePlayerList");
+
+        System.out.println("Creating room getting OnlinePlayerList");
+
+        int type = (Integer)input.readObject();
+
+        System.out.println("Creating room read players per team");
+
+        Room r = new Room(communicator, type);
+        int roomIdx = opl.addRoom(r);
+
+        System.out.println("Creating room response to user");
+        output.writeInt(roomIdx);
+        System.out.println("Creating room end");
     }
 }

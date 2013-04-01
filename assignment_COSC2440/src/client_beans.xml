@@ -31,4 +31,9 @@
     </bean>
     -->
 
+    <!--
+    <bean id="createRoomView" class="view.panel.CreateRoomView">
+    </bean>
+    -->
+
 </beans>

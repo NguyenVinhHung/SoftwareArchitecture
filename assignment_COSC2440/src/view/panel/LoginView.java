@@ -7,13 +7,20 @@ package view.panel;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 import javax.swing.ImageIcon;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import main.Main;
+import server.Server;
+import server.Services;
 import utility.FileUtility;
 import view.customview.RawButton;
+import view.popup.AlertPopup;
 
 /**
  *
@@ -39,7 +46,7 @@ public class LoginView extends CustomPanel {
     private RawButton cancelBtn;
     
     public LoginView() {
-        bg = new ImageIcon(FileUtility.WELCOME_IMG_URL).getImage();
+//        bg = new ImageIcon(FileUtility.WELCOME_IMG_URL).getImage();
 //        popup = new ImageIcon(FileUtility.POPUP_IMG_URL).getImage();
         user = new JTextField(TEXT_FIELD_COLS);
         password = new JPasswordField(TEXT_FIELD_COLS);
@@ -57,7 +64,7 @@ public class LoginView extends CustomPanel {
 
     @Override
     protected void paintComponent(Graphics g) {
-        g.drawImage(bg, 0, 0, getWidth(), getHeight(), null);
+        g.drawImage(FileUtility.WELCOME_IMG, 0, 0, getWidth(), getHeight(), null);
         g.drawImage(FileUtility.POPUP_IMG, 0, 0, getWidth(), getHeight(), null);
         
         g.setColor(Color.WHITE);
@@ -76,7 +83,7 @@ public class LoginView extends CustomPanel {
                 RawButton.DEFAULT_WIDTH, RawButton.DEFAULT_HEIGHT) {
             @Override
             public void onClick() {
-                System.out.println("Login");
+                okClicked();
             }
         };
         
@@ -92,5 +99,56 @@ public class LoginView extends CustomPanel {
         
         add(okBtn);
         add(cancelBtn);
+    }
+
+    private void okClicked() {
+        System.out.println("Login");
+        String username = user.getText();
+        String pw = password.getText();
+
+        if(pw.isEmpty() ||  username.isEmpty()) {
+            return;
+        }
+
+        try {
+            Socket s = new Socket(Server.IP, Server.PORT_NUM);
+            ObjectOutputStream output = new ObjectOutputStream(s.getOutputStream());
+            ObjectInputStream input = new ObjectInputStream(s.getInputStream());
+
+            sendRequest(output, username, pw);
+            afterOkClicked(s, output, input);
+        } catch(Exception ex) {
+        }
+    }
+
+    private void sendRequest(ObjectOutputStream output, String username, String pw) throws IOException {
+        output.writeInt(Services.LOGIN);
+        output.writeUTF(username);
+        output.writeUTF(pw);
+        output.flush();
+    }
+
+    private void afterOkClicked(Socket s, ObjectOutputStream output, ObjectInputStream input) throws IOException {
+        int result = input.readInt();
+
+        switch(result) {
+            case Services.LOGIN_SUCCESS:
+                System.out.println("Login successful");
+                Main.getInstance().toStartGame(s, output, input);
+                break;
+            case Services.LOGIN_WRONG_USER:
+                System.out.println("Login wrong username");
+                Main.getInstance().pushPanel(new AlertPopup("This username does not exist."));
+                output.close();
+                input.close();
+                s.close();
+                break;
+            case Services.LOGIN_WRONG_PW:
+                System.out.println("Login wrong password");
+                Main.getInstance().pushPanel(new AlertPopup("Password not match"));
+                output.close();
+                input.close();
+                s.close();
+        }
     }
 }

@@ -1,12 +1,15 @@
 package model.pokemon;
 
+import java.io.Serializable;
 import java.util.Map;
 
 /**
  *
  *
  */
-public class Pokemon {
+public class Pokemon implements Serializable {
+
+    private static final long serialVersionUID = 2222222222222222222L;
     
     private String name;
     private Map<String, Skill> skills;

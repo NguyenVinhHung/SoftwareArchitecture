@@ -3,10 +3,13 @@ package main;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import utility.SpringUtil;
-import view.panel.LoginView;
-import view.panel.RegisterView;
+import model.Player;
+import server.SocketCommunicator;
+import view.panel.*;
 
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 import java.util.Stack;
 
 /**
@@ -20,6 +23,7 @@ public class Main extends JFrame {
 
 //    private static ApplicationContext serverCtx;
     private static Main frame;
+    private static SocketCommunicator communicator;
     
     private JPanel currPanel;
     private Stack<JPanel> tempPanels;
@@ -48,9 +52,9 @@ public class Main extends JFrame {
      */
     public static void main(String[] args) {
 //        serverCtx = new ClassPathXmlApplicationContext("client_beans.xml");
-//        frame = (Main)serverCtx.getClientBean("main");
+//        frame = (Main)serverCtx.getBean("main");
 
-        frame = (Main)SpringUtil.getClientBean("main");
+        frame = (Main)ClientSpring.getBean("main");
 
 //        TimeCounter t = new TimeCounter();
 //        t.startCounting();
@@ -80,17 +84,43 @@ public class Main extends JFrame {
     }
 
     public void toRegisterView() {
-        pushPanel((RegisterView) SpringUtil.getClientBean("registerPanel"));
+        pushPanel((RegisterView) ClientSpring.getBean("registerPanel"));
     }
 
     public void toLoginView() {
-        pushPanel((LoginView) SpringUtil.getClientBean("loginPanel"));
+        pushPanel((LoginView) ClientSpring.getBean("loginPanel"));
+    }
+
+    public void toStartGame(Socket s, ObjectOutputStream output, ObjectInputStream input) {
+        try {
+           communicator = new SocketCommunicator(s, output, input, (Player)input.readObject());
+        } catch(Exception ex) {
+        }
+//        setCurrPanel(new GameStartView());
+        setCurrPanel(new RoomView());
+//        communicator.sendRequestHeader(-10);
+
+//        new Thread() {
+//            @Override
+//            public void run() {
+//                try {
+//                    Thread.sleep(1000);
+//                } catch (Exception ex) {
+//                }
+////                communicator.sendRequestHeader(-10);
+//                ((GameStartView)currPanel).loadRoomInfoList();
+//            }
+//        }.start();
     }
 
     public void pushPanel(JPanel newPanel) {
 //        tempPanels = currPanel;
         tempPanels.push(currPanel);
         setCurrPanel(newPanel);
+    }
+
+    public void clearPanelStack() {
+        tempPanels.clear();
     }
 
     public void popPanel() {
@@ -116,5 +146,9 @@ public class Main extends JFrame {
 
     public void setTempPanels(Stack<JPanel> tempPanels) {
         this.tempPanels = tempPanels;
+    }
+
+    public static SocketCommunicator getCommunicator() {
+        return communicator;
     }
 }

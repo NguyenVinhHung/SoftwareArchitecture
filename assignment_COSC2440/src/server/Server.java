@@ -1,9 +1,6 @@
 package server;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import utility.DatabaseUtil;
-import utility.SpringUtil;
 
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
@@ -26,10 +23,16 @@ public class Server extends JFrame {
     private ServerSocket serverSocket;
     private JTextArea log;
 
+//    public Server() {
+//        log = new JTextArea();
+//        init();
+//    }
+
     public static void main(String args[]) {
         DatabaseUtil.load();
 //        ApplicationContext serverCtx = new ClassPathXmlApplicationContext("server_beans.xml");
-        Server server = (Server) SpringUtil.getServerBean("server");
+        Server server = (Server)ServerSpring.getBean("server");
+//        Server server = new Server();
 
         server.runServer();
     }
@@ -37,8 +40,8 @@ public class Server extends JFrame {
     private void init() {
         addWindowListener(new WindowAdapter() {
             @Override
-            public void windowClosed(WindowEvent e) {
-                System.out.println("Server closed");
+            public void windowClosing(WindowEvent e) {
+                System.out.println("Server closing");
                 DatabaseUtil.save();
             }
         });
@@ -54,13 +57,19 @@ public class Server extends JFrame {
 
     public void runServer() {
         try {
-            //serverSocket = new ServerSocket(PORT_NUM);
+//            serverSocket = new ServerSocket(PORT_NUM);
 
             while(true) {
-//                System.out.println("Server is running");
-                Socket socket = serverSocket.accept();
+//                System.out.println("Server is waiting for Socket");
+//                Socket socket = serverSocket.accept();
+//                System.out.println("Server receive Socket");
 
-                new Thread(new ServerThread(socket)).start();
+                for(int i=0; i<6; i++) {
+                    System.out.println("Server is waiting for Socket");
+                    Socket socket = serverSocket.accept();
+                    System.out.println("Server receive Socket");
+                    new Thread(new ServerThread2(socket, i)).start();
+                }
             }
         } catch(Exception ex) {
             ex.printStackTrace();

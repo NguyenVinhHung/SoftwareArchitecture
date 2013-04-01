@@ -25,7 +25,7 @@ public abstract class InteractiveView extends JPanel {
     
     public InteractiveView(int x, int y, int width, int height) {
         setOpaque(false);
-        setBounds(x, y, width, height);
+        setViewBound(x, y, width, height);
         
         addMouseListener(new MouseAdapter() {
             @Override
@@ -55,9 +55,8 @@ public abstract class InteractiveView extends JPanel {
      */
     public abstract void onClick();
 
-    @Override
-    public void setBounds(int x, int y, int width, int height) {
-        super.setBounds(x, y, width, height);
+    public void setViewBound(int x, int y, int width, int height) {
+        setBounds(x, y, width, height);
         setPreferredSize(new Dimension(width, height));
         this.x = x;
         this.y = y;
@@ -81,12 +80,11 @@ public abstract class InteractiveView extends JPanel {
         setBounds(x, y, width, height);
     }
 
-    public void setHover(boolean hover) {
-        this.hover = hover;
-    }
-
     public boolean isHover() {
         return hover;
     }
-    
+
+    public void setHover(boolean hover) {
+        this.hover = hover;
+    }
 }
