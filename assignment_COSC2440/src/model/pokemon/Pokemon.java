@@ -20,6 +20,7 @@ public class Pokemon implements Serializable {
     private int accuracy;
     private int hp;
     private int mana;
+    private int lv = 1;
 
     private int x;
     private int y;
@@ -103,5 +104,13 @@ public class Pokemon implements Serializable {
 
     public void setMana(int mana) {
         this.mana = mana;
+    }
+
+    public int getLv() {
+        return lv;
+    }
+
+    public void setLv(int lv) {
+        this.lv = lv;
     }
 }

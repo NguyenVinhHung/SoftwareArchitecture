@@ -1,4 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/1">
+        <file>file:/C:/Users/HungHandsome/SoftwareArchitecture/AssignmentNetBeans/src/view/panel/WelcomeView.java</file>
+        <file>file:/C:/Users/HungHandsome/SoftwareArchitecture/AssignmentNetBeans/src/view/customview/InteractiveView.java</file>
+        <file>file:/C:/Users/HungHandsome/SoftwareArchitecture/AssignmentNetBeans/src/view/customview/RawButton.java</file>
+        <file>file:/C:/Users/HungHandsome/SoftwareArchitecture/AssignmentNetBeans/src/model/pokemon/Skill.java</file>
+        <file>file:/C:/Users/HungHandsome/SoftwareArchitecture/AssignmentNetBeans/src/model/pokemon/TypeUtils.java</file>
+        <file>file:/C:/Users/HungHandsome/SoftwareArchitecture/AssignmentNetBeans/src/view/map/GameMap.java</file>
+        <file>file:/C:/Users/HungHandsome/SoftwareArchitecture/AssignmentNetBeans/src/view/map/MapUtil.java</file>
+        <file>file:/C:/Users/HungHandsome/SoftwareArchitecture/AssignmentNetBeans/src/view/map/MatchPanel.java</file>
+        <file>file:/C:/Users/HungHandsome/SoftwareArchitecture/AssignmentNetBeans/src/utility/FileUtility.java</file>
+        <file>file:/C:/Users/HungHandsome/SoftwareArchitecture/AssignmentNetBeans/src/view/panel/SelectPokeRoomPanel.java</file>
+        <file>file:/C:/Users/HungHandsome/SoftwareArchitecture/AssignmentNetBeans/src/view/panel/SelectedPokePanel.java</file>
+        <file>file:/C:/Users/HungHandsome/SoftwareArchitecture/AssignmentNetBeans/src/utility/SpringUtil.java</file>
+    </open-files>
 </project-private>

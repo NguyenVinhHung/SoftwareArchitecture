@@ -1,13 +1,16 @@
 package server;
 
 import model.Player;
-import model.RoomPublicInfo;
+import model.room.RoomPublicInfo;
+import org.omg.PortableInterceptor.USER_EXCEPTION;
 import utility.DatabaseUtil;
 
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Vector;
 
@@ -82,7 +85,7 @@ public class ServerThread implements Runnable {
                     }
                     case Services.ROOM_LIST: {
                         System.out.println("retreiveRoomList");
-                        Object obj = input.readObject();
+//                        Object obj = input.readObject();
                         retreiveRoomList(output);
                         break;
                     }
@@ -91,12 +94,19 @@ public class ServerThread implements Runnable {
                         break;
                     }
                     case Services.LOGOUT: {
-                        input.close();
+                        logout();
                         return;
                     }
                 }
             }
+        } catch (EOFException eof) {
+            logout();
+            System.out.println("Close Socket Communicator due to EOFException");
+        } catch (SocketException eof) {
+            logout();
+            System.out.println("Close Socket Communicator due to SocketException");
         } catch (Exception ex) {
+            ex.printStackTrace();
             return;
         }
 
@@ -165,41 +175,53 @@ public class ServerThread implements Runnable {
         }
     }
 
-    private void retreiveRoomList(ObjectOutputStream output) throws IOException {
+    private void retreiveRoomList(ObjectOutputStream output) {
+        System.out.println("Retreive Room List begin");
+
         OnlinePlayerList opl = (OnlinePlayerList)ServerSpring.getBean("onlinePlayerList");
         ArrayList<RoomPublicInfo> roomInfos = new ArrayList<RoomPublicInfo>();
-        Vector<Room> rooms = opl.getRooms();
+        Vector<Room> rooms = opl.getRoomsAsVector();
 
-        System.out.println("Retreive room list intialize");
+        System.out.println("Retreive Room List start the loop");
 
         for(int i=0; i<rooms.size(); i++) {
-            System.out.println("Retreive room list " + i);
-            int type = rooms.get(i).getType();
-            roomInfos.add(new RoomPublicInfo("Room " + (i+1), type + " Vs " + type, rooms.get(i).getHostName()));
+            int type = rooms.get(i).getNumPlayersPerTeam();
+            RoomPublicInfo rpi = new RoomPublicInfo("Room " + (i+1), type, rooms.get(i).getHostName());
+            roomInfos.add(rpi);
+            System.out.println("In ServerThread: " + rpi);
         }
 
         System.out.println("Retreive room list end getting array");
 
-        output.writeObject(roomInfos);
+        communicator.write(roomInfos);
+        communicator.flushOutput();
+
         System.out.println("Retreive room list send back to user");
     }
 
     private void createRoom(ObjectInputStream input, ObjectOutputStream output) throws Exception {
-        System.out.println("Creating room");
-
         OnlinePlayerList opl = (OnlinePlayerList)ServerSpring.getBean("onlinePlayerList");
-
-        System.out.println("Creating room getting OnlinePlayerList");
-
         int type = (Integer)input.readObject();
 
-        System.out.println("Creating room read players per team");
+        System.out.println("Room type: " + type);
 
         Room r = new Room(communicator, type);
-        int roomIdx = opl.addRoom(r);
+        String hostname = opl.addRoom(r);
+        RoomPublicInfo rpi = new RoomPublicInfo("", type, r.getHostName());
 
         System.out.println("Creating room response to user");
-        output.writeInt(roomIdx);
+        communicator.write(rpi);
+        communicator.flushOutput();
         System.out.println("Creating room end");
+    }
+
+    private void logout() {
+        OnlinePlayerList opl = (OnlinePlayerList)ServerSpring.getBean("onlinePlayerList");
+
+        if(opl.getWaitingPlayers().contains(communicator)) {
+            opl.logoutPlayer(communicator, communicator.getUsername());
+        }
+
+        communicator.close();
     }
 }

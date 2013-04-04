@@ -1,6 +1,6 @@
 package view.smallview;
 
-import model.RoomPublicInfo;
+import model.room.RoomPublicInfo;
 import view.customview.InteractiveView;
 import view.customview.RawButton;
 import view.panel.AfterLoginTemplate;
@@ -16,16 +16,16 @@ import java.awt.*;
  */
 public class RoomSelectorView extends InteractiveView {
 
-    public static final int ROOMNO_X = AfterLoginTemplate.LAYER_X + 10;
-    public static final int TYPE_X = ROOMNO_X + 150;
-    public static final int HOST_X = TYPE_X + TYPE_X;
-    public static final int TEXT_Y = 25;
+    public static final int ROOMNO_X = AfterLoginTemplate.LAYER_X + 110;
+    public static final int TYPE_X = ROOMNO_X + 200;
+    public static final int HOST_X = TYPE_X + ROOMNO_X + 100;
 
     private Color normalCol;
     private Color hoverCol;
     private Color borderCol;
     private RoomPublicInfo model;
     private int roomIdx;
+    private int textY;
 
     public RoomSelectorView(RoomPublicInfo model, int roomIndex, int y) {
         super(AfterLoginTemplate.LAYER_X, y, AfterLoginTemplate.LAYER_W, RawButton.DEFAULT_HEIGHT);
@@ -34,25 +34,30 @@ public class RoomSelectorView extends InteractiveView {
         normalCol = RawButton.DEFAULT_NORMAL_COL;
         hoverCol = RawButton.DEFAULT_HOVER_COL;
         borderCol = RawButton.DEFAULT_BORDER_COL;
+        textY = y + 25;
     }
 
     @Override
     public void draw(Graphics g) {
+        Graphics2D g2d = (Graphics2D)g.create();
+        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.7f));
+
         if(hover) {
-            g.setColor(hoverCol);
+            g2d.setColor(hoverCol);
+            g.setColor(Color.BLACK);
         } else {
-            g.setColor(normalCol);
+            g2d.setColor(normalCol);
+            g.setColor(Color.WHITE);
         }
-        g.fillRect(x, y, width, height);
+        g2d.fillRect(x, y, width, height);
+
+        g.setFont(new Font("", Font.PLAIN, 20));
+        g.drawString(model.getRoomNo(), ROOMNO_X, textY);
+        g.drawString(model.getType(), TYPE_X, textY);
+        g.drawString(model.getHostname(), HOST_X, textY);
 
         g.setColor(borderCol);
         g.drawRect(x, y, width, height);
-        g.setColor(borderCol);
-
-        g.setFont(new Font("", Font.PLAIN, 20));
-        g.drawString(model.getRoomNo(), ROOMNO_X, TEXT_Y);
-        g.drawString(model.getType(), TYPE_X, TEXT_Y);
-        g.drawString(model.getHostname(), HOST_X, TEXT_Y);
     }
 
     @Override

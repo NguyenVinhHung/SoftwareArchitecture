@@ -1,7 +1,6 @@
 package server;
 
 import model.Player;
-import server.SocketCommunicator;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -15,6 +14,11 @@ import java.util.Map;
  */
 public class Room implements Runnable {
 
+    public static final int TEAM_1 = -1;
+    public static final int TEAM_2 = -2;
+    public static final int ALL_PLAYERS = -3;
+    public static final int ADD_PLAYER_FAILED = 0;
+
     public static final int WAITING_STATE = 0;
     public static final int PLAYING_STATE = 1;
     public static final int ENDING_STATE = 2;
@@ -23,13 +27,13 @@ public class Room implements Runnable {
     private Map<String, SocketCommunicator> team2;
     private String hostName;
     private int state;
-    private int type; // Max number of player per team.
+    private int numPlayersPerTeam; // Max number of player per team.
     
     public Room(SocketCommunicator host, int type) {
         team1 = new LinkedHashMap<String, SocketCommunicator>();
         team2 = new LinkedHashMap<String, SocketCommunicator>();
         hostName = host.getUsername();
-        this.type = type;
+        this.numPlayersPerTeam = type;
         
         team1.put(hostName, host);
     }
@@ -64,18 +68,36 @@ public class Room implements Runnable {
     }
 
     public int addPlayer(SocketCommunicator p) {
+        if(team1.size()>=numPlayersPerTeam && team2.size()>=numPlayersPerTeam) {
+            return ADD_PLAYER_FAILED;
+        }
+
+        if(team1.size()<numPlayersPerTeam && team2.size()>=numPlayersPerTeam) {
+            team1.put(p.getUsername(), p);
+            return TEAM_1;
+        }
+
+        if(team1.size()>=numPlayersPerTeam && team2.size()<numPlayersPerTeam) {
+            team2.put(p.getUsername(), p);
+            return TEAM_2;
+        }
+
         if(team1.size() <= team2.size()) {
             team1.put(p.getUsername(), p);
-            return -1;
+            return TEAM_1;
         } else {
             team2.put(p.getUsername(), p);
-            return -2;
+            return TEAM_2;
         }
     }
 
     public void removePlayer(SocketCommunicator p) {
-        team1.remove(p.getUsername());
-        team2.remove(p.getUsername());
+        if(p.getUsername().equals(hostName)) {
+            changeRoomHost(p);
+        } else {
+            team1.remove(p.getUsername());
+            team2.remove(p.getUsername());
+        }
     }
 
     public Map<String, Player> getPlayerTeam(boolean isTeam1) {
@@ -87,6 +109,38 @@ public class Room implements Runnable {
         }
 
         return map;
+    }
+
+    public void changeRoomHost(SocketCommunicator p) {
+        Map<String, SocketCommunicator> team = (team1.containsKey(p.getUsername())) ? team1 : team2;
+
+        if(team.size() > 1) {
+            team.remove(p.getUsername());
+            hostName = ((SocketCommunicator)(team.values().toArray()[0])).getUsername();
+        } else {
+            Map<String, SocketCommunicator> otherTeam = (team==team1) ? team2 : team1;
+            team.remove(p.getUsername());
+            hostName = ((SocketCommunicator)(otherTeam.values().toArray()[0])).getUsername();
+        }
+    }
+
+    public void notifyAllPlayers(int msg) {
+        notifyTeam1(msg);
+        notifyTeam2(msg);
+    }
+
+    public void notifyTeam1(int msg) {
+        for(SocketCommunicator sc : team1.values()) {
+            sc.sendRequestHeader(msg);
+            sc.flushOutput();
+        }
+    }
+
+    public void notifyTeam2(int msg) {
+        for(SocketCommunicator sc : team2.values()) {
+            sc.sendRequestHeader(msg);
+            sc.flushOutput();
+        }
     }
 
     public boolean isEmpty() {
@@ -117,7 +171,7 @@ public class Room implements Runnable {
         this.state = state;
     }
 
-    public int getType() {
-        return type;
+    public int getNumPlayersPerTeam() {
+        return numPlayersPerTeam;
     }
 }

@@ -1,6 +1,7 @@
 package view.panel;
 
 import main.Main;
+import model.room.RoomPublicInfo;
 import server.Services;
 import server.SocketCommunicator;
 import view.customview.RawButton;
@@ -83,7 +84,13 @@ public class CreateRoomView extends AfterLoginTemplate {
         SocketCommunicator sc = Main.getCommunicator();
         sc.sendRequestHeader(Services.CREATE_ROOM);
 //        sc.write(sc);
-        sc.write(new Integer(typeBox.getSelectedIndex()));
+        sc.write(new Integer(typeBox.getSelectedIndex() + 1));
+        sc.flushOutput();
+
+        RoomPublicInfo result = (RoomPublicInfo)sc.read();
+
+        Main.getInstance().setCurrPanel(new RoomView(result));
+        Main.getInstance().clearPanelStack();
     }
 
     private void cancelClicked() {

@@ -4,9 +4,13 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import model.Player;
+import server.Services;
 import server.SocketCommunicator;
+import utility.DatabaseUtil;
 import view.panel.*;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
@@ -63,6 +67,20 @@ public class Main extends JFrame {
     public void init() {
         System.out.println("init");
 
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                System.out.println("Server closing");
+                logout();
+            }
+
+//            @Override
+//            public void windowClosed(WindowEvent e) {
+//                System.out.println("Server closed");
+//                logout();
+//            }
+        });
+
         add(currPanel);
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -70,6 +88,11 @@ public class Main extends JFrame {
         setResizable(false);
         setLocationRelativeTo(null);
         setVisible(true);
+    }
+
+    private void logout() {
+        communicator.sendRequestHeader(Services.LOGOUT);
+        communicator.close();
     }
 
     /**
@@ -96,21 +119,7 @@ public class Main extends JFrame {
            communicator = new SocketCommunicator(s, output, input, (Player)input.readObject());
         } catch(Exception ex) {
         }
-//        setCurrPanel(new GameStartView());
-        setCurrPanel(new RoomView());
-//        communicator.sendRequestHeader(-10);
-
-//        new Thread() {
-//            @Override
-//            public void run() {
-//                try {
-//                    Thread.sleep(1000);
-//                } catch (Exception ex) {
-//                }
-////                communicator.sendRequestHeader(-10);
-//                ((GameStartView)currPanel).loadRoomInfoList();
-//            }
-//        }.start();
+        setCurrPanel(new GameStartView());
     }
 
     public void pushPanel(JPanel newPanel) {

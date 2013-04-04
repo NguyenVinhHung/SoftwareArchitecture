@@ -60,16 +60,17 @@ public class Server extends JFrame {
 //            serverSocket = new ServerSocket(PORT_NUM);
 
             while(true) {
-//                System.out.println("Server is waiting for Socket");
-//                Socket socket = serverSocket.accept();
-//                System.out.println("Server receive Socket");
+                System.out.println("Server is waiting for Socket");
+                Socket socket = serverSocket.accept();
+                System.out.println("Server receive Socket");
+                new Thread(new ServerThread(socket)).start();
 
-                for(int i=0; i<6; i++) {
-                    System.out.println("Server is waiting for Socket");
-                    Socket socket = serverSocket.accept();
-                    System.out.println("Server receive Socket");
-                    new Thread(new ServerThread2(socket, i)).start();
-                }
+//                for(int i=0; i<6; i++) {
+//                    System.out.println("Server is waiting for Socket");
+//                    Socket socket = serverSocket.accept();
+//                    System.out.println("Server receive Socket");
+//                    new Thread(new ServerThread2(socket, i)).start();
+//                }
             }
         } catch(Exception ex) {
             ex.printStackTrace();

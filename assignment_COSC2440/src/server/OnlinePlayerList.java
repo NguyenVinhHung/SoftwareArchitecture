@@ -1,5 +1,7 @@
 package server;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Vector;
 
 /**
@@ -12,50 +14,84 @@ import java.util.Vector;
 public class OnlinePlayerList {
 
     private Vector<SocketCommunicator> waitingPlayers;
-    private Vector<Room> rooms;
+    private Map<String, Room> rooms;
 
     public OnlinePlayerList() {
         waitingPlayers = new Vector<SocketCommunicator>();
-        rooms = new Vector<Room>();
+        rooms = new LinkedHashMap<String, Room>();
     }
 
     public void loginPlayer(SocketCommunicator sc) {
         waitingPlayers.add(sc);
+        System.out.println("Player " + sc.getUsername() + " login successfully");
     }
 
-    public void logoutPlayer(SocketCommunicator sc, int roomIdx) {
+    public void logoutPlayer(SocketCommunicator sc, String roomHostname) {
         waitingPlayers.remove(sc);
-        if(roomIdx >= 0) {
-            rooms.get(roomIdx).removePlayer(sc);
+        if(rooms.containsKey(roomHostname)) {
+            rooms.get(roomHostname).removePlayer(sc);
         }
     }
 
-    public void moveToRoom(SocketCommunicator sc, int roomIdx) {
+    public void moveToRoom(SocketCommunicator sc, String roomHostname) {
         waitingPlayers.remove(sc);
-        rooms.get(roomIdx).addPlayer(sc);
+        rooms.get(roomHostname).addPlayer(sc);
     }
 
-    public void getOutRoom(SocketCommunicator sc, int roomIdx) {
+    public void getOutRoom(SocketCommunicator sc, String roomHostname) {
         waitingPlayers.add(sc);
-        Room r = rooms.get(roomIdx);
+        Room r = rooms.get(roomHostname);
         r.removePlayer(sc);
 
         if(r.isEmpty()) {
-            rooms.remove(r);
+            rooms.remove(r.getHostName());
         }
     }
 
-    public int addRoom(Room r) {
-        rooms.add(r);
+    public void changeRoomHost(SocketCommunicator sc, String roomHostname) {
+        Room r = rooms.get(roomHostname);
+        r.changeRoomHost(sc);
+        rooms.remove(roomHostname);
+        rooms.put(r.getHostName(), r);
+
+
+    }
+
+    public String addRoom(Room r) {
+        rooms.put(r.getHostName(), r);
         waitingPlayers.remove(r.getTeam1().get(r.getHostName()));
-        return rooms.size() - 1;
+        return r.getHostName();
+    }
+
+    public void notifyAllPlayers(int msg) {
+        notifyWaitingPlayers(msg);
+        for(Room r : rooms.values()) {
+            r.notifyAllPlayers(msg);
+        }
+    }
+
+    public void notifyWaitingPlayers(int msg) {
+        for(SocketCommunicator sc : waitingPlayers) {
+            sc.sendRequestHeader(msg);
+            sc.flushOutput();
+        }
+    }
+
+    public void notifyRoom(String hostname, int msg, int team) {
+        if(team == Room.TEAM_1) {
+            rooms.get(hostname).notifyTeam1(msg);
+        } else if(team == Room.TEAM_2) {
+            rooms.get(hostname).notifyTeam2(msg);
+        } else {
+            rooms.get(hostname).notifyAllPlayers(msg);
+        }
     }
 
     public Vector<SocketCommunicator> getWaitingPlayers() {
         return waitingPlayers;
     }
 
-    public Vector<Room> getRooms() {
-        return rooms;
+    public Vector<Room> getRoomsAsVector() {
+        return new Vector<Room>(rooms.values());
     }
 }
