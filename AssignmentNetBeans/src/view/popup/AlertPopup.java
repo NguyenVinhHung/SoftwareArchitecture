@@ -16,7 +16,7 @@ public class AlertPopup extends AbstractPopup {
 
     public static final int START_Y = 290;
     public static final int FONT_SIZE = 15;
-    public static final int OK_X = 500;
+    public static final int OK_X = 450;
     public static final int OK_Y = 425;
 
     private RawButton okBtn;
@@ -42,7 +42,7 @@ public class AlertPopup extends AbstractPopup {
         int x = (getWidth() - fm.stringWidth(msg)) / 2;
 
         g.setFont(new Font("", Font.PLAIN, FONT_SIZE));
-//        g.setColor(Color.RED);
+        g.setColor(Color.WHITE);
         g.drawString(msg, x, START_Y);
 
         okBtn.draw(g);

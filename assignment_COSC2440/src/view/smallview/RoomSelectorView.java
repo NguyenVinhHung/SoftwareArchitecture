@@ -69,18 +69,29 @@ public class RoomSelectorView extends InteractiveView {
 //        System.out.println(model.getRoomNo() + " - " + model.getType() + " - " + model.getHostname());
         SocketCommunicator sc = Main.getCommunicator();
         sc.sendRequestHeader(Services.GET_IN_ROOM);
+        sc.write(model.getHostname());
         sc.flushOutput();
 
+        System.out.println("GET IN ROOM Waiting for result");
         int result = (Integer)sc.read();
+        System.out.println("GET IN ROOM Receive result");
 
         if(result == Services.GET_IN_ROOM_SUCCESS) {
+            System.out.println("GET IN ROOM receive result success");
             RoomPublicInfo info = (RoomPublicInfo)sc.read();
+            System.out.println("GET IN ROOM receive RoomPublicInfo");
+            int updatedTeam = (Integer)sc.read();
             model = info;
             Main.getInstance().setCurrPanel(new RoomView(info));
+
+//            sc.sendRequestHeader(Services.NOTIFY);
+//            sc.write(info.getHostname());
+//            sc.write(new Integer(updatedTeam));
+
         } else if(result == Services.GET_IN_ROOM_FAILED) { //Handle this when the room is removed the request is in progress.
-
+            System.out.println("GET IN ROOM receive result failed");
         } else {
-
+            System.out.println("GET IN ROOM receive result else");
         }
     }
 }

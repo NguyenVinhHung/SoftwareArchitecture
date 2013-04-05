@@ -19,4 +19,7 @@
 
     <bean id="log" class="javax.swing.JTextArea">
     </bean>
+
+    <bean id="onlinePlayerList" class="server.OnlinePlayerList">
+    </bean>
 </beans>

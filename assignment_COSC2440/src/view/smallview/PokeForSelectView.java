@@ -11,10 +11,10 @@ import java.awt.*;
  * Time: 7:13 PM
  * To change this template use File | Settings | File Templates.
  */
-public class PokeForSelectView extends InteractiveView {
+public abstract class PokeForSelectView extends InteractiveView {
 
     private Image img;
-    private boolean selected;
+    protected boolean selected;
 
     public PokeForSelectView(Image i, int x, int y) {
         super(x, y, SelectedPokeView.AVATAR_SIZE, SelectedPokeView.AVATAR_SIZE);
@@ -30,14 +30,14 @@ public class PokeForSelectView extends InteractiveView {
         g.drawImage(img, x+2, y+2, width, height, null);
     }
 
-    @Override
-    public void onClick() {
-        if(selected) {
-            return;
-        }
-        selected = true;
-        repaint();
-    }
+//    @Override
+//    public void onClick() {
+//        if(selected) {
+//            return;
+//        }
+//        selected = true;
+//        repaint();
+//    }
 
     public void setSelected(boolean selected) {
         this.selected = selected;

@@ -33,10 +33,13 @@ public class Player implements Serializable {
 
         // Randomly generate a starter pokemon.
         Random r = new Random(Calendar.getInstance().getTimeInMillis());
-        switch(r.nextInt(3)) {
-            case 0: pokemons.add(PokemonFactory.makeBlastoise()); break;
-            case 1: pokemons.add(PokemonFactory.makeCharizard()); break;
-            case 2: pokemons.add(PokemonFactory.makeVenusaur()); break;
+        int randPoke = r.nextInt(300) + 1;
+        if(randPoke <= 100) {
+            pokemons.add(PokemonFactory.makeBlastoise());
+        } else if(randPoke>100 && randPoke<=200) {
+            pokemons.add(PokemonFactory.makeCharizard());
+        } else {
+            pokemons.add(PokemonFactory.makeVenusaur());
         }
 
 //        selectedPoke = pokemons.get(r.nextInt(3));

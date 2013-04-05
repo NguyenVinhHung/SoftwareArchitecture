@@ -7,6 +7,9 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.LinkedHashSet;
+import java.util.Random;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -19,22 +22,33 @@ public class Server extends JFrame {
 
     public static final String IP = "localhost";
     public static final int PORT_NUM = 16453;
+    public static final Set<Integer> PORT_CHAT_SERVER = new LinkedHashSet<Integer>();
 
     private ServerSocket serverSocket;
     private JTextArea log;
 
-//    public Server() {
-//        log = new JTextArea();
-//        init();
-//    }
-
     public static void main(String args[]) {
         DatabaseUtil.load();
-//        ApplicationContext serverCtx = new ClassPathXmlApplicationContext("server_beans.xml");
-        Server server = (Server)ServerSpring.getBean("server");
-//        Server server = new Server();
-
+        Server server = (Server) ServerSpring.getBean("server");
         server.runServer();
+    }
+
+    public static void getPortForChatServer() {
+        int port = 0;
+        Random random = new Random();
+        boolean isValid = false;
+
+        while (!isValid) {
+            while (port < 1024) {
+                port = random.nextInt(65536);
+            }
+            if (PORT_CHAT_SERVER.add(port)) {
+                isValid = true;
+            } else {
+                isValid = false;
+            }
+        }
+
     }
 
     private void init() {
@@ -50,29 +64,19 @@ public class Server extends JFrame {
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(400, 400);
-//        setResizable(false);
         setLocationRelativeTo(null);
         setVisible(true);
     }
 
     public void runServer() {
         try {
-//            serverSocket = new ServerSocket(PORT_NUM);
-
-            while(true) {
+            while (true) {
                 System.out.println("Server is waiting for Socket");
                 Socket socket = serverSocket.accept();
                 System.out.println("Server receive Socket");
                 new Thread(new ServerThread(socket)).start();
-
-//                for(int i=0; i<6; i++) {
-//                    System.out.println("Server is waiting for Socket");
-//                    Socket socket = serverSocket.accept();
-//                    System.out.println("Server receive Socket");
-//                    new Thread(new ServerThread2(socket, i)).start();
-//                }
             }
-        } catch(Exception ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }

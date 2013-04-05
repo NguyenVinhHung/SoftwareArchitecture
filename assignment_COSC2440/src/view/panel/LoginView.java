@@ -91,9 +91,7 @@ public class LoginView extends CustomPanel {
                 RawButton.DEFAULT_WIDTH, RawButton.DEFAULT_HEIGHT) {
             @Override
             public void onClick() {
-                System.out.println("Cancel");
-                cancelBtn.setHover(false);
-                Main.getInstance().popPanel();
+                cancelClicked();
             }
         };
         
@@ -119,6 +117,14 @@ public class LoginView extends CustomPanel {
             afterOkClicked(s, output, input);
         } catch(Exception ex) {
         }
+    }
+
+    private void cancelClicked() {
+        System.out.println("Cancel");
+        cancelBtn.setHover(false);
+        user.setText("");
+        password.setText("");
+        Main.getInstance().popPanel();
     }
 
     private void sendRequest(ObjectOutputStream output, String username, String pw) throws IOException {

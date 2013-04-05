@@ -4,8 +4,10 @@
  */
 package view.map;
 
+import server.SocketCommunicator;
+
 import java.awt.Graphics;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 /**
  *
@@ -14,6 +16,12 @@ import javax.swing.JPanel;
 public class MatchPanel extends JPanel {
     
     private GameMap map;
+    private JTabbedPane chatTabs;
+    private JTextArea globalChat;
+    private JTextArea teamChat;
+    private JTextArea chatTyper;
+    //    private Socket chatSocket;
+    private SocketCommunicator chatCommunicator;
     
     public MatchPanel(GameMap m) {
         map = m;
@@ -23,12 +31,6 @@ public class MatchPanel extends JPanel {
         map = new GameMap(this, mapArr);
 
         setLayout(null);
-
-//        for(int i=0; i<map.getMapArrays().length; i++) {
-//            for(int j=0; j<map.getMapArrays()[0].length; j++) {
-//                add(map.getTilePanels()[i][j]);
-//            }
-//        }
     }
 
     @Override

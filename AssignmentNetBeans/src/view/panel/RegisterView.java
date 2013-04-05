@@ -46,7 +46,7 @@ public class RegisterView extends CustomPanel {
     private RawButton cancelBtn;
 
     public RegisterView() {
-        bg = new ImageIcon(FileUtility.WELCOME_IMG_URL).getImage();
+//        bg = new ImageIcon(FileUtility.WELCOME_IMG_URL).getImage();
 //        popup = new ImageIcon(FileUtility.POPUP_IMG_URL).getImage();
         user = new JTextField(TEXT_FIELD_COLS);
         password = new JPasswordField(TEXT_FIELD_COLS);
@@ -68,7 +68,7 @@ public class RegisterView extends CustomPanel {
 
     @Override
     protected void paintComponent(Graphics g) {
-        g.drawImage(bg, 0, 0, getWidth(), getHeight(), null);
+        g.drawImage(FileUtility.WELCOME_IMG, 0, 0, getWidth(), getHeight(), null);
         g.drawImage(FileUtility.POPUP_IMG, 0, 0, getWidth(), getHeight(), null);
 
         g.setColor(Color.WHITE);
@@ -147,13 +147,17 @@ public class RegisterView extends CustomPanel {
         try {
             Socket s = new Socket(Server.IP, Server.PORT_NUM);
             ObjectOutputStream output = new ObjectOutputStream(s.getOutputStream());
-            output.writeInt(Services.REGISTER);
-            output.writeObject(user.getText());
-            output.flush();
-            output.close();
-
             ObjectInputStream input = new ObjectInputStream(s.getInputStream());
+
+            output.writeInt(Services.REGISTER);
+            output.writeUTF(user.getText());
+            output.writeUTF(pw);
+            output.flush();
+
             afterOkClicked(input);
+
+            output.close();
+            input.close();
         } catch(Exception ex) {
         }
     }
@@ -163,12 +167,15 @@ public class RegisterView extends CustomPanel {
 
         switch(result) {
             case Services.REGISTER_SUCCESS:
+                System.out.println("Adding new account success");
                 Main.getInstance().pushPanel(new AlertPopup("Register Successful"));
                 break;
             case Services.REGISTER_FAILED_DUPLICATE_NAME:
+                System.out.println("Adding account failed due to duplicate name");
                 Main.getInstance().pushPanel(new AlertPopup("This username already exist. PLease type another."));
                 break;
             case Services.REGISTER_FAILED:
+                System.out.println("Adding account has error");
                 Main.getInstance().pushPanel(new AlertPopup("Register failed"));
         }
     }

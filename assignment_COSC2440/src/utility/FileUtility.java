@@ -65,4 +65,12 @@ public class FileUtility {
     public static final Image BLASTOISE_IMG = new ImageIcon(BLASTOISE).getImage();
     public static final Image VENUSAUR_IMG = new ImageIcon(VENUSAUR).getImage();
 
+    public static final String POKE_AVAR_URL = IMAGE_URL + "/poke_avatar/";
+    public static final String CHARIZARD_AVAR_URL = POKE_AVAR_URL + "charizard.png";
+    public static final String BLASTOISE_AVAR_URL = POKE_AVAR_URL + "blastoise.png";
+    public static final String VENUSAUR_AVAR_URL = POKE_AVAR_URL + "venusaur.png";
+
+    public static final Image CHARIZARD_AVAR = new ImageIcon(CHARIZARD_AVAR_URL).getImage();
+    public static final Image BLASTOISE_AVAR = new ImageIcon(BLASTOISE_AVAR_URL).getImage();
+    public static final Image VENUSAUR_AVAR = new ImageIcon(VENUSAUR_AVAR_URL).getImage();
 }

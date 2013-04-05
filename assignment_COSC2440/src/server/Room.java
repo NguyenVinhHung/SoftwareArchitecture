@@ -1,5 +1,6 @@
 package server;
 
+import chathandler.ChatServer;
 import model.Player;
 import model.pokemon.SelectedPokeInfo;
 
@@ -21,11 +22,14 @@ public class Room implements Runnable {
     public static final int ALL_PLAYERS = -3;
     public static final int ADD_PLAYER_FAILED = 0;
     public static final int REMOVE_ONLY_PLAYER = 1;
-    public static final int REMOVE_PLAYER_AND_ROOM = 1;
+    public static final int REMOVE_PLAYER_AND_ROOM = 2;
 
     public static final int WAITING_STATE = 0;
     public static final int PLAYING_STATE = 1;
     public static final int ENDING_STATE = 2;
+
+    private ChatServer chatServer;
+    private int chatServerPort;
 
     private Map<String, SocketCommunicator> team1;
     private Map<String, SocketCommunicator> team2;
@@ -40,6 +44,12 @@ public class Room implements Runnable {
         this.numPlayersPerTeam = type;
         
         team1.put(hostName, host);
+        ///////////////////////
+        Server.getPortForChatServer();
+        chatServerPort = (Integer) Server.PORT_CHAT_SERVER.toArray()[Server.PORT_CHAT_SERVER.size() - 1];
+        chatServer = new ChatServer(chatServerPort);
+        chatServer.start();
+        ///////////////////////
     }
 
     @Override
@@ -101,6 +111,7 @@ public class Room implements Runnable {
         } else {
             team1.remove(p.getUsername());
             team2.remove(p.getUsername());
+            stopPlayerChatSocket(p.getUsername());
             return REMOVE_ONLY_PLAYER;
         }
     }
@@ -121,10 +132,12 @@ public class Room implements Runnable {
         Map<String, SocketCommunicator> otherTeam = (team==team1) ? team2 : team1;
 
         if(team.size() > 1) {
+            stopPlayerChatSocket(p.getUsername());
             team.remove(p.getUsername());
             hostName = ((SocketCommunicator)(team.values().toArray()[0])).getUsername();
             return REMOVE_ONLY_PLAYER;
         } else if(!otherTeam.isEmpty()) {
+            stopPlayerChatSocket(p.getUsername());
             team.remove(p.getUsername());
             hostName = ((SocketCommunicator)(otherTeam.values().toArray()[0])).getUsername();
             return REMOVE_ONLY_PLAYER;
@@ -134,21 +147,34 @@ public class Room implements Runnable {
         }
     }
 
-    public void notifyAllPlayers(int msg) {
-        notifyTeam1(msg);
-        notifyTeam2(msg);
+    private void stopPlayerChatSocket(String username) {
+        chatServer.closePlaySocket(username);
     }
 
-    public void notifyTeam1(int msg) {
+    public void notifyAllPlayers(int msg, SocketCommunicator except) {
+        notifyTeam1(msg, except);
+        notifyTeam2(msg, except);
+    }
+
+    public void notifyTeam1(int msg, SocketCommunicator except) {
+        System.out.println("Notify Team 1");
         for(SocketCommunicator sc : team1.values()) {
-            sc.sendRequestHeader(msg);
+            if(sc == except) {
+                continue;
+            }
+            sc.write(new Integer(msg));
             sc.flushOutput();
         }
     }
 
-    public void notifyTeam2(int msg) {
+    public void notifyTeam2(int msg, SocketCommunicator except) {
+        System.out.println("Notify Team 2");
         for(SocketCommunicator sc : team2.values()) {
-            sc.sendRequestHeader(msg);
+            if(sc == except) {
+                System.out.println("Skip notify for " + sc.getUsername());
+                continue;
+            }
+            sc.write(new Integer(msg));
             sc.flushOutput();
         }
     }
@@ -164,6 +190,10 @@ public class Room implements Runnable {
         }
 
         return spi;
+    }
+
+    public void close() {
+        chatServer.stopThread();
     }
 
     public boolean isEmpty() {
@@ -196,5 +226,13 @@ public class Room implements Runnable {
 
     public int getNumPlayersPerTeam() {
         return numPlayersPerTeam;
+    }
+
+    public ChatServer getChatServer() {
+        return chatServer;
+    }
+
+    public int getChatServerPort() {
+        return chatServerPort;
     }
 }

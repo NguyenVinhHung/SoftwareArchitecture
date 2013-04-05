@@ -4,11 +4,15 @@
  */
 package model.pokemon;
 
+import java.io.Serializable;
+
 /**
  *
  * @author HungHandsome
  */
-public class Skill {
+public class Skill implements Serializable {
+
+    private static final long serialVersionUID = 3333333333333333333L;
     
     private String name;
     private int type;

@@ -32,14 +32,20 @@ public class OnlinePlayerList {
         if(rooms.containsKey(roomHostname)) {
             Room r = rooms.get(roomHostname);
             if(r.removePlayer(sc) == Room.REMOVE_PLAYER_AND_ROOM) {
-                rooms.remove(r.getHostName());
+                rooms.remove(r.getHostName()).close();
             }
         }
     }
 
-    public void moveToRoom(SocketCommunicator sc, String roomHostname) {
+    public int moveToRoom(SocketCommunicator sc, String roomHostname) {
         waitingPlayers.remove(sc);
-        rooms.get(roomHostname).addPlayer(sc);
+        int result = rooms.get(roomHostname).addPlayer(sc);
+
+        if(result != Room.ADD_PLAYER_FAILED) {
+            int notifyResponse = (result==Room.TEAM_1) ? Services.GET_IN_ROOM_T1 : Services.GET_IN_ROOM_T2;
+            notifyRoom(roomHostname, notifyResponse, result, sc);
+        }
+        return result;
     }
 
     public void getOutRoom(SocketCommunicator sc, String roomHostname) {
@@ -47,7 +53,7 @@ public class OnlinePlayerList {
         Room r = rooms.get(roomHostname);
 
         if(r.removePlayer(sc) == Room.REMOVE_PLAYER_AND_ROOM) {
-            rooms.remove(r.getHostName());
+            rooms.remove(r.getHostName()).close();
         }
     }
 
@@ -65,10 +71,10 @@ public class OnlinePlayerList {
         return r.getHostName();
     }
 
-    public void notifyAllPlayers(int msg) {
+    public void notifyAllPlayers(int msg, SocketCommunicator except) {
         notifyWaitingPlayers(msg);
         for(Room r : rooms.values()) {
-            r.notifyAllPlayers(msg);
+            r.notifyAllPlayers(msg, except);
         }
     }
 
@@ -79,13 +85,14 @@ public class OnlinePlayerList {
         }
     }
 
-    public void notifyRoom(String hostname, int msg, int team) {
+    public void notifyRoom(String hostname, int msg, int team, SocketCommunicator except) {
+        System.out.println("Notify Room " + hostname);
         if(team == Room.TEAM_1) {
-            rooms.get(hostname).notifyTeam1(msg);
+            rooms.get(hostname).notifyTeam1(msg, except);
         } else if(team == Room.TEAM_2) {
-            rooms.get(hostname).notifyTeam2(msg);
+            rooms.get(hostname).notifyTeam2(msg, except);
         } else {
-            rooms.get(hostname).notifyAllPlayers(msg);
+            rooms.get(hostname).notifyAllPlayers(msg, except);
         }
     }
 

@@ -39,13 +39,13 @@ public class SelectedPokeView extends InteractiveView {
         pokemon = p;
 
         if(pokemon != null) {
-            System.out.println("pokemon is " + pokemon.getName());
+//            System.out.println("pokemon is " + pokemon.getName());
         } else {
-            System.out.println("pokemon is null");
+//            System.out.println("pokemon is null");
             return;
         }
 
-        img = PokemonFactory.getGifImage(pokemon.getName());
+        img = PokemonFactory.getPokeAvatar(pokemon.getName());
     }
 
     @Override
@@ -87,7 +87,7 @@ public class SelectedPokeView extends InteractiveView {
         if(pokemon == null) {
             return;
         }
-        img = PokemonFactory.getGifImage(pokemon.getName());
+        img = PokemonFactory.getPokeAvatar(pokemon.getName());
         repaint();
     }
 

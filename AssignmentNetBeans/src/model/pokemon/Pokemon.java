@@ -1,12 +1,15 @@
 package model.pokemon;
 
+import java.io.Serializable;
 import java.util.Map;
 
 /**
  *
  *
  */
-public class Pokemon {
+public class Pokemon implements Serializable {
+
+    private static final long serialVersionUID = 2222222222222222222L;
     
     private String name;
     private Map<String, Skill> skills;
@@ -17,6 +20,7 @@ public class Pokemon {
     private int accuracy;
     private int hp;
     private int mana;
+    private int lv = 1;
 
     private int x;
     private int y;
@@ -100,5 +104,13 @@ public class Pokemon {
 
     public void setMana(int mana) {
         this.mana = mana;
+    }
+
+    public int getLv() {
+        return lv;
+    }
+
+    public void setLv(int lv) {
+        this.lv = lv;
     }
 }

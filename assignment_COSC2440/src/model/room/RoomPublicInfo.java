@@ -17,12 +17,14 @@ public class RoomPublicInfo implements Serializable {
     private String type;
     private String hostname;
     private int playersPerTeam;
-
-    public RoomPublicInfo(String roomNo, int playersPerTeam, String hostname) {
+    private int chatServerPort;
+    
+    public RoomPublicInfo(String roomNo, int playersPerTeam, String hostname, int chatServerPort) {
         this.roomNo = roomNo;
         this.type = playersPerTeam + " Vs " + playersPerTeam;
         this.hostname = hostname;
         this.playersPerTeam = playersPerTeam;
+        this.chatServerPort = chatServerPort;
     }
 
     public String getRoomNo() {
@@ -44,5 +46,13 @@ public class RoomPublicInfo implements Serializable {
     @Override
     public String toString() {
         return roomNo + " - " + type + " - " + hostname;
+    }
+
+    public int getChatServerPort() {
+        return chatServerPort;
+}
+
+    public void setChatServerPort(int chatServerPort) {
+        this.chatServerPort = chatServerPort;
     }
 }

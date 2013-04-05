@@ -91,8 +91,10 @@ public class Main extends JFrame {
     }
 
     private void logout() {
-        communicator.sendRequestHeader(Services.LOGOUT);
-        communicator.close();
+        if(communicator != null) {
+            communicator.sendRequestHeader(Services.LOGOUT);
+            communicator.close();
+        }
     }
 
     /**
