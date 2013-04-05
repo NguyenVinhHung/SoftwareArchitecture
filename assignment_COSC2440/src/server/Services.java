@@ -22,4 +22,11 @@ public class Services {
     public static final int LOGIN_SUCCESS = 30;
     public static final int LOGIN_WRONG_USER = 31;
     public static final int LOGIN_WRONG_PW = 32;
+
+    public static final int GET_IN_ROOM = 40;
+    public static final int GET_IN_ROOM_SUCCESS = 41;
+    public static final int GET_IN_ROOM_FAILED = 42;
+
+    public static final int IN_ROOM_GET_SELECTED_POK = 40;
+    public static final int IN_ROOM_GET_POK_LIST = 41;
 }

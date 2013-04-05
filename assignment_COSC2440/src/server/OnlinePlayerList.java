@@ -27,9 +27,13 @@ public class OnlinePlayerList {
     }
 
     public void logoutPlayer(SocketCommunicator sc, String roomHostname) {
+        System.out.println("Logout player");
         waitingPlayers.remove(sc);
         if(rooms.containsKey(roomHostname)) {
-            rooms.get(roomHostname).removePlayer(sc);
+            Room r = rooms.get(roomHostname);
+            if(r.removePlayer(sc) == Room.REMOVE_PLAYER_AND_ROOM) {
+                rooms.remove(r.getHostName());
+            }
         }
     }
 
@@ -41,20 +45,18 @@ public class OnlinePlayerList {
     public void getOutRoom(SocketCommunicator sc, String roomHostname) {
         waitingPlayers.add(sc);
         Room r = rooms.get(roomHostname);
-        r.removePlayer(sc);
 
-        if(r.isEmpty()) {
+        if(r.removePlayer(sc) == Room.REMOVE_PLAYER_AND_ROOM) {
             rooms.remove(r.getHostName());
         }
     }
 
     public void changeRoomHost(SocketCommunicator sc, String roomHostname) {
-        Room r = rooms.get(roomHostname);
-        r.changeRoomHost(sc);
-        rooms.remove(roomHostname);
-        rooms.put(r.getHostName(), r);
+        Room r = rooms.remove(roomHostname);
 
-
+        if(r.changeRoomHost(sc) == Room.REMOVE_ONLY_PLAYER) {
+            rooms.put(r.getHostName(), r);
+        }
     }
 
     public String addRoom(Room r) {
@@ -91,7 +93,12 @@ public class OnlinePlayerList {
         return waitingPlayers;
     }
 
+    public Map<String, Room> getRooms() {
+        return rooms;
+    }
+
     public Vector<Room> getRoomsAsVector() {
         return new Vector<Room>(rooms.values());
     }
+
 }

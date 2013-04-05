@@ -1,5 +1,8 @@
 package model.pokemon;
 
+import utility.FileUtility;
+
+import java.awt.*;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -12,6 +15,10 @@ import java.util.Map;
  */
 public class PokemonFactory {
 
+    public static final String CHARIZARD = "Charizard";
+    public static final String BLASTOISE = "Blastoise";
+    public static final String VENUSAUR = "Venusaur";
+
     public static Pokemon makeCharizard() {
         Skill blastBurn = new Skill("Blast Burn", TypeUtils.FIRE, 80, 100, 5);
         Skill fireBlast = new Skill("Fire Blast", TypeUtils.FIRE, 130, 70, 20);
@@ -20,9 +27,8 @@ public class PokemonFactory {
         skills.put(blastBurn.getName(), blastBurn);
         skills.put(fireBlast.getName(), fireBlast);
 
-        Pokemon p = new Pokemon("Charizard", new int[]{TypeUtils.FIRE, TypeUtils.FLYING}, skills,
+        return new Pokemon(CHARIZARD, new int[]{TypeUtils.FIRE, TypeUtils.FLYING}, skills,
                                 149, 143, 177, 150, 185, 200);
-        return p;
     }
 
     public static Pokemon makeBlastoise() {
@@ -33,9 +39,8 @@ public class PokemonFactory {
         skills.put(hydroCannon.getName(), hydroCannon);
         skills.put(hydroPump.getName(), hydroPump);
 
-        Pokemon p = new Pokemon("Blastoise", new int[]{TypeUtils.WATER}, skills,
+        return new Pokemon(BLASTOISE, new int[]{TypeUtils.WATER}, skills,
                 148, 167, 150, 172, 186, 200);
-        return p;
     }
 
     public static Pokemon makeVenusaur() {
@@ -46,8 +51,19 @@ public class PokemonFactory {
         skills.put(frenzyPlant.getName(), frenzyPlant);
         skills.put(woodHammer.getName(), woodHammer);
 
-        Pokemon p = new Pokemon("Venusaur", new int[]{TypeUtils.GRASS}, skills,
+        return new Pokemon(VENUSAUR, new int[]{TypeUtils.GRASS}, skills,
                 147, 148, 167, 167, 187, 200);
-        return p;
+    }
+
+    public static Image getGifImage(String pokeName) {
+        System.out.println("Update image of SelectedPokeView");
+        if(pokeName.equals(CHARIZARD)) {
+            return FileUtility.CHARIZARD_IMG;
+        } else if(pokeName.equals(BLASTOISE)) {
+            return FileUtility.BLASTOISE_IMG;
+        } else if(pokeName.equals(VENUSAUR)) {
+            return FileUtility.VENUSAUR_IMG;
+        }
+        return null;
     }
 }

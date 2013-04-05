@@ -70,7 +70,7 @@ public class Main extends JFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                System.out.println("Server closing");
+                System.out.println("Client closing");
                 logout();
             }
 

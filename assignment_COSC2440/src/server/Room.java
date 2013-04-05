@@ -1,7 +1,9 @@
 package server;
 
 import model.Player;
+import model.pokemon.SelectedPokeInfo;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -18,6 +20,8 @@ public class Room implements Runnable {
     public static final int TEAM_2 = -2;
     public static final int ALL_PLAYERS = -3;
     public static final int ADD_PLAYER_FAILED = 0;
+    public static final int REMOVE_ONLY_PLAYER = 1;
+    public static final int REMOVE_PLAYER_AND_ROOM = 1;
 
     public static final int WAITING_STATE = 0;
     public static final int PLAYING_STATE = 1;
@@ -91,12 +95,13 @@ public class Room implements Runnable {
         }
     }
 
-    public void removePlayer(SocketCommunicator p) {
+    public int removePlayer(SocketCommunicator p) {
         if(p.getUsername().equals(hostName)) {
-            changeRoomHost(p);
+            return changeRoomHost(p);
         } else {
             team1.remove(p.getUsername());
             team2.remove(p.getUsername());
+            return REMOVE_ONLY_PLAYER;
         }
     }
 
@@ -111,16 +116,21 @@ public class Room implements Runnable {
         return map;
     }
 
-    public void changeRoomHost(SocketCommunicator p) {
+    public int changeRoomHost(SocketCommunicator p) {
         Map<String, SocketCommunicator> team = (team1.containsKey(p.getUsername())) ? team1 : team2;
+        Map<String, SocketCommunicator> otherTeam = (team==team1) ? team2 : team1;
 
         if(team.size() > 1) {
             team.remove(p.getUsername());
             hostName = ((SocketCommunicator)(team.values().toArray()[0])).getUsername();
-        } else {
-            Map<String, SocketCommunicator> otherTeam = (team==team1) ? team2 : team1;
+            return REMOVE_ONLY_PLAYER;
+        } else if(!otherTeam.isEmpty()) {
             team.remove(p.getUsername());
             hostName = ((SocketCommunicator)(otherTeam.values().toArray()[0])).getUsername();
+            return REMOVE_ONLY_PLAYER;
+        } else {
+            team.remove(p.getUsername());
+            return REMOVE_PLAYER_AND_ROOM;
         }
     }
 
@@ -141,6 +151,19 @@ public class Room implements Runnable {
             sc.sendRequestHeader(msg);
             sc.flushOutput();
         }
+    }
+
+    public SelectedPokeInfo[] getSelectedPokeInfoTeam(int teamNo) {
+        Map<String, SocketCommunicator> team = (teamNo==TEAM_1) ? team1 : team2;
+        SelectedPokeInfo[] spi = new SelectedPokeInfo[numPlayersPerTeam];
+        ArrayList<SocketCommunicator> t = new ArrayList<SocketCommunicator>(team.values());
+
+        for(int i=0; i<t.size(); i++) {
+            Player p = t.get(i).getPlayer();
+            spi[i] = p.makeSelectedPokeInfo(p.getUsername().equals(hostName));
+        }
+
+        return spi;
     }
 
     public boolean isEmpty() {

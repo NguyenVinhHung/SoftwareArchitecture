@@ -1,9 +1,13 @@
 package view.smallview;
 
+import main.Main;
 import model.room.RoomPublicInfo;
+import server.Services;
+import server.SocketCommunicator;
 import view.customview.InteractiveView;
 import view.customview.RawButton;
 import view.panel.AfterLoginTemplate;
+import view.panel.RoomView;
 
 import java.awt.*;
 
@@ -62,6 +66,21 @@ public class RoomSelectorView extends InteractiveView {
 
     @Override
     public void onClick() {
-        System.out.println(model.getRoomNo() + " - " + model.getType() + " - " + model.getHostname());
+//        System.out.println(model.getRoomNo() + " - " + model.getType() + " - " + model.getHostname());
+        SocketCommunicator sc = Main.getCommunicator();
+        sc.sendRequestHeader(Services.GET_IN_ROOM);
+        sc.flushOutput();
+
+        int result = (Integer)sc.read();
+
+        if(result == Services.GET_IN_ROOM_SUCCESS) {
+            RoomPublicInfo info = (RoomPublicInfo)sc.read();
+            model = info;
+            Main.getInstance().setCurrPanel(new RoomView(info));
+        } else if(result == Services.GET_IN_ROOM_FAILED) { //Handle this when the room is removed the request is in progress.
+
+        } else {
+
+        }
     }
 }

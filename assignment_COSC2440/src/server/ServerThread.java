@@ -93,6 +93,16 @@ public class ServerThread implements Runnable {
                         createRoom(input, output);
                         break;
                     }
+                    case Services.IN_ROOM_GET_SELECTED_POK: {
+                        System.out.println("Get selected pokemon infos in room");
+                        getSelectedPokesInRoom();
+                        break;
+                    }
+                    case Services.IN_ROOM_GET_POK_LIST: {
+                        System.out.println("Get pokemon list");
+                        getPokemonList();
+                        break;
+                    }
                     case Services.LOGOUT: {
                         logout();
                         return;
@@ -218,10 +228,32 @@ public class ServerThread implements Runnable {
     private void logout() {
         OnlinePlayerList opl = (OnlinePlayerList)ServerSpring.getBean("onlinePlayerList");
 
-        if(opl.getWaitingPlayers().contains(communicator)) {
+//        if(opl.getWaitingPlayers().contains(communicator)) {
             opl.logoutPlayer(communicator, communicator.getUsername());
-        }
+//        }
 
         communicator.close();
+    }
+
+    private void getSelectedPokesInRoom() {
+        System.out.println("getSelectedPokesInRoom Begin");
+        OnlinePlayerList opl = (OnlinePlayerList)ServerSpring.getBean("onlinePlayerList");
+        String host = (String)communicator.read();
+
+        System.out.println("getSelectedPokesInRoom get Room");
+        Room r = opl.getRooms().get(host);
+
+        System.out.println("getSelectedPokesInRoom Start sending result");
+        communicator.write(r.getSelectedPokeInfoTeam(Room.TEAM_1));
+        communicator.write(r.getSelectedPokeInfoTeam(Room.TEAM_2));
+        communicator.flushOutput();
+
+        System.out.println("getSelectedPokesInRoom End");
+    }
+
+    private void getPokemonList() {
+
+        communicator.write(communicator.getPlayer().getPokemons());
+        communicator.flushOutput();
     }
 }

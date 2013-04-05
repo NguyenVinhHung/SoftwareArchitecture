@@ -2,6 +2,7 @@ package model;
 
 import model.pokemon.Pokemon;
 import model.pokemon.PokemonFactory;
+import model.pokemon.SelectedPokeInfo;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -30,12 +31,30 @@ public class Player implements Serializable {
         this.pw = pw;
         pokemons = new ArrayList<Pokemon>();
 
-        pokemons.add(PokemonFactory.makeBlastoise());
-        pokemons.add(PokemonFactory.makeCharizard());
-        pokemons.add(PokemonFactory.makeVenusaur());
-
+        // Randomly generate a starter pokemon.
         Random r = new Random(Calendar.getInstance().getTimeInMillis());
-        selectedPoke = pokemons.get(r.nextInt(3));
+        switch(r.nextInt(3)) {
+            case 0: pokemons.add(PokemonFactory.makeBlastoise()); break;
+            case 1: pokemons.add(PokemonFactory.makeCharizard()); break;
+            case 2: pokemons.add(PokemonFactory.makeVenusaur()); break;
+        }
+
+//        selectedPoke = pokemons.get(r.nextInt(3));
+        selectedPoke = pokemons.get(0);
+
+        if(selectedPoke == null) {
+            System.out.println("Initialize Selected pokemon is null");
+        } else {
+            System.out.println("Initialize Selected pokemon is " + selectedPoke.getName());
+        }
+    }
+
+    public SelectedPokeInfo makeSelectedPokeInfo(boolean host) {
+        if(selectedPoke == null) {
+            System.out.println("Selected pokemon is null");
+            return null;
+        }
+        return new SelectedPokeInfo(selectedPoke.getName(), selectedPoke.getLv(), username, host);
     }
 
     public String getUsername() {
@@ -51,6 +70,7 @@ public class Player implements Serializable {
     }
 
     public List<Pokemon> getPokemons() {
+        System.out.println("Pokemon list size: " + pokemons.size());
         return pokemons;
     }
 
