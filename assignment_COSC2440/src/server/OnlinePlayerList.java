@@ -32,6 +32,7 @@ public class OnlinePlayerList {
         if(rooms.containsKey(roomHostname)) {
             Room r = rooms.get(roomHostname);
             if(r.removePlayer(sc) == Room.REMOVE_PLAYER_AND_ROOM) {
+                System.out.println("Remove Room");
                 rooms.remove(r.getHostName()).close();
             }
         }

@@ -20,19 +20,19 @@
     <file path="D:/2 STUDY/Sem 6/SA/j-springswingcode/sampleTodo/src/todo/ToDo.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1363572655632" ignored="false" />
     <file path="D:/2 STUDY/Sem 6/SA/j-springswingcode/sampleTodo/src/todo/ui/MainFrame.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1363573937736" ignored="false" />
     <file path="/MainFrame.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1363573933267" ignored="false" />
-    <file path="/FileUtility.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1365129538800" ignored="false" />
-    <file path="/MapUtil.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1363786085914" ignored="false" />
+    <file path="/FileUtility.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1365165942792" ignored="false" />
+    <file path="/MapUtil.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1365164460139" ignored="false" />
     <file path="/Pokemon.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1365000492835" ignored="false" />
     <file path="/Skill.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1363869845119" ignored="false" />
     <file path="/Server.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1365145163470" ignored="false" />
-    <file path="/ServerThread.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1365157270210" ignored="false" />
+    <file path="/ServerThread.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1365167354446" ignored="false" />
     <file path="/beans.xml" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1364551922012" ignored="false" />
     <file path="/client_beans.xml" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1364751013535" ignored="false" />
-    <file path="/GameMap.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1365153119561" ignored="false" />
+    <file path="/GameMap.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1365167629652" ignored="false" />
     <file path="/MatchPanel.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1365159728906" ignored="false" />
     <file path="/SocketCommunicator.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1365048692801" ignored="false" />
     <file path="/Session.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1364611225550" ignored="false" />
-    <file path="/Room.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1365151039917" ignored="false" />
+    <file path="/Room.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1365167800954" ignored="false" />
     <file path="/SaveLoadUtil.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1364618744765" ignored="false" />
     <file path="/LoginView.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1365131283838" ignored="false" />
     <file path="/RegisterView.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1364700210980" ignored="false" />
@@ -40,14 +40,14 @@
     <file path="/SpringUtil.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1364698441066" ignored="false" />
     <file path="/RawButton.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1364642256337" ignored="false" />
     <file path="/InteractiveView.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1364725500523" ignored="false" />
-    <file path="/Services.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1365154963519" ignored="false" />
+    <file path="/Services.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1365167214172" ignored="false" />
     <file path="/DatabaseUtil.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1364649521031" ignored="false" />
     <file path="/Player.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1365133772950" ignored="false" />
     <file path="/AlertPopup.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1364700242292" ignored="false" />
     <file path="/AbstractPopup.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1364680278725" ignored="false" />
     <file path="/server_beans.xml" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1364738945782" ignored="false" />
     <file path="/AfterLoginView.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1364731430594" ignored="false" />
-    <file path="/OnlinePlayerList.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1365150625794" ignored="false" />
+    <file path="/OnlinePlayerList.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1365163334977" ignored="false" />
     <file path="/StartGameView.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1364736431061" ignored="false" />
     <file path="/ImageButton.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1364724439458" ignored="false" />
     <file path="/RoomSelectorView.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1365152631371" ignored="false" />
@@ -70,6 +70,8 @@
     <file path="/ChatServer.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1365159035865" ignored="false" />
     <file path="/ChatListenerThread.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1365148531719" ignored="false" />
     <file path="/ChatServerThread.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1365158958902" ignored="false" />
+    <file path="/PokeInBattleInfo.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1365165505073" ignored="false" />
+    <file path="/PokeInBattleView.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1365165783859" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -134,43 +136,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="RoomView.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/view/panel/RoomView.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="273" column="16" selection-start="9321" selection-end="9321" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ChatServer.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/chathandler/ChatServer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="48" column="40" selection-start="1521" selection-end="1521" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#511#529#0" expanded="true" />
-                <element signature="e#612#630#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ChatListenerThread.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/chathandler/ChatListenerThread.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="45" column="33" selection-start="1381" selection-end="1381" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="ServerThread.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/server/ServerThread.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="249" column="49" selection-start="8868" selection-end="8868" vertical-scroll-proportion="0.0">
+            <state line="262" column="47" selection-start="9373" selection-end="9373" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -179,7 +148,16 @@
       <file leaf-file-name="Services.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/server/Services.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="38" column="52" selection-start="1289" selection-end="1289" vertical-scroll-proportion="0.0">
+            <state line="41" column="49" selection-start="1430" selection-end="1430" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="OnlinePlayerList.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/server/OnlinePlayerList.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="33" column="68" selection-start="1021" selection-end="1021" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -188,16 +166,16 @@
       <file leaf-file-name="Room.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/server/Room.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="36" column="19" selection-start="1037" selection-end="1037" vertical-scroll-proportion="0.0">
+            <state line="37" column="49" selection-start="1086" selection-end="1086" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MatchPanel.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/view/map/MatchPanel.java">
+      <file leaf-file-name="Main.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="91" column="51" selection-start="2575" selection-end="2575" vertical-scroll-proportion="0.0">
+            <state line="94" column="61" selection-start="2405" selection-end="2405" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -206,26 +184,48 @@
       <file leaf-file-name="MapUtil.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/view/map/MapUtil.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="90" column="40" selection-start="3852" selection-end="3852" vertical-scroll-proportion="0.0">
+            <state line="84" column="40" selection-start="3652" selection-end="3652" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FileUtility.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="FileUtility.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/utility/FileUtility.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="38" selection-start="598" selection-end="598" vertical-scroll-proportion="0.33746898">
+            <state line="64" column="79" selection-start="3078" selection-end="3078" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GameMap.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="GameMap.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/view/map/GameMap.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="28" column="47" selection-start="650" selection-end="650" vertical-scroll-proportion="0.0">
+            <state line="30" column="45" selection-start="723" selection-end="723" vertical-scroll-proportion="0.34581104">
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PokeInBattleView.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/view/smallview/PokeInBattleView.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="21" column="36" selection-start="478" selection-end="478" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PokeInBattleInfo.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/model/pokemon/PokeInBattleInfo.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="16" column="26" selection-start="374" selection-end="381" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -240,22 +240,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/server/Server.java" />
-        <option value="$PROJECT_DIR$/src/server/OnlinePlayerList.java" />
-        <option value="$PROJECT_DIR$/src/server/Room.java" />
-        <option value="$PROJECT_DIR$/src/view/smallview/RoomSelectorView.java" />
-        <option value="$PROJECT_DIR$/src/view/panel/CreateRoomView.java" />
-        <option value="$PROJECT_DIR$/src/server/Services.java" />
         <option value="$PROJECT_DIR$/src/view/panel/GameStartView.java" />
         <option value="$PROJECT_DIR$/src/model/pokemon/PokemonFactory.java" />
-        <option value="$PROJECT_DIR$/src/server/ServerThread.java" />
-        <option value="$PROJECT_DIR$/src/view/map/GameMap.java" />
         <option value="$PROJECT_DIR$/src/chathandler/ChatListenerThread.java" />
         <option value="$PROJECT_DIR$/src/chathandler/ChatServerThread.java" />
         <option value="$PROJECT_DIR$/src/chathandler/ChatServer.java" />
-        <option value="$PROJECT_DIR$/src/view/panel/RoomView.java" />
         <option value="$PROJECT_DIR$/src/view/map/MatchPanel.java" />
+        <option value="$PROJECT_DIR$/src/view/panel/RoomView.java" />
+        <option value="$PROJECT_DIR$/src/server/OnlinePlayerList.java" />
         <option value="$PROJECT_DIR$/src/view/map/MapUtil.java" />
+        <option value="$PROJECT_DIR$/src/model/pokemon/PokeInBattleInfo.java" />
+        <option value="$PROJECT_DIR$/src/view/smallview/PokeInBattleView.java" />
+        <option value="$PROJECT_DIR$/src/utility/FileUtility.java" />
+        <option value="$PROJECT_DIR$/src/server/Services.java" />
+        <option value="$PROJECT_DIR$/src/server/ServerThread.java" />
+        <option value="$PROJECT_DIR$/src/view/map/GameMap.java" />
+        <option value="$PROJECT_DIR$/src/server/Room.java" />
       </list>
     </option>
   </component>
@@ -485,6 +485,68 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="model" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assignment_COSC2440" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assignment_COSC2440" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="model" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="room" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assignment_COSC2440" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assignment_COSC2440" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="model" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pokemon" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assignment_COSC2440" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assignment_COSC2440" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="main" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -659,7 +721,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1296" height="1010" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -675,8 +737,8 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20502432" sideWeight="0.55451345" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.44548652" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20502432" sideWeight="0.71277845" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28722158" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290735" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -744,71 +806,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/view/panel/GameStartView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="62" column="29" selection-start="1884" selection-end="1884" vertical-scroll-proportion="1.0545906">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/panel/CreateRoomView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="91" column="63" selection-start="2604" selection-end="2604" vertical-scroll-proportion="0.70471466">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/smallview/SelectedPokeView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="38" column="60" selection-start="1232" selection-end="1232" vertical-scroll-proportion="0.44866386">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/pokemon/PokemonFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="71" column="66" selection-start="2638" selection-end="2638" vertical-scroll-proportion="0.6174402">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/server/SocketCommunicator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="98" column="0" selection-start="2503" selection-end="2503" vertical-scroll-proportion="0.4727047">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/server/ServerThread.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="249" column="49" selection-start="8868" selection-end="8868" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/chathandler/ChatServerThread.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="0" selection-start="663" selection-end="663" vertical-scroll-proportion="0.33159268">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/chathandler/ChatServerSpring.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="13" selection-start="323" selection-end="323" vertical-scroll-proportion="0.48825064">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/server/Room.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="19" selection-start="1037" selection-end="1037" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/chathandler/ChatListenerThread.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="45" column="33" selection-start="1381" selection-end="1381" vertical-scroll-proportion="0.0">
@@ -827,15 +824,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/panel/RoomView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="273" column="16" selection-start="9321" selection-end="9321" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/view/map/MatchPanel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="91" column="51" selection-start="2575" selection-end="2575" vertical-scroll-proportion="0.0">
@@ -843,23 +831,99 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/map/MapUtil.java">
+    <entry file="file://$PROJECT_DIR$/src/view/panel/RoomView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="90" column="40" selection-start="3852" selection-end="3852" vertical-scroll-proportion="0.0">
+        <state line="137" column="68" selection-start="4888" selection-end="4888" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="94" column="61" selection-start="2405" selection-end="2405" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/map/GameMap.java">
+    <entry file="file://$PROJECT_DIR$/src/server/OnlinePlayerList.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="47" selection-start="650" selection-end="650" vertical-scroll-proportion="0.0">
+        <state line="33" column="68" selection-start="1021" selection-end="1021" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/map/MapUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="84" column="40" selection-start="3652" selection-end="3652" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/pokemon/Pokemon.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="13" selection-start="103" selection-end="103" vertical-scroll-proportion="0.16873449">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/room/RoomPublicInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="76" selection-start="238" selection-end="335" vertical-scroll-proportion="0.27419356">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/utility/FileUtility.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="38" selection-start="598" selection-end="598" vertical-scroll-proportion="0.33746898">
+        <state line="64" column="79" selection-start="3078" selection-end="3078" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/pokemon/PokeInBattleInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="26" selection-start="374" selection-end="381" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/server/Services.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="41" column="49" selection-start="1430" selection-end="1430" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/server/ServerThread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="262" column="47" selection-start="9373" selection-end="9373" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/smallview/PokeInBattleView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="36" selection-start="478" selection-end="478" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/server/Room.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="37" column="49" selection-start="1086" selection-end="1086" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/map/GameMap.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="30" column="45" selection-start="723" selection-end="723" vertical-scroll-proportion="0.34581104">
           <folding />
         </state>
       </provider>

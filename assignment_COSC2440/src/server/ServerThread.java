@@ -79,6 +79,18 @@ public class ServerThread implements Runnable {
                         checkBattleState();
                         break;
                     }
+                    case Services.BATTLE_MOVE: {
+                        checkBattleState();
+                        break;
+                    }
+                    case Services.BATTLE_ATK: {
+                        checkBattleState();
+                        break;
+                    }
+                    case Services.BATTLE_END_TURN: {
+                        checkBattleState();
+                        break;
+                    }
                     case Services.NOTIFY: {
                         notifyPlayers();
                         break;
@@ -251,6 +263,18 @@ public class ServerThread implements Runnable {
             communicator.write(new Integer(0));
         }
         communicator.flushOutput();
+    }
+
+    private void moveLocation() {
+
+    }
+
+    private void attack() {
+
+    }
+
+    private void endTurn() {
+
     }
 
     private void notifyPlayers() {

@@ -37,4 +37,7 @@ public class Services {
 
     public static final int BATTLE_START = 70;
     public static final int BATTLE_CHECK_STATE = 71;
+    public static final int BATTLE_MOVE = 72;
+    public static final int BATTLE_ATK = 73;
+    public static final int BATTLE_END_TURN = 74;
 }

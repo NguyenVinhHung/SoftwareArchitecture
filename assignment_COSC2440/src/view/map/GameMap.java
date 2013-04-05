@@ -4,8 +4,11 @@
  */
 package view.map;
 
+import model.pokemon.PokeInBattleInfo;
 import server.Server;
 import server.SocketCommunicator;
+import utility.FileUtility;
+import view.smallview.PokeInBattleView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,7 +25,11 @@ public class GameMap {
 
     public static final int WIDTH = 803;
     public static final int HEIGHT = 657;
+    public static final int NUM_ROWS = 9;
+    public static final int NUM_COLS = 11;
 
+    private PokeInBattleInfo[] pokeModels;
+    private PokeInBattleView[] pokeViews;
     private JPanel[][] tilePanels;
     private int[][] mapArrays;
     private int selectedX = -MapUtil.TILE_SIZE;
@@ -32,8 +39,8 @@ public class GameMap {
         mapArrays = mapArrs;
         tilePanels = new JPanel[mapArrs.length][mapArrs[0].length];
 
-        for(int i=0, tileY=0; i<mapArrays.length; i++) {
-            for(int j=0, tileX=0; j<mapArrays[i].length; j++) {
+        for(int i=0, tileY=0; i<NUM_ROWS; i++) {
+            for(int j=0, tileX=0; j<NUM_COLS; j++) {
                 tilePanels[i][j] = new JPanel();
                 tilePanels[i][j].setBounds(tileX, tileY, MapUtil.TILE_SIZE, MapUtil.TILE_SIZE);
                 tilePanels[i][j].setOpaque(false);
@@ -60,28 +67,30 @@ public class GameMap {
         int  tileX = 0;
         int  tileY = 0;
 
-        // Draw tiles
-        for(int i=0; i<mapArrays.length; i++) {
-            tileX = 0;
-            for(int j=0; j<mapArrays[i].length; j++) {
-                g.drawImage(MapUtil.TILES[mapArrays[i][j]],
-                      tileX, tileY, MapUtil.TILE_SIZE, MapUtil.TILE_SIZE, null);
+        g.drawImage(FileUtility.MAP_IMG, 0, 0, WIDTH, HEIGHT, null);
 
-                tileX += MapUtil.TILE_SIZE;
-            }            
-            tileY += MapUtil.TILE_SIZE;
-        }
+        // Draw tiles
+//        for(int i=0; i<mapArrays.length; i++) {
+//            tileX = 0;
+//            for(int j=0; j<mapArrays[i].length; j++) {
+//                g.drawImage(MapUtil.TILES[mapArrays[i][j]],
+//                      tileX, tileY, MapUtil.TILE_SIZE, MapUtil.TILE_SIZE, null);
+//
+//                tileX += MapUtil.TILE_SIZE;
+//            }
+//            tileY += MapUtil.TILE_SIZE;
+//        }
 
         // Draw lines to separate tiles
-        g.setColor(Color.white);
-        for(int i=0, x=MapUtil.TILE_SIZE; i<mapArrays[0].length-1; i++) {
-            g.drawLine(x, 0, x, tileY);
-            x += MapUtil.TILE_SIZE;
-        }
-        for(int i=0, y=MapUtil.TILE_SIZE; i<mapArrays.length-1; i++) {
-            g.drawLine(0, y, tileX, y);
-            y += MapUtil.TILE_SIZE;
-        }
+//        g.setColor(Color.white);
+//        for(int i=0, x=MapUtil.TILE_SIZE; i<mapArrays[0].length-1; i++) {
+//            g.drawLine(x, 0, x, tileY);
+//            x += MapUtil.TILE_SIZE;
+//        }
+//        for(int i=0, y=MapUtil.TILE_SIZE; i<mapArrays.length-1; i++) {
+//            g.drawLine(0, y, tileX, y);
+//            y += MapUtil.TILE_SIZE;
+//        }
 
         // Draw selected tile
         if(selectedX >= 0) {

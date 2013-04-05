@@ -2,6 +2,7 @@ package server;
 
 import chathandler.ChatServer;
 import model.Player;
+import model.pokemon.PokeInBattleInfo;
 import model.pokemon.SelectedPokeInfo;
 
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import java.util.Map;
  * Time: 9:10 AM
  * To change this template use File | Settings | File Templates.
  */
-public class Room implements Runnable {
+public class Room {
 
     public static final int TEAM_1 = -1;
     public static final int TEAM_2 = -2;
@@ -34,6 +35,7 @@ public class Room implements Runnable {
     private Map<String, SocketCommunicator> team1;
     private Map<String, SocketCommunicator> team2;
     private String hostName;
+    private PokeInBattleInfo[] pokeInBattleInfos;
     private int state;
     private int numPlayersPerTeam; // Max number of player per team.
     
@@ -52,22 +54,22 @@ public class Room implements Runnable {
         ///////////////////////
     }
 
-    @Override
-    public void run() {
-        while(true) {
-            switch(state) {
-                case WAITING_STATE:
-                    processWaitingState();
-                    break;
-                case PLAYING_STATE:
-                    processPlayingState() ;
-                    break;
-                case ENDING_STATE:
-                    processEndingState();
-                    return;
-            }
-        }
-    }
+//    @Override
+//    public void run() {
+//        while(true) {
+//            switch(state) {
+//                case WAITING_STATE:
+//                    processWaitingState();
+//                    break;
+//                case PLAYING_STATE:
+//                    processPlayingState() ;
+//                    break;
+//                case ENDING_STATE:
+//                    processEndingState();
+//                    return;
+//            }
+//        }
+//    }
 
     private void processWaitingState() {
 
