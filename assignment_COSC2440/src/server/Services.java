@@ -33,5 +33,8 @@ public class Services {
     public static final int IN_ROOM_GET_SELECTED_POK = 50;
     public static final int IN_ROOM_GET_POK_LIST = 51;
 
-    public static final int CLIENT_SEND_MESS = 60;
+//    public static final int CLIENT_SEND_MESS = 60;
+
+    public static final int BATTLE_START = 70;
+    public static final int BATTLE_CHECK_STATE = 71;
 }

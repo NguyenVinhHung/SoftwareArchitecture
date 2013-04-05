@@ -89,7 +89,7 @@ public class CreateRoomView extends AfterLoginTemplate {
 
         RoomPublicInfo result = (RoomPublicInfo)sc.read();
 
-        Main.getInstance().setCurrPanel(new RoomView(result));
+        Main.getInstance().setCurrPanel(new RoomView(result, -1));
         Main.getInstance().clearPanelStack();
     }
 

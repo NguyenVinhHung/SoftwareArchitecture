@@ -82,7 +82,7 @@ public class RoomSelectorView extends InteractiveView {
             System.out.println("GET IN ROOM receive RoomPublicInfo");
             int updatedTeam = (Integer)sc.read();
             model = info;
-            Main.getInstance().setCurrPanel(new RoomView(info));
+            Main.getInstance().setCurrPanel(new RoomView(info, updatedTeam));
 
 //            sc.sendRequestHeader(Services.NOTIFY);
 //            sc.write(info.getHostname());

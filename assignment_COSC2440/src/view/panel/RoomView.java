@@ -45,6 +45,7 @@ public class RoomView extends AfterLoginTemplate implements KeyListener {
     private static final int CHATTYPER_Y = 690;
     private static final int CHATTYPER_H = 70;
     private static final int LAYER_W2 = 604;
+
     private ArrayList<SelectedPokeView> g1;
     private ArrayList<SelectedPokeView> g2;
     private LinkedHashMap<String, SelectedPokeInfo> t1;
@@ -57,10 +58,12 @@ public class RoomView extends AfterLoginTemplate implements KeyListener {
     //    private Socket chatSocket;
     private SocketCommunicator chatCommunicator;
     private RoomPublicInfo roomInfo;
+    private ChatListenerThread chatListenerThread;
     private boolean waiting = true;
+    private boolean isTeam1;
 //    private int roomIdx;
 
-    public RoomView(RoomPublicInfo info) {
+    public RoomView(RoomPublicInfo info, int teamNo) {
         roomInfo = info;
         final SocketCommunicator sc = Main.getCommunicator();
 
@@ -80,6 +83,8 @@ public class RoomView extends AfterLoginTemplate implements KeyListener {
         initChatFeature();
         initSelectedPokeView();
 
+        isTeam1 = teamNo==-1;
+
         try {
             Socket chatSocket = new Socket(Server.IP, roomInfo.getChatServerPort());
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(chatSocket.getOutputStream());
@@ -87,11 +92,12 @@ public class RoomView extends AfterLoginTemplate implements KeyListener {
             chatCommunicator = new SocketCommunicator(chatSocket, objectOutputStream, objectInputStream, null);
 
 //            objectOutputStream.write(new Integer(ChatServices.JOIN_TEAM_1));
-            objectOutputStream.writeInt(ChatServices.JOIN_TEAM_1);
+            objectOutputStream.writeInt((isTeam1) ? ChatServices.JOIN_TEAM_1 : ChatServices.JOIN_TEAM_2);
             objectOutputStream.flush();
 
 //            new ChatListenerThread(chatSocket,objectOutputStream,objectInputStream).start();
-            new ChatListenerThread(chatCommunicator, globalChat).start();
+            chatListenerThread = new ChatListenerThread(chatCommunicator, globalChat);
+            chatListenerThread.start();
 
         } catch (IOException e) {
             System.out.println("Cannot create chat socket");
@@ -106,7 +112,14 @@ public class RoomView extends AfterLoginTemplate implements KeyListener {
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
+
+                    if(checkBattleStart()) {
+                        toMatchPanel();
+                        break;
+                    }
+
 //                    processWaitingState(sc);
+//                    System.out.println("THREAD FOR UPDATE SELECTED POKEMON LIST");
                     g1.clear();
                     g2.clear();
                     initSelectedPokeView();
@@ -125,11 +138,7 @@ public class RoomView extends AfterLoginTemplate implements KeyListener {
                 if (!roomInfo.getHostname().equals(sc.getUsername())) {
                     return;
                 }
-
-                System.out.println("on start the match");
-                waiting = false;
-                chatCommunicator.close();
-                Main.getInstance().pushPanel(new MatchPanel(MapUtil.MAP_ARRS[0]));
+                startBattle();
             }
         };
 
@@ -185,6 +194,7 @@ public class RoomView extends AfterLoginTemplate implements KeyListener {
         chatTyper.addKeyListener(this);
         globalChat.setText("");
         globalChat.setEditable(false);
+        globalChat.setLineWrap(true);
 
         add(globalChat);
 //        add(chatTabs);
@@ -226,6 +236,43 @@ public class RoomView extends AfterLoginTemplate implements KeyListener {
         for (PokeForSelectView p : pokeListView) {
             p.draw(g);
         }
+    }
+
+    private void startBattle() {
+        SocketCommunicator sc = Main.getCommunicator();
+        sc.sendRequestHeader(Services.BATTLE_START);
+        sc.flushOutput();
+
+        System.out.println("startBattle request sent");
+
+        int result = (Integer)sc.read();
+        System.out.println("startBattle receive result");
+//        System.out.println("startBattle start changing panel");
+//        try {
+//            Thread.sleep(3000);
+//        } catch(Exception ex) {
+//        }
+//        toMatchPanel();
+    }
+
+    private boolean checkBattleStart() {
+        SocketCommunicator sc = Main.getCommunicator();
+        sc.sendRequestHeader(Services.BATTLE_CHECK_STATE);
+        sc.write(roomInfo.getHostname());
+        sc.flushOutput();
+
+        System.out.println("checkBattleStart request sent");
+
+        return (Integer)sc.read() == Services.BATTLE_START;
+    }
+
+    private void toMatchPanel() {
+        System.out.println("toMatchPanel start changing panel");
+        waiting = false;
+//                chatCommunicator.close();
+        Main.getInstance().setCurrPanel(new MatchPanel(MapUtil.MAP_ARRS[0],
+                chatCommunicator, chatListenerThread, isTeam1));
+        System.out.println("toMatchPanel end");
     }
 
     private void processWaitingState(SocketCommunicator sc) {

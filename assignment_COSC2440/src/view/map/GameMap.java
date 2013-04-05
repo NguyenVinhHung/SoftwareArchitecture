@@ -20,7 +20,8 @@ import java.net.Socket;
  */
 public class GameMap {
 
-    private SocketCommunicator sc;
+    public static final int WIDTH = 803;
+    public static final int HEIGHT = 657;
 
     private JPanel[][] tilePanels;
     private int[][] mapArrays;
@@ -28,11 +29,6 @@ public class GameMap {
     private int selectedY = -MapUtil.TILE_SIZE;
     
     public GameMap(final MatchPanel parent, int[][] mapArrs) {
-        try {
-            sc = new SocketCommunicator(new Socket(Server.IP, Server.PORT_NUM));
-        } catch(Exception ex) {
-        }
-
         mapArrays = mapArrs;
         tilePanels = new JPanel[mapArrs.length][mapArrs[0].length];
 

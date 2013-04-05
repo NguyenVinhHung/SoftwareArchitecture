@@ -46,7 +46,7 @@ public class MapUtil {
     public static final Image SELECTED_TILE = new ImageIcon(FileUtility.SELECTED_TILE_URL).getImage();
 
     public static final int MAP_ARRS[][][] = {
-        {
+     /*   {
             {BROWN, BROWN, BROWN, BROWN, BROWN, BROWN, BROWN, BROWN, BROWN, BROWN, BROWN},
             {BROWN, BROWN, DIRT, DIRT, DIRT, DIRT, DIRT, DIRT, DIRT, BROWN, BROWN},
             {BROWN, GRASS, WATER, WATER, WATER, DIRT, DIRT, BROWN, BROWN, DIRT, BROWN},
@@ -77,6 +77,18 @@ public class MapUtil {
             {0, 1, 0, 0, 1, 1, 2, 2, 2, 0, 0},
             {0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+        },*/
+
+        {
+            {2,2,2,2,2,2,2,2,2,2,34},
+            {2,2,12,28,4,12,4,4,28,2,2},
+            {2,11,1,1,1,20,4,2,2,28,2},
+            {2,23,1,1,13,2,2,2,2,4,2},
+            {2,3,3,11,2,2,2,12,4,4,2},
+            {2,3,2,2,2,2,13,1,1,28,2},
+            {2,23,2,2,3,19,1,1,1,12,2},
+            {2,2,23,3,3,11,3,23,11,2,2},
+            {30,2,2,2,2,2,2,2,2,2,2}
         }
     };
 

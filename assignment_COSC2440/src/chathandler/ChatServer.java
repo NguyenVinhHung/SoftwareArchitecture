@@ -59,20 +59,24 @@ public class ChatServer extends Thread {
     }
 
     public void closePlaySocket(String username) {
-        for (int i = 0; i < serverThreadVectorTeam1.size(); i++) {
-            ChatServerThread csv = serverThreadVectorTeam1.get(i);
-            if(csv.getUsername().equals(username)) {
-                csv.getChatCommunicator().close();
-                return;
+        try {
+            for (int i = 0; i < serverThreadVectorTeam1.size(); i++) {
+                ChatServerThread csv = serverThreadVectorTeam1.get(i);
+                if(csv.getUsername().equals(username)) {
+                    csv.getChatCommunicator().close();
+                    return;
+                }
             }
-        }
 
-        for (int i = 0; i < serverThreadVectorTeam2.size(); i++) {
-            ChatServerThread csv = serverThreadVectorTeam2.get(i);
-            if(csv.getUsername().equals(username)) {
-                csv.getChatCommunicator().close();
-                return;
+            for (int i = 0; i < serverThreadVectorTeam2.size(); i++) {
+                ChatServerThread csv = serverThreadVectorTeam2.get(i);
+                if(csv.getUsername().equals(username)) {
+                    csv.getChatCommunicator().close();
+                    return;
+                }
             }
+        } catch(Exception ex) {
+//            serverThreadVectorTeam1.clear();
         }
     }
 

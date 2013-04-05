@@ -68,7 +68,7 @@ public class PokemonFactory {
     }
 
     public static Image getPokeAvatar(String pokeName) {
-        System.out.println("Update avatar of SelectedPokeView");
+//        System.out.println("Update avatar of SelectedPokeView");
         if(pokeName.equals(CHARIZARD)) {
             return FileUtility.CHARIZARD_AVAR;
         } else if(pokeName.equals(BLASTOISE)) {

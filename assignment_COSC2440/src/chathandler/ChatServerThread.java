@@ -23,16 +23,20 @@ public class ChatServerThread extends Thread {
 
     @Override
     public void run() {
-        while (!chatCommunicator.getSocket().isClosed()) {
-            int globalOrTeam = (Integer) chatCommunicator.read();
-            String mess = (String) chatCommunicator.read();
+        while (chatCommunicator==null || !chatCommunicator.getSocket().isClosed()) {
+            try {
+                int globalOrTeam = (Integer)chatCommunicator.read();
+                String mess = (String) chatCommunicator.read();
 
-            if (globalOrTeam == ChatServices.GLOBAL_CHAT) {
-                handleGlobalChat(mess);
-            } else if (globalOrTeam == ChatServices.TEAM_1_CHAT) {
-                handleTeamChat1(mess);
-            } else {
-                handleTeamChat2(mess);
+                if (globalOrTeam == ChatServices.GLOBAL_CHAT) {
+                    handleGlobalChat(mess);
+                } else if (globalOrTeam == ChatServices.TEAM_1_CHAT) {
+                    handleTeamChat1(mess);
+                } else {
+                    handleTeamChat2(mess);
+                }
+            } catch (Exception ex) {
+                break;
             }
         }
     }

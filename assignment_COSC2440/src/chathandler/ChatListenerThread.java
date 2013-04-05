@@ -51,5 +51,7 @@ public class ChatListenerThread extends Thread {
 //        }
     }
 
-
+    public void setChatBox(JTextArea chatBox) {
+        this.chatBox = chatBox;
+    }
 }

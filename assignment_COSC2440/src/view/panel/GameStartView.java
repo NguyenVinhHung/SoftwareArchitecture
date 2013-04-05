@@ -43,10 +43,10 @@ public class GameStartView extends AfterLoginTemplate {
         sc.sendRequestHeader(Services.ROOM_LIST);
         sc.flushOutput();
 
-        System.out.println("Retreive room list get list");
+//        System.out.println("Retreive room list get list");
         ArrayList<RoomPublicInfo> roomInfos = (ArrayList<RoomPublicInfo>)sc.read();
 
-        System.out.println("Retreive room list create array");
+//        System.out.println("Retreive room list create array");
         for(int i=0, rsvY=BG_Y+20; i<roomInfos.size(); i++) {
             RoomSelectorView rsv = new RoomSelectorView(roomInfos.get(i), i, rsvY);
             rooms.add(rsv);
@@ -59,7 +59,7 @@ public class GameStartView extends AfterLoginTemplate {
 //        }
 
 //        repaint();
-        System.out.println("Retreive room list end");
+//        System.out.println("Retreive room list end");
     }
 
     @Override

@@ -2,11 +2,9 @@ package server;
 
 import model.Player;
 import model.room.RoomPublicInfo;
-import org.omg.PortableInterceptor.USER_EXCEPTION;
 import utility.DatabaseUtil;
 
 import java.io.EOFException;
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
@@ -71,6 +69,14 @@ public class ServerThread implements Runnable {
                     }
                     case Services.IN_ROOM_GET_POK_LIST: {
                         getPokemonList();
+                        break;
+                    }
+                    case Services.BATTLE_START: {
+                        startBattle();
+                        break;
+                    }
+                    case Services.BATTLE_CHECK_STATE: {
+                        checkBattleState();
                         break;
                     }
                     case Services.NOTIFY: {
@@ -207,7 +213,6 @@ public class ServerThread implements Runnable {
     private synchronized void getSelectedPokesInRoom() {
         OnlinePlayerList opl = (OnlinePlayerList)ServerSpring.getBean("onlinePlayerList");
         String host = (String)communicator.read();
-
         Room r = opl.getRooms().get(host);
 
         communicator.write(r.getSelectedPokeInfoTeam(Room.TEAM_1));
@@ -217,6 +222,34 @@ public class ServerThread implements Runnable {
 
     private void getPokemonList() {
         communicator.write(communicator.getPlayer().getPokemons());
+        communicator.flushOutput();
+    }
+
+    private void startBattle() {
+        OnlinePlayerList opl = (OnlinePlayerList)ServerSpring.getBean("onlinePlayerList");
+        Room r = opl.getRooms().get(communicator.getUsername());
+
+        System.out.println("startBattle get room");
+
+        r.setState(Room.PLAYING_STATE);
+        communicator.write(new Integer(Services.BATTLE_START));
+        communicator.flushOutput();
+    }
+
+    private void checkBattleState() {
+        OnlinePlayerList opl = (OnlinePlayerList)ServerSpring.getBean("onlinePlayerList");
+        String host = (String)communicator.read();
+        Room r = opl.getRooms().get(host);
+
+        System.out.println("checkBattleState get room");
+
+        if(r.getState() == Room.PLAYING_STATE) {
+            System.out.println("checkBattleState start the battle");
+            communicator.write(new Integer(Services.BATTLE_START));
+        } else {
+            System.out.println("checkBattleState still waiting");
+            communicator.write(new Integer(0));
+        }
         communicator.flushOutput();
     }
 
