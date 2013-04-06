@@ -7,6 +7,8 @@ package view.map;
 import chathandler.ChatListenerThread;
 import chathandler.ChatServices;
 import main.Main;
+import model.pokemon.PokeInBattleInfo;
+import server.Services;
 import server.SocketCommunicator;
 
 import java.awt.Graphics;
@@ -27,32 +29,55 @@ public class MatchPanel extends JPanel implements KeyListener {
     private static final int CHATTYPER_H = 150;
 
     private GameMap map;
+    private GameThread gameThread;
 //    private JTabbedPane chatTabs;
     private JTextArea chatBox;
 //    private JTextArea teamChat;
     private JTextArea chatTyper;
     //    private Socket chatSocket;
     private SocketCommunicator chatCommunicator;
+    private String hostName;
     private boolean isTeam1;
     
-    public MatchPanel(GameMap m, SocketCommunicator chatCommunicator, ChatListenerThread chatListenerThread) {
-        init(m, chatCommunicator, chatListenerThread);
+    public MatchPanel(GameMap m, SocketCommunicator chatCommunicator,
+                      ChatListenerThread chatListenerThread, String hostName) {
+        init(m, chatCommunicator, chatListenerThread, hostName);
     }
 
     public MatchPanel(int[][] mapArr, SocketCommunicator chatCommunicator, ChatListenerThread chatListenerThread
-                        , boolean isTeam1) {
+                        , boolean isTeam1, String hostName) {
         this.isTeam1 = isTeam1;
-        init(new GameMap(this, mapArr), chatCommunicator, chatListenerThread);
+        init(new GameMap(this, mapArr), chatCommunicator, chatListenerThread, hostName);
     }
 
-    private void init(GameMap m, SocketCommunicator chatCommunicator, ChatListenerThread chatListenerThread) {
+    private void init(GameMap m, SocketCommunicator chatCommunicator,
+                      ChatListenerThread chatListenerThread, String hostName) {
         map = m;
         this.chatCommunicator = chatCommunicator;
+        this.hostName = hostName;
 
         setLayout(null);
         initChatFeature();
 
         chatListenerThread.setChatBox(chatBox);
+
+//        SocketCommunicator sc = Main.getCommunicator();
+//        sc.sendRequestHeader(Services.BATTLE_INITIALIZATION);
+//        sc.write(hostName);
+//        sc.flushOutput();
+//
+//        String firstPlayer = (String)sc.read();
+//
+//        map.setMyTurn(firstPlayer.equals(sc.getUsername()));
+//        map.setMyPoke((PokeInBattleInfo)sc.read());
+//        map.setPokeModels1((PokeInBattleInfo[])sc.read());
+//        map.setPokeModels2((PokeInBattleInfo[])sc.read());
+
+//        gameThread = new GameThread();
+//
+//        if(!map.isMyTurn()) {
+//            gameThread.start();
+//        }
     }
 
     private void initChatFeature() {
@@ -107,6 +132,19 @@ public class MatchPanel extends JPanel implements KeyListener {
             chatCommunicator.write(text);
             chatCommunicator.flushOutput();
             chatTyper.setText("");
+        }
+    }
+
+    private class GameThread extends Thread {
+        @Override
+        public void run() {
+            SocketCommunicator sc = Main.getCommunicator();
+
+            while(!map.isMyTurn()) {
+                int action = (Integer)sc.read();
+
+
+            }
         }
     }
 }

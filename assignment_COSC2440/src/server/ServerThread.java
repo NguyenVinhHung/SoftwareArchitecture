@@ -24,6 +24,7 @@ public class ServerThread implements Runnable {
     private SocketCommunicator communicator;
     private Socket socket;
     private Player player;
+    private Room currRoom;
 
     public ServerThread(Socket s) {
         socket = s;
@@ -80,15 +81,19 @@ public class ServerThread implements Runnable {
                         break;
                     }
                     case Services.BATTLE_MOVE: {
-                        checkBattleState();
+                        moveLocation();
                         break;
                     }
                     case Services.BATTLE_ATK: {
-                        checkBattleState();
+                        attack();
                         break;
                     }
                     case Services.BATTLE_END_TURN: {
-                        checkBattleState();
+                        endTurn();
+                        break;
+                    }
+                    case Services.BATTLE_INITIALIZATION: {
+                        initializeBattle();
                         break;
                     }
                     case Services.NOTIFY: {
@@ -246,6 +251,8 @@ public class ServerThread implements Runnable {
         r.setState(Room.PLAYING_STATE);
         communicator.write(new Integer(Services.BATTLE_START));
         communicator.flushOutput();
+
+        r.generatePlayerOrder();
     }
 
     private void checkBattleState() {
@@ -275,6 +282,19 @@ public class ServerThread implements Runnable {
 
     private void endTurn() {
 
+    }
+
+    private void initializeBattle() {
+        OnlinePlayerList opl = (OnlinePlayerList)ServerSpring.getBean("onlinePlayerList");
+        String host = (String)communicator.read();
+        currRoom = opl.getRooms().get(host);
+        SocketCommunicator current = currRoom.getCurrentPlayer();
+
+        communicator.write(current.getUsername());
+        communicator.write(currRoom.getPokeInBattle(communicator.getUsername()));
+        communicator.write(currRoom.getPokeInBattle1());
+        communicator.write(currRoom.getPokeInBattle2());
+        communicator.flushOutput();
     }
 
     private void notifyPlayers() {

@@ -271,7 +271,7 @@ public class RoomView extends AfterLoginTemplate implements KeyListener {
         waiting = false;
 //                chatCommunicator.close();
         Main.getInstance().setCurrPanel(new MatchPanel(MapUtil.MAP_ARRS[0],
-                chatCommunicator, chatListenerThread, isTeam1));
+                chatCommunicator, chatListenerThread, isTeam1, roomInfo.getHostname()));
         System.out.println("toMatchPanel end");
     }
 

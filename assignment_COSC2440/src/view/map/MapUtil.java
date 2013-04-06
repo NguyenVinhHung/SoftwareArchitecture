@@ -93,7 +93,7 @@ public class MapUtil {
         }
     };
 
-    public static final int[][] START_POSTION_TEAM1 = {
-
-    };
+//    public static final int[][] START_POSTION_TEAM1 = {
+//
+//    };
 }

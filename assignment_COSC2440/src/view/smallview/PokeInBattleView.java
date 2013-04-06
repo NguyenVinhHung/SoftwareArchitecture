@@ -22,6 +22,6 @@ public class PokeInBattleView {
     }
 
     public void draw(Graphics g) {
-        g.drawImage(model.getImage(), model.getX(), model.getY(), MapUtil.TILE_SIZE, MapUtil.TILE_SIZE, null);
+        g.drawImage(model.getImage(), model.getI(), model.getJ(), MapUtil.TILE_SIZE, MapUtil.TILE_SIZE, null);
     }
 }

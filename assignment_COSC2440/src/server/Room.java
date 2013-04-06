@@ -3,7 +3,9 @@ package server;
 import chathandler.ChatServer;
 import model.Player;
 import model.pokemon.PokeInBattleInfo;
+import model.pokemon.PokemonFactory;
 import model.pokemon.SelectedPokeInfo;
+import utility.MoveUtil;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -34,10 +36,13 @@ public class Room {
 
     private Map<String, SocketCommunicator> team1;
     private Map<String, SocketCommunicator> team2;
+    private ArrayList<SocketCommunicator> orderOfPlayers;
     private String hostName;
-    private PokeInBattleInfo[] pokeInBattleInfos;
+    private PokeInBattleInfo[] pokeInBattle1;
+    private PokeInBattleInfo[] pokeInBattle2;
     private int state;
     private int numPlayersPerTeam; // Max number of player per team.
+    private int currentTurn;
     
     public Room(SocketCommunicator host, int type) {
         team1 = new LinkedHashMap<String, SocketCommunicator>();
@@ -194,6 +199,76 @@ public class Room {
         return spi;
     }
 
+    public void generatePlayerOrder() {
+        ArrayList<SocketCommunicator> t1 = new ArrayList<SocketCommunicator>(team1.values());
+        ArrayList<SocketCommunicator> t2 = new ArrayList<SocketCommunicator>(team2.values());
+        pokeInBattle1 = new PokeInBattleInfo[team1.size()];
+        pokeInBattle2 = new PokeInBattleInfo[team2.size()];
+        orderOfPlayers = new ArrayList<SocketCommunicator>();
+
+        for(int i=0; i<t1.size(); i++) {
+            SocketCommunicator sc = t1.get(i);
+            orderOfPlayers.add(sc);
+            String pokeName = sc.getPlayer().getSelectedPoke().getName();
+            pokeInBattle1[i] = new PokeInBattleInfo(sc.getUsername(),
+                    PokemonFactory.getPokeIcon(pokeName), MoveUtil.START_POSITIONS_T1[i]);
+        }
+
+        for(int i=0; i<t2.size(); i++) {
+            SocketCommunicator sc = t2.get(i);
+            orderOfPlayers.add(sc);
+            String pokeName = sc.getPlayer().getSelectedPoke().getName();
+            pokeInBattle2[i] = new PokeInBattleInfo(sc.getUsername(),
+                    PokemonFactory.getPokeIcon(pokeName), MoveUtil.START_POSITIONS_T2[i]);
+        }
+
+        currentTurn = 0;
+
+//        initializeForBattle(t1, t2);
+    }
+
+    public SocketCommunicator nextTurn() {
+        if(currentTurn < orderOfPlayers.size()) {
+            return orderOfPlayers.get(++currentTurn);
+        } else {
+            currentTurn = 0;
+            return orderOfPlayers.get(currentTurn);
+        }
+    }
+
+    public void initializeForBattle(ArrayList<SocketCommunicator> t1, ArrayList<SocketCommunicator> t2) {
+        pokeInBattle1 = new PokeInBattleInfo[team1.size()];
+        pokeInBattle2 = new PokeInBattleInfo[team2.size()];
+
+
+        for(int i=0; i<pokeInBattle1.length; i++) {
+            SocketCommunicator sc = t1.get(i);
+            String pokeName = sc.getPlayer().getSelectedPoke().getName();
+            pokeInBattle1[i] = new PokeInBattleInfo(sc.getUsername(),
+                    PokemonFactory.getPokeIcon(pokeName), MoveUtil.START_POSITIONS_T1[i]);
+        }
+        for(int i=0; i<pokeInBattle2.length; i++) {
+            SocketCommunicator sc = t2.get(i);
+            String pokeName = sc.getPlayer().getSelectedPoke().getName();
+            pokeInBattle2[i] = new PokeInBattleInfo(sc.getUsername(),
+                    PokemonFactory.getPokeIcon(pokeName), MoveUtil.START_POSITIONS_T2[i]);
+        }
+    }
+
+    public PokeInBattleInfo getPokeInBattle(String owner) {
+        for(PokeInBattleInfo p : pokeInBattle1) {
+            if(p.getOwner().equals(owner)) {
+                return p;
+            }
+        }
+        for(PokeInBattleInfo p : pokeInBattle2) {
+            if(p.getOwner().equals(owner)) {
+                return p;
+            }
+        }
+        return null;
+    }
+
     public void close() {
         chatServer.stopThread();
     }
@@ -236,5 +311,21 @@ public class Room {
 
     public int getChatServerPort() {
         return chatServerPort;
+    }
+
+    public int getCurrentTurn() {
+        return currentTurn;
+    }
+
+    public SocketCommunicator getCurrentPlayer() {
+        return orderOfPlayers.get(currentTurn);
+    }
+
+    public PokeInBattleInfo[] getPokeInBattle1() {
+        return pokeInBattle1;
+    }
+
+    public PokeInBattleInfo[] getPokeInBattle2() {
+        return pokeInBattle2;
     }
 }

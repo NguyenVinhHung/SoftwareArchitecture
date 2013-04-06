@@ -5,17 +5,13 @@
 package view.map;
 
 import model.pokemon.PokeInBattleInfo;
-import server.Server;
-import server.SocketCommunicator;
 import utility.FileUtility;
 import view.smallview.PokeInBattleView;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.net.Socket;
 
 /**
  *
@@ -28,14 +24,20 @@ public class GameMap {
     public static final int NUM_ROWS = 9;
     public static final int NUM_COLS = 11;
 
-    private PokeInBattleInfo[] pokeModels;
-    private PokeInBattleView[] pokeViews;
+    private PokeInBattleInfo[] pokeModels1;
+    private PokeInBattleInfo[] pokeModels2;
+    private PokeInBattleView[] pokeViews1;
+    private PokeInBattleView[] pokeViews2;
     private JPanel[][] tilePanels;
+    private PokeInBattleInfo myPoke;
+    private MatchPanel parent;
     private int[][] mapArrays;
     private int selectedX = -MapUtil.TILE_SIZE;
     private int selectedY = -MapUtil.TILE_SIZE;
+    private boolean isMyTurn;
     
     public GameMap(final MatchPanel parent, int[][] mapArrs) {
+        this.parent = parent;
         mapArrays = mapArrs;
         tilePanels = new JPanel[mapArrs.length][mapArrs[0].length];
 
@@ -51,6 +53,10 @@ public class GameMap {
                 tilePanels[i][j].addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseReleased(MouseEvent e) {
+                        if(!isMyTurn) {
+                            return;
+                        }
+
                         selectedX = tX;
                         selectedY = tY;
                         parent.repaint();
@@ -92,6 +98,10 @@ public class GameMap {
 //            y += MapUtil.TILE_SIZE;
 //        }
 
+        if(isMyTurn) {
+
+        }
+
         // Draw selected tile
         if(selectedX >= 0) {
             g.drawImage(MapUtil.SELECTED_TILE,
@@ -113,4 +123,49 @@ public class GameMap {
 //
 //        }
 //    }
+
+
+    public boolean isMyTurn() {
+        return isMyTurn;
+    }
+
+    public void setMyTurn(boolean myTurn) {
+        isMyTurn = myTurn;
+    }
+
+    public PokeInBattleInfo[] getPokeModels1() {
+        return pokeModels1;
+    }
+
+    public void setPokeModels1(PokeInBattleInfo[] pokeModels1) {
+        this.pokeModels1 = pokeModels1;
+        pokeViews1 = new PokeInBattleView[pokeModels1.length];
+
+        for(int i=0; i<pokeModels1.length; i++) {
+            pokeViews1[i] = new PokeInBattleView(pokeModels1[i]);
+        }
+        parent.repaint();
+    }
+
+    public PokeInBattleInfo[] getPokeModels2() {
+        return pokeModels2;
+    }
+
+    public void setPokeModels2(PokeInBattleInfo[] pokeModels2) {
+        this.pokeModels2 = pokeModels2;
+        pokeViews2 = new PokeInBattleView[pokeModels2.length];
+
+        for(int i=0; i<pokeModels2.length; i++) {
+            pokeViews2[i] = new PokeInBattleView(pokeModels2[i]);
+        }
+        parent.repaint();
+    }
+
+    public PokeInBattleInfo getMyPoke() {
+        return myPoke;
+    }
+
+    public void setMyPoke(PokeInBattleInfo myPoke) {
+        this.myPoke = myPoke;
+    }
 }

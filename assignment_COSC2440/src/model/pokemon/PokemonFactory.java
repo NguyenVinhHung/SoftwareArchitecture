@@ -78,4 +78,16 @@ public class PokemonFactory {
         }
         return null;
     }
+
+    public static Image getPokeIcon(String pokeName) {
+//        System.out.println("Update avatar of SelectedPokeView");
+        if(pokeName.equals(CHARIZARD)) {
+            return FileUtility.CHARIZARD_ICON;
+        } else if(pokeName.equals(BLASTOISE)) {
+            return FileUtility.BLASTOISE_ICON;
+        } else if(pokeName.equals(VENUSAUR)) {
+            return FileUtility.VENUSAUR_ICON;
+        }
+        return null;
+    }
 }

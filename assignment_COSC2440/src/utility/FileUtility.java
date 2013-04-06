@@ -63,14 +63,17 @@ public class FileUtility {
     public static final String CHARIZARD_IMG_URL = POKE_IMAGES_URL + "006.gif";
     public static final String BLASTOISE_IMG_URL = POKE_IMAGES_URL + "009.gif";
     public static final String VENUSAUR_IMG_URL = POKE_IMAGES_URL + "003.gif";
+    public static final String CHARIZARD_ICON_URL = POKE_IMAGES_URL + "6.gif";
+    public static final String BLASTOISE_ICON_URL = POKE_IMAGES_URL + "9.gif";
+    public static final String VENUSAUR_ICON_URL = POKE_IMAGES_URL + "3.gif";
 
     public static final Image CHARIZARD_IMG = new ImageIcon(CHARIZARD_IMG_URL).getImage();
     public static final Image BLASTOISE_IMG = new ImageIcon(BLASTOISE_IMG_URL).getImage();
     public static final Image VENUSAUR_IMG = new ImageIcon(VENUSAUR_IMG_URL).getImage();
 
-    public static final Image CHARIZARD_ICON = new ImageIcon(CHARIZARD_IMG_URL).getImage();
-    public static final Image BLASTOISE_ICON = new ImageIcon(BLASTOISE_IMG_URL).getImage();
-    public static final Image VENUSAUR_ICON = new ImageIcon(VENUSAUR_IMG_URL).getImage();
+    public static final Image CHARIZARD_ICON = new ImageIcon(CHARIZARD_ICON_URL).getImage();
+    public static final Image BLASTOISE_ICON = new ImageIcon(BLASTOISE_ICON_URL).getImage();
+    public static final Image VENUSAUR_ICON = new ImageIcon(VENUSAUR_ICON_URL).getImage();
 
     public static final String POKE_AVAR_URL = IMAGE_URL + "/poke_avatar/";
     public static final String CHARIZARD_AVAR_URL = POKE_AVAR_URL + "charizard.png";
