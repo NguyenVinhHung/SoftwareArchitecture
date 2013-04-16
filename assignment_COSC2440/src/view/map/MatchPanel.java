@@ -4,16 +4,19 @@
  */
 package view.map;
 
-import chathandler.ChatListenerThread;
-import chathandler.ChatServices;
+import server.Server;
+import server.chathandler.ChatListenerThread;
+import server.chathandler.ChatServices;
 import main.Main;
-import model.pokemon.PokeInBattleInfo;
-import server.Services;
 import server.SocketCommunicator;
 
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 import javax.swing.*;
 
 /**
@@ -36,6 +39,7 @@ public class MatchPanel extends JPanel implements KeyListener {
     private JTextArea chatTyper;
     //    private Socket chatSocket;
     private SocketCommunicator chatCommunicator;
+    private SocketCommunicator battleCommunicator;
     private String hostName;
     private boolean isTeam1;
     
@@ -95,6 +99,25 @@ public class MatchPanel extends JPanel implements KeyListener {
 
         add(chatBox);
         add(chatTyper);
+    }
+
+    private void initBattleSocket() {
+//        try {
+//            Socket chatSocket = new Socket(Server.IP, roomInfo.getChatServerPort());
+//            ObjectOutputStream objectOutputStream = new ObjectOutputStream(chatSocket.getOutputStream());
+//            ObjectInputStream objectInputStream = new ObjectInputStream(chatSocket.getInputStream());
+//            battleCommunicator = new SocketCommunicator(chatSocket, objectOutputStream, objectInputStream, null);
+//
+////            objectOutputStream.write(new Integer(ChatServices.JOIN_TEAM_1));
+//            objectOutputStream.writeInt((isTeam1) ? ChatServices.JOIN_TEAM_1 : ChatServices.JOIN_TEAM_2);
+//            objectOutputStream.flush();
+//
+//            chatListenerThread = new ChatListenerThread(chatCommunicator, globalChat);
+//            chatListenerThread.start();
+//
+//        } catch (IOException e) {
+//            System.out.println("Cannot create chat socket");
+//        }
     }
 
     @Override

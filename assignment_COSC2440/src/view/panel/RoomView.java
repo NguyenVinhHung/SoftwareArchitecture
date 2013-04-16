@@ -1,7 +1,7 @@
 package view.panel;
 
-import chathandler.ChatListenerThread;
-import chathandler.ChatServices;
+import server.chathandler.ChatListenerThread;
+import server.chathandler.ChatServices;
 import main.Main;
 import model.pokemon.Pokemon;
 import model.pokemon.PokemonFactory;

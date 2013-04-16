@@ -23,7 +23,7 @@ public class ServerThread implements Runnable {
 
     private SocketCommunicator communicator;
     private Socket socket;
-    private Player player;
+//    private Player player;
     private Room currRoom;
 
     public ServerThread(Socket s) {
@@ -183,7 +183,8 @@ public class ServerThread implements Runnable {
 
         for(int i=0; i<rooms.size(); i++) {
             int type = rooms.get(i).getNumPlayersPerTeam();
-            RoomPublicInfo rpi = new RoomPublicInfo("Room " + (i+1), type, rooms.get(i).getHostName(), 0);
+            RoomPublicInfo rpi = new RoomPublicInfo("Room " + (i+1), type,
+                                                    rooms.get(i).getHostName(), 0, Services.INVALID);
             roomInfos.add(rpi);
         }
 
@@ -196,7 +197,7 @@ public class ServerThread implements Runnable {
         int type = (Integer)input.readObject();
         Room r = new Room(communicator, type);
         String hostname = opl.addRoom(r);
-        RoomPublicInfo rpi = new RoomPublicInfo("", type, r.getHostName(), r.getChatServerPort());
+        RoomPublicInfo rpi = new RoomPublicInfo("", type, r.getHostName(), r.getChatServerPort(), Services.INVALID);
 
         communicator.write(rpi);
         communicator.flushOutput();
@@ -221,7 +222,8 @@ public class ServerThread implements Runnable {
         } else {
             opl.getWaitingPlayers().remove(communicator);
             communicator.write(new Integer(Services.GET_IN_ROOM_SUCCESS));
-            communicator.write(new RoomPublicInfo("Room #", r.getNumPlayersPerTeam(), r.getHostName(), r.getChatServerPort()));
+            communicator.write(new RoomPublicInfo("Room #", r.getNumPlayersPerTeam(), r.getHostName(),
+                                                    r.getChatServerPort(), Services.INVALID));
             communicator.write(new Integer(result));
             communicator.flushOutput();
         }
@@ -249,6 +251,7 @@ public class ServerThread implements Runnable {
         System.out.println("startBattle get room");
 
         r.setState(Room.PLAYING_STATE);
+        r.startBattle();
         communicator.write(new Integer(Services.BATTLE_START));
         communicator.flushOutput();
 

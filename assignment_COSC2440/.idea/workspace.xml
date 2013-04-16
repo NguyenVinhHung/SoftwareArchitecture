@@ -24,15 +24,15 @@
     <file path="/MapUtil.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1365164460139" ignored="false" />
     <file path="/Pokemon.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1365000492835" ignored="false" />
     <file path="/Skill.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1363869845119" ignored="false" />
-    <file path="/Server.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1365145163470" ignored="false" />
-    <file path="/ServerThread.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1365178128487" ignored="false" />
+    <file path="/Server.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1366095785047" ignored="false" />
+    <file path="/ServerThread.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1366103003695" ignored="false" />
     <file path="/beans.xml" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1364551922012" ignored="false" />
     <file path="/client_beans.xml" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1364751013535" ignored="false" />
     <file path="/GameMap.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1365178442313" ignored="false" />
-    <file path="/MatchPanel.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1365178351444" ignored="false" />
-    <file path="/SocketCommunicator.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1365048692801" ignored="false" />
+    <file path="/MatchPanel.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1366100843895" ignored="false" />
+    <file path="/SocketCommunicator.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1366097543448" ignored="false" />
     <file path="/Session.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1364611225550" ignored="false" />
-    <file path="/Room.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1365177846983" ignored="false" />
+    <file path="/Room.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1366100666468" ignored="false" />
     <file path="/SaveLoadUtil.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1364618744765" ignored="false" />
     <file path="/LoginView.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1365131283838" ignored="false" />
     <file path="/RegisterView.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1364700210980" ignored="false" />
@@ -40,7 +40,7 @@
     <file path="/SpringUtil.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1364698441066" ignored="false" />
     <file path="/RawButton.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1364642256337" ignored="false" />
     <file path="/InteractiveView.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1364725500523" ignored="false" />
-    <file path="/Services.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1365177442705" ignored="false" />
+    <file path="/Services.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1366097529560" ignored="false" />
     <file path="/DatabaseUtil.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1364649521031" ignored="false" />
     <file path="/Player.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1365133772950" ignored="false" />
     <file path="/AlertPopup.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1364700242292" ignored="false" />
@@ -52,7 +52,7 @@
     <file path="/ImageButton.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1364724439458" ignored="false" />
     <file path="/RoomSelectorView.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1365152631371" ignored="false" />
     <file path="/GameStartView.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1364980098075" ignored="false" />
-    <file path="/RoomPublicInfo.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1365045866065" ignored="false" />
+    <file path="/RoomPublicInfo.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1366100292391" ignored="false" />
     <file path="/CreateRoomView.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1365046953928" ignored="false" />
     <file path="/AfterLoginTemplate.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1364751043504" ignored="false" />
     <file path="/RoomView.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1365176353423" ignored="false" />
@@ -74,6 +74,8 @@
     <file path="/PokeInBattleView.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1365177417990" ignored="false" />
     <file path="/Move.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1365174582133" ignored="false" />
     <file path="/MoveUtil.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1365176639503" ignored="false" />
+    <file path="/BattleThread.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1366097740717" ignored="false" />
+    <file path="/BattleServer.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1366100695112" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,6 +91,7 @@
   </component>
   <component name="DebuggerManager">
     <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true" />
+    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
       <breakpoint>
         <option name="NOTIFY_CAUGHT" value="true" />
@@ -125,7 +128,6 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
-    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -140,98 +142,72 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="MoveUtil.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/utility/MoveUtil.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="90" selection-start="636" selection-end="636" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#753#759#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MatchPanel.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/view/map/MatchPanel.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="64" column="57" selection-start="2118" selection-end="2118" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GameMap.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/view/map/GameMap.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="157" column="60" selection-start="4543" selection-end="4543" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PokeInBattleView.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/view/smallview/PokeInBattleView.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="63" selection-start="478" selection-end="478" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ServerThread.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/server/ServerThread.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="85" column="67" selection-start="2661" selection-end="2661" vertical-scroll-proportion="0.37996545">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="OnlinePlayerList.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/server/OnlinePlayerList.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="103" column="24" selection-start="3245" selection-end="3245" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Services.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/server/Services.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="42" column="49" selection-start="1459" selection-end="1480" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Room.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/server/Room.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="257" column="21" selection-start="8804" selection-end="8805" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="e#6135#6155#0" expanded="true" />
-                <element signature="e#6471#6491#0" expanded="true" />
-                <element signature="e#6565#6585#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PokeInBattleInfo.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/model/pokemon/PokeInBattleInfo.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="58" selection-start="366" selection-end="366" vertical-scroll-proportion="0.0">
+            <state line="278" column="59" selection-start="9453" selection-end="9453" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Move.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/utility/Move.java">
+      <file leaf-file-name="MatchPanel.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/view/map/MatchPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="13" selection-start="191" selection-end="191" vertical-scroll-proportion="0.0">
+            <state line="105" column="60" selection-start="3339" selection-end="3339" vertical-scroll-proportion="0.41112456">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RoomView.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/view/panel/RoomView.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="103" column="9" selection-start="2845" selection-end="3810" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RoomPublicInfo.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/model/room/RoomPublicInfo.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="28" column="52" selection-start="910" selection-end="910" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BattleServer.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/server/battlehandler/BattleServer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="28" column="25" selection-start="754" selection-end="754" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#501#515#0" expanded="true" />
+                <element signature="e#583#597#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BattleThread.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/server/battlehandler/BattleThread.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="40" column="23" selection-start="933" selection-end="933" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ServerThread.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/server/ServerThread.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="199" column="114" selection-start="6921" selection-end="6921" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -247,21 +223,21 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/chathandler/ChatServerThread.java" />
-        <option value="$PROJECT_DIR$/src/chathandler/ChatServer.java" />
-        <option value="$PROJECT_DIR$/src/server/OnlinePlayerList.java" />
-        <option value="$PROJECT_DIR$/src/utility/Move.java" />
-        <option value="$PROJECT_DIR$/src/utility/FileUtility.java" />
-        <option value="$PROJECT_DIR$/src/model/pokemon/PokemonFactory.java" />
         <option value="$PROJECT_DIR$/src/view/panel/RoomView.java" />
         <option value="$PROJECT_DIR$/src/view/map/MapUtil.java" />
         <option value="$PROJECT_DIR$/src/utility/MoveUtil.java" />
         <option value="$PROJECT_DIR$/src/view/smallview/PokeInBattleView.java" />
-        <option value="$PROJECT_DIR$/src/server/Services.java" />
         <option value="$PROJECT_DIR$/src/model/pokemon/PokeInBattleInfo.java" />
-        <option value="$PROJECT_DIR$/src/server/ServerThread.java" />
         <option value="$PROJECT_DIR$/src/view/map/GameMap.java" />
+        <option value="$PROJECT_DIR$/src/server/Server.java" />
+        <option value="$PROJECT_DIR$/src/server/chathandler/ChatServer.java" />
+        <option value="$PROJECT_DIR$/src/server/Services.java" />
+        <option value="$PROJECT_DIR$/src/server/SocketCommunicator.java" />
+        <option value="$PROJECT_DIR$/src/server/battlehandler/BattleThread.java" />
+        <option value="$PROJECT_DIR$/src/server/battlehandler/BattleServer.java" />
         <option value="$PROJECT_DIR$/src/server/Room.java" />
+        <option value="$PROJECT_DIR$/src/model/room/RoomPublicInfo.java" />
+        <option value="$PROJECT_DIR$/src/server/ServerThread.java" />
         <option value="$PROJECT_DIR$/src/view/map/MatchPanel.java" />
       </list>
     </option>
@@ -269,8 +245,8 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1382" />
-    <option name="height" value="784" />
+    <option name="width" value="1296" />
+    <option name="height" value="1010" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -298,8 +274,8 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -492,6 +468,50 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="server" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="chathandler" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assignment_COSC2440" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assignment_COSC2440" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="server" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="battlehandler" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assignment_COSC2440" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assignment_COSC2440" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="model" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -558,31 +578,13 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="assignment_COSC2440" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="assignment_COSC2440" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="chathandler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="GoToFile.includeJavaFiles" value="false" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="OverrideImplement.combined" value="false" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="options.splitter.main.proportions" value="0.3" />
@@ -593,12 +595,12 @@
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
-    <property name="FullScreen" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
+    <property name="FullScreen" value="false" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="options.searchVisible" value="true" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="dynamic.classpath" value="false" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -728,28 +730,28 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
+    <frame x="-8" y="-8" width="1296" height="1010" extended-state="6" />
     <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290735" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.43769968" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30128956" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24959481" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39616615" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32473624" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290735" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.20502432" sideWeight="0.41735053" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20454545" sideWeight="0.6134185" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20502432" sideWeight="0.58264947" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.38658148" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32473624" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -819,123 +821,124 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/model/pokemon/Pokemon.java">
+    <entry file="file://$PROJECT_DIR$/src/view/panel/SelectPokeRoomPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="13" selection-start="103" selection-end="103" vertical-scroll-proportion="0.16873449">
+        <state line="13" column="13" selection-start="223" selection-end="223" vertical-scroll-proportion="0.18500605">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/room/RoomPublicInfo.java">
+    <entry file="file://$PROJECT_DIR$/src/model/pokemon/PokeInBattleInfo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="76" selection-start="238" selection-end="335" vertical-scroll-proportion="0.27419356">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/panel/RoomView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="273" column="85" selection-start="9390" selection-end="9390" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/utility/FileUtility.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="82" column="30" selection-start="4226" selection-end="4226" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/map/MapUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="96" column="9" selection-start="4006" selection-end="4006" vertical-scroll-proportion="0.0">
+        <state line="16" column="58" selection-start="366" selection-end="366" vertical-scroll-proportion="0.02982456">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/utility/Move.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="13" selection-start="191" selection-end="191" vertical-scroll-proportion="0.0">
+        <state line="9" column="32" selection-start="197" selection-end="197" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/server/chathandler/ChatServerSpring.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="13" selection-start="330" selection-end="330" vertical-scroll-proportion="0.32807016">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/server/Server.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="36" column="16" selection-start="940" selection-end="944" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="e#635#644#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/server/chathandler/ChatServer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="45" column="21" selection-start="1304" selection-end="1304" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/server/SocketCommunicator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="85" column="35" selection-start="2312" selection-end="2312" vertical-scroll-proportion="0.3300248">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/server/Services.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="49" selection-start="1459" selection-end="1480" vertical-scroll-proportion="0.0">
+        <state line="9" column="13" selection-start="190" selection-end="190" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/pokemon/PokemonFactory.java">
+    <entry file="file://$PROJECT_DIR$/src/server/battlehandler/BattleThread.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="33" selection-start="161" selection-end="161" vertical-scroll-proportion="0.14680484">
-          <folding />
+        <state line="40" column="23" selection-start="933" selection-end="933" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/utility/MoveUtil.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="23" column="90" selection-start="636" selection-end="636" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/server/battlehandler/BattleServer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="25" selection-start="754" selection-end="754" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#753#759#0" expanded="true" />
+            <element signature="e#501#515#0" expanded="true" />
+            <element signature="e#583#597#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/server/OnlinePlayerList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="103" column="24" selection-start="3245" selection-end="3245" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/smallview/PokeInBattleView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="63" selection-start="478" selection-end="478" vertical-scroll-proportion="0.0">
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/server/Room.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="257" column="21" selection-start="8804" selection-end="8805" vertical-scroll-proportion="0.0">
+        <state line="278" column="59" selection-start="9453" selection-end="9453" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/panel/RoomView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="103" column="9" selection-start="2845" selection-end="3810" vertical-scroll-proportion="0.0">
           <folding>
-            <element signature="e#6135#6155#0" expanded="true" />
-            <element signature="e#6471#6491#0" expanded="true" />
-            <element signature="e#6565#6585#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/pokemon/PokeInBattleInfo.java">
+    <entry file="file://$PROJECT_DIR$/src/model/room/RoomPublicInfo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="58" selection-start="366" selection-end="366" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/map/GameMap.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="157" column="60" selection-start="4543" selection-end="4543" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/map/MatchPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="64" column="57" selection-start="2118" selection-end="2118" vertical-scroll-proportion="0.0">
+        <state line="28" column="52" selection-start="910" selection-end="910" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/server/ServerThread.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="85" column="67" selection-start="2661" selection-end="2661" vertical-scroll-proportion="0.37996545">
+        <state line="199" column="114" selection-start="6921" selection-end="6921" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/map/MatchPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="105" column="60" selection-start="3339" selection-end="3339" vertical-scroll-proportion="0.41112456">
           <folding />
         </state>
       </provider>
@@ -997,7 +1000,6 @@
             <option name="proportions">
               <list>
                 <option value="0.2" />
-                <option value="0.5" />
               </list>
             </option>
           </splitter-proportions>

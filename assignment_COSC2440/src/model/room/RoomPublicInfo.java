@@ -18,13 +18,15 @@ public class RoomPublicInfo implements Serializable {
     private String hostname;
     private int playersPerTeam;
     private int chatServerPort;
+    private int battleServerPort;
     
-    public RoomPublicInfo(String roomNo, int playersPerTeam, String hostname, int chatServerPort) {
+    public RoomPublicInfo(String roomNo, int playersPerTeam, String hostname, int chatServerPort, int battleServerPort) {
         this.roomNo = roomNo;
         this.type = playersPerTeam + " Vs " + playersPerTeam;
         this.hostname = hostname;
         this.playersPerTeam = playersPerTeam;
         this.chatServerPort = chatServerPort;
+        this.battleServerPort = battleServerPort;
     }
 
     public String getRoomNo() {
@@ -52,7 +54,11 @@ public class RoomPublicInfo implements Serializable {
         return chatServerPort;
 }
 
-    public void setChatServerPort(int chatServerPort) {
-        this.chatServerPort = chatServerPort;
+//    public void setChatServerPort(int chatServerPort) {
+//        this.chatServerPort = chatServerPort;
+//    }
+
+    public int getBattleServerPort() {
+        return battleServerPort;
     }
 }

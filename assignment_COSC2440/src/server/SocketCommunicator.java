@@ -61,9 +61,14 @@ public class SocketCommunicator {
         } catch(IOException ex) {
             System.out.println("EXCEPTION IN WRITING OBJECT IOException");
         }
-//        } catch(Exception ex) {
-//            System.out.println("EXCEPTION IN WRITING OBJECT");
-//        }
+    }
+
+    public void writeString(String s) {
+        try {
+            to.writeUTF(s);
+        } catch(Exception ex) {
+            System.out.println("EXCEPTION IN WRITING String");
+        }
     }
 
     public void flushOutput() {
@@ -74,9 +79,25 @@ public class SocketCommunicator {
         }
     }
 
+    public int readInt() {
+        try {
+            return from.readInt();
+        } catch(Exception ex) {
+            return Services.INVALID;
+        }
+    }
+
     public Object read() {
         try {
             return from.readObject();
+        } catch(Exception ex) {
+            return null;
+        }
+    }
+
+    public String readString() {
+        try {
+            return from.readUTF();
         } catch(Exception ex) {
             return null;
         }

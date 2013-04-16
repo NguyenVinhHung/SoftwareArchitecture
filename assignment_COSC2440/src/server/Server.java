@@ -22,7 +22,7 @@ public class Server extends JFrame {
 
     public static final String IP = "localhost";
     public static final int PORT_NUM = 16453;
-    public static final Set<Integer> PORT_CHAT_SERVER = new LinkedHashSet<Integer>();
+    public static final Set<Integer> USING_PORT = new LinkedHashSet<Integer>();
 
     private ServerSocket serverSocket;
     private JTextArea log;
@@ -33,7 +33,7 @@ public class Server extends JFrame {
         server.runServer();
     }
 
-    public static void getPortForChatServer() {
+    public static int makeNewPort() {
         int port = 0;
         Random random = new Random();
         boolean isValid = false;
@@ -42,13 +42,14 @@ public class Server extends JFrame {
             while (port < 1024) {
                 port = random.nextInt(65536);
             }
-            if (PORT_CHAT_SERVER.add(port)) {
+            if (USING_PORT.add(port)) {
                 isValid = true;
             } else {
                 isValid = false;
             }
         }
 
+        return port;
     }
 
     private void init() {

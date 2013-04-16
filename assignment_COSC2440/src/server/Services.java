@@ -9,6 +9,8 @@ package server;
  */
 public class Services {
 
+    public static final int INVALID = -100;
+
     public static final int REGISTER = 0;
     public static final int LOGIN = 1;
     public static final int ROOM_LIST = 2;

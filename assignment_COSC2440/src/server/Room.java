@@ -1,6 +1,7 @@
 package server;
 
-import chathandler.ChatServer;
+import server.battlehandler.BattleServer;
+import server.chathandler.ChatServer;
 import model.Player;
 import model.pokemon.PokeInBattleInfo;
 import model.pokemon.PokemonFactory;
@@ -34,6 +35,9 @@ public class Room {
     private ChatServer chatServer;
     private int chatServerPort;
 
+    private BattleServer battleServer;
+    private int battleServerPort;
+
     private Map<String, SocketCommunicator> team1;
     private Map<String, SocketCommunicator> team2;
     private ArrayList<SocketCommunicator> orderOfPlayers;
@@ -52,8 +56,9 @@ public class Room {
         
         team1.put(hostName, host);
         ///////////////////////
-        Server.getPortForChatServer();
-        chatServerPort = (Integer) Server.PORT_CHAT_SERVER.toArray()[Server.PORT_CHAT_SERVER.size() - 1];
+//        Server.makeNewPort();
+//        chatServerPort = (Integer) Server.USING_PORT.toArray()[Server.USING_PORT.size() - 1];
+        chatServerPort = Server.makeNewPort();
         chatServer = new ChatServer(chatServerPort);
         chatServer.start();
         ///////////////////////
@@ -267,6 +272,11 @@ public class Room {
             }
         }
         return null;
+    }
+
+    public void startBattle() {
+        battleServerPort = Server.makeNewPort();
+        battleServer = new BattleServer(battleServerPort);
     }
 
     public void close() {
