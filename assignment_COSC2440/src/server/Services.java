@@ -16,7 +16,10 @@ public class Services {
     public static final int ROOM_LIST = 2;
     public static final int CREATE_ROOM = 3;
     public static final int NOTIFY = 4;
+
     public static final int LOGOUT = 10;
+    public static final int LOGOUT_SUCCESS = 11;
+    public static final int LOGOUT_FAILED = 12;
 
     public static final int REGISTER_SUCCESS = 20;
     public static final int REGISTER_FAILED = 21;
@@ -32,8 +35,9 @@ public class Services {
     public static final int GET_IN_ROOM_T1 = 43;
     public static final int GET_IN_ROOM_T2 = 44;
 
-    public static final int IN_ROOM_GET_SELECTED_POK = 50;
+    public static final int IN_ROOM_NOTIFY_SELECTED_POK = 50;
     public static final int IN_ROOM_GET_POK_LIST = 51;
+    public static final int IN_ROOM_STOP_WAITING = 52;
 
 //    public static final int CLIENT_SEND_MESS = 60;
 

@@ -10,6 +10,7 @@ import model.room.RoomPublicInfo;
 import server.Server;
 import server.Services;
 import server.SocketCommunicator;
+import server.waitingroomhandler.WaitingRoomListenerThread;
 import utility.FileUtility;
 import view.customview.ImageButton;
 import view.map.MapUtil;
@@ -35,7 +36,7 @@ import java.util.LinkedHashMap;
  * Time: 7:51 AM
  * To change this template use File | Settings | File Templates.
  */
-public class RoomView extends AfterLoginTemplate implements KeyListener {
+public class RoomView extends AfterLoginTemplate implements KeyListener, SocketClosable {
 
     private static final int LEFT_COL_X = 0;
     private static final int RIGHT_COL_X = 812;
@@ -56,9 +57,14 @@ public class RoomView extends AfterLoginTemplate implements KeyListener {
     private JTextArea teamChat;
     private JTextArea chatTyper;
     //    private Socket chatSocket;
-    private SocketCommunicator chatCommunicator;
     private RoomPublicInfo roomInfo;
+
+    private SocketCommunicator chatCommunicator;
     private ChatListenerThread chatListenerThread;
+
+    private SocketCommunicator waitingRoomCommunicator;
+    private WaitingRoomListenerThread waitingRoomListenerThread;
+
     private boolean waiting = true;
     private boolean isTeam1;
 //    private int roomIdx;
@@ -103,29 +109,29 @@ public class RoomView extends AfterLoginTemplate implements KeyListener {
             System.out.println("Cannot create chat socket");
         }
 
-        new Thread() {
-            @Override
-            public void run() {
-                while (waiting) {
-                    try {
-                        Thread.sleep(7000);
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
-
-                    if(checkBattleStart()) {
-                        toMatchPanel();
-                        break;
-                    }
-
-//                    processWaitingState(sc);
-//                    System.out.println("THREAD FOR UPDATE SELECTED POKEMON LIST");
-                    g1.clear();
-                    g2.clear();
-                    initSelectedPokeView();
-                }
-            }
-        }.start();
+//        new Thread() {
+//            @Override
+//            public void run() {
+//                while (waiting) {
+//                    try {
+//                        Thread.sleep(7000);
+//                    } catch (Exception ex) {
+//                        ex.printStackTrace();
+//                    }
+//
+//                    if(checkBattleStart()) {
+//                        toMatchPanel();
+//                        break;
+//                    }
+//
+////                    processWaitingState(sc);
+////                    System.out.println("THREAD FOR UPDATE SELECTED POKEMON LIST");
+//                    g1.clear();
+//                    g2.clear();
+//                    initSelectedPokeView();
+//                }
+//            }
+//        }.start();
     }
 
     private void initCreateBtn(final SocketCommunicator sc) {
@@ -206,12 +212,25 @@ public class RoomView extends AfterLoginTemplate implements KeyListener {
         g2 = new ArrayList<SelectedPokeView>();
         SocketCommunicator sc = Main.getCommunicator();
 
-        sc.sendRequestHeader(Services.IN_ROOM_GET_SELECTED_POK);
+        sc.sendRequestHeader(Services.IN_ROOM_NOTIFY_SELECTED_POK);
         sc.write(roomInfo.getHostname());
         sc.flushOutput();
 
         SelectedPokeInfo[] t1 = (SelectedPokeInfo[]) sc.read();
         SelectedPokeInfo[] t2 = (SelectedPokeInfo[]) sc.read();
+
+        for (int i = 0, y = BG_Y + 1; i < roomInfo.getPlayersPerTeam(); i++) {
+            g1.add(new SelectedPokeView(t1[i], LEFT_COL_X, y));
+            g2.add(new SelectedPokeView(t2[i], RIGHT_COL_X, y));
+            y += SelectedPokeView.SPV_HEIGHT;
+        }
+
+        repaint();
+    }
+
+    private void reinitSelectedPokeView(SelectedPokeInfo[] t1, SelectedPokeInfo[] t2) {
+        g1.clear();
+        g2.clear();
 
         for (int i = 0, y = BG_Y + 1; i < roomInfo.getPlayersPerTeam(); i++) {
             g1.add(new SelectedPokeView(t1[i], LEFT_COL_X, y));
@@ -263,7 +282,12 @@ public class RoomView extends AfterLoginTemplate implements KeyListener {
 
         System.out.println("checkBattleStart request sent");
 
-        return (Integer)sc.read() == Services.BATTLE_START;
+        try {
+            boolean result = (Integer)sc.read() == Services.BATTLE_START;
+            return result;
+        } catch(Exception ex) {
+            return false;
+        }
     }
 
     private void toMatchPanel() {
@@ -275,54 +299,54 @@ public class RoomView extends AfterLoginTemplate implements KeyListener {
         System.out.println("toMatchPanel end");
     }
 
-    private void processWaitingState(SocketCommunicator sc) {
-//        int response = (Integer)sc.read();
-        System.out.println(sc.getUsername() + " ROOM waiiting for response");
-        try {
-            switch ((Integer) sc.read()) {
-                case Services.GET_IN_ROOM_T1: {
-                    System.out.println("Update selected pokemon team 1");
-                    reinitSelectedPokeView(sc, true);
-                    break;
-                }
-                case Services.GET_IN_ROOM_T2: {
-                    System.out.println("Update selected pokemon team 2");
-                    reinitSelectedPokeView(sc, false);
-                    break;
-                }
-                default: {
-                    System.out.println("Problem in notification");
-                }
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+//    private void processWaitingState(SocketCommunicator sc) {
+////        int response = (Integer)sc.read();
+//        System.out.println(sc.getUsername() + " ROOM waiiting for response");
+//        try {
+//            switch ((Integer) sc.read()) {
+//                case Services.GET_IN_ROOM_T1: {
+//                    System.out.println("Update selected pokemon team 1");
+//                    reinitSelectedPokeView(sc, true);
+//                    break;
+//                }
+//                case Services.GET_IN_ROOM_T2: {
+//                    System.out.println("Update selected pokemon team 2");
+//                    reinitSelectedPokeView(sc, false);
+//                    break;
+//                }
+//                default: {
+//                    System.out.println("Problem in notification");
+//                }
+//            }
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//        }
+//
+//        repaint();
+//    }
 
-        repaint();
-    }
-
-    private void reinitSelectedPokeView(SocketCommunicator sc, boolean isTeam1) {
-        ArrayList<SelectedPokeView> g = (isTeam1) ? g1 : g2;
-        g.clear();
-
-        sc.sendRequestHeader(Services.IN_ROOM_GET_SELECTED_POK);
-        sc.write(roomInfo.getHostname());
-        sc.flushOutput();
-
-        System.out.println("Update selected pokemon read pokemon array");
-        SelectedPokeInfo[] t1 = (SelectedPokeInfo[]) sc.read();
-        SelectedPokeInfo[] t2 = (SelectedPokeInfo[]) sc.read();
-        SelectedPokeInfo[] t = (isTeam1) ? t1 : t2;
-
-        int colX = (isTeam1) ? LEFT_COL_X : RIGHT_COL_X;
-
-        for (int i = 0, y = BG_Y + 1; i < roomInfo.getPlayersPerTeam(); i++) {
-            g.add(new SelectedPokeView(t[i], colX, y));
-            y += SelectedPokeView.SPV_HEIGHT;
-        }
-
-        repaint();
-    }
+//    private void reinitSelectedPokeView(SocketCommunicator sc, boolean isTeam1) {
+//        ArrayList<SelectedPokeView> g = (isTeam1) ? g1 : g2;
+//        g.clear();
+//
+//        sc.sendRequestHeader(Services.IN_ROOM_NOTIFY_SELECTED_POK);
+//        sc.write(roomInfo.getHostname());
+//        sc.flushOutput();
+//
+//        System.out.println("Update selected pokemon read pokemon array");
+//        SelectedPokeInfo[] t1 = (SelectedPokeInfo[]) sc.read();
+//        SelectedPokeInfo[] t2 = (SelectedPokeInfo[]) sc.read();
+//        SelectedPokeInfo[] t = (isTeam1) ? t1 : t2;
+//
+//        int colX = (isTeam1) ? LEFT_COL_X : RIGHT_COL_X;
+//
+//        for (int i = 0, y = BG_Y + 1; i < roomInfo.getPlayersPerTeam(); i++) {
+//            g.add(new SelectedPokeView(t[i], colX, y));
+//            y += SelectedPokeView.SPV_HEIGHT;
+//        }
+//
+//        repaint();
+//    }
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -340,5 +364,10 @@ public class RoomView extends AfterLoginTemplate implements KeyListener {
             chatCommunicator.flushOutput();
             chatTyper.setText("");
         }
+    }
+
+    @Override
+    public void closeSocket() {
+        chatCommunicator.close();
     }
 }

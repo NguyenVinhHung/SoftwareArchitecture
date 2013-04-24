@@ -28,7 +28,7 @@ public class BattleThread implements Runnable {
         try {
             int service;
 
-            while (true) {
+            while (!communicator.isClosed()) {
                 service = communicator.readInt();
 
                 switch (service) {
@@ -50,5 +50,9 @@ public class BattleThread implements Runnable {
             ex.printStackTrace();
             return;
         }
+    }
+
+    public void stopThread() {
+        communicator.close();
     }
 }

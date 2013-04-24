@@ -26,17 +26,42 @@ public class OnlinePlayerList {
         System.out.println("Player " + sc.getUsername() + " login successfully");
     }
 
-    public void logoutPlayer(SocketCommunicator sc, String roomHostname) {
-        System.out.println("Logout player");
+    public void logoutPlayer(SocketCommunicator sc, String username) {
+        System.out.println("Logout player 1");
+//        logoutPlayer(sc, rooms.get(username));
+        Room room = rooms.get(username);
+
         waitingPlayers.remove(sc);
-        if(rooms.containsKey(roomHostname)) {
-            Room r = rooms.get(roomHostname);
-            if(r.removePlayer(sc) == Room.REMOVE_PLAYER_AND_ROOM) {
+
+        if (room != null) {
+            int removePlayerResult = room.removePlayer(sc);
+
+            if(removePlayerResult == Room.REMOVE_PLAYER_AND_ROOM) {
                 System.out.println("Remove Room");
-                rooms.remove(r.getHostName()).close();
+                rooms.remove(username).close();
+            } else if(removePlayerResult == Room.REMOVE_PLAYER_AND_CHANGE_HOST) {
+                System.out.println("Change host");
+                rooms.remove(username);
+                rooms.put(room.getHostName(), room);
             }
         }
     }
+
+//    public void logoutPlayer(SocketCommunicator sc, Room currRoom) {
+//        System.out.println("Logout player 2");
+//        waitingPlayers.remove(sc);
+//
+//        if (currRoom != null) {
+//            int removePlayerResult = currRoom.removePlayer(sc);
+//
+//            if(removePlayerResult == Room.REMOVE_PLAYER_AND_ROOM) {
+//                System.out.println("Remove Room");
+//                rooms.remove(currRoom.getHostName()).close();
+//            } else if(removePlayerResult == Room.REMOVE_PLAYER_AND_CHANGE_HOST) {
+//
+//            }
+//        }
+//    }
 
     public int moveToRoom(SocketCommunicator sc, String roomHostname) {
         waitingPlayers.remove(sc);
@@ -67,9 +92,10 @@ public class OnlinePlayerList {
     }
 
     public String addRoom(Room r) {
-        rooms.put(r.getHostName(), r);
-        waitingPlayers.remove(r.getTeam1().get(r.getHostName()));
-        return r.getHostName();
+        String hostName = r.getHostName();
+        rooms.put(hostName, r);
+        waitingPlayers.remove(r.getTeam1().get(hostName));
+        return hostName;
     }
 
     public void notifyAllPlayers(int msg, SocketCommunicator except) {

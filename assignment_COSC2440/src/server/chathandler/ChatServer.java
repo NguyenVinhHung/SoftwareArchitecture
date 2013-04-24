@@ -1,5 +1,6 @@
 package server.chathandler;
 
+import server.Server;
 import server.SocketCommunicator;
 
 import java.io.IOException;
@@ -61,7 +62,7 @@ public class ChatServer extends Thread {
         }
     }
 
-    public void closePlaySocket(String username) {
+    public void closePlayerSocket(String username) {
         try {
             for (int i = 0; i < serverThreadVectorTeam1.size(); i++) {
                 ChatServerThread csv = serverThreadVectorTeam1.get(i);
@@ -93,6 +94,7 @@ public class ChatServer extends Thread {
                 serverThreadVectorTeam2.get(i).getChatCommunicator().close();
             }
             serverSocket.close();
+            Server.USING_PORT.remove(port);
 
         } catch (IOException e) {
             System.out.println("Close the connection ");

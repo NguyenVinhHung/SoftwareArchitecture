@@ -113,7 +113,13 @@ public class SocketCommunicator {
             to.close();
             socket.close();
         } catch(Exception ex) {
+            System.out.println("PRINT STACK TRACE");
+            ex.printStackTrace();
         }
+    }
+
+    public boolean isClosed() {
+        return socket.isClosed();
     }
 
     public String getUsername() {

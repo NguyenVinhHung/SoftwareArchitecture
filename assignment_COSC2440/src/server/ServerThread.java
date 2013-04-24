@@ -37,7 +37,7 @@ public class ServerThread implements Runnable {
             ObjectOutputStream output = new ObjectOutputStream(socket.getOutputStream());
             int service;
 
-            while (true) {
+            while (!socket.isClosed()) {
                 service = input.readInt();
 
                 switch (service) {
@@ -64,7 +64,7 @@ public class ServerThread implements Runnable {
                         getInRoom();
                         break;
                     }
-                    case Services.IN_ROOM_GET_SELECTED_POK: {
+                    case Services.IN_ROOM_NOTIFY_SELECTED_POK: {
                         getSelectedPokesInRoom();
                         break;
                     }
@@ -197,15 +197,19 @@ public class ServerThread implements Runnable {
         int type = (Integer)input.readObject();
         Room r = new Room(communicator, type);
         String hostname = opl.addRoom(r);
-        RoomPublicInfo rpi = new RoomPublicInfo("", type, r.getHostName(), r.getChatServerPort(), Services.INVALID);
+        RoomPublicInfo rpi = new RoomPublicInfo("", type, hostname, r.getChatServerPort(), Services.INVALID);
 
         communicator.write(rpi);
         communicator.flushOutput();
+        currRoom = r;
     }
 
     private synchronized void logout() {
         OnlinePlayerList opl = (OnlinePlayerList)ServerSpring.getBean("onlinePlayerList");
         opl.logoutPlayer(communicator, communicator.getUsername());
+//        opl.logoutPlayer(communicator, currRoom);
+        communicator.sendRequestHeader(Services.LOGIN_SUCCESS);
+        communicator.flushOutput();
         communicator.close();
     }
 
@@ -227,6 +231,8 @@ public class ServerThread implements Runnable {
             communicator.write(new Integer(result));
             communicator.flushOutput();
         }
+
+        currRoom = r;
     }
 
     private synchronized void getSelectedPokesInRoom() {
@@ -290,7 +296,7 @@ public class ServerThread implements Runnable {
     private void initializeBattle() {
         OnlinePlayerList opl = (OnlinePlayerList)ServerSpring.getBean("onlinePlayerList");
         String host = (String)communicator.read();
-        currRoom = opl.getRooms().get(host);
+//        currRoom = opl.getRooms().get(host);
         SocketCommunicator current = currRoom.getCurrentPlayer();
 
         communicator.write(current.getUsername());

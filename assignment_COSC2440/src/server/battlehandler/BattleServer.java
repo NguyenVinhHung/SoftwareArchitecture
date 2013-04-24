@@ -59,4 +59,21 @@ public class BattleServer extends Thread {
         } catch (Exception ex) {
         }
     }
+
+    public void stopThread() {
+        try {
+            for (int i = 0; i < team1Threads.size(); i++) {
+                team1Threads.get(i).stopThread();
+            }
+
+            for (int i = 0; i < team2Threads.size(); i++) {
+                team2Threads.get(i).stopThread();
+            }
+            serverSocket.close();
+            Server.USING_PORT.remove(port);
+
+        } catch (IOException e) {
+            System.out.println("Close the connection ");
+        }
+    }
 }

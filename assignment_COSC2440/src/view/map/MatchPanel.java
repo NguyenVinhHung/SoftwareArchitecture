@@ -9,6 +9,7 @@ import server.chathandler.ChatListenerThread;
 import server.chathandler.ChatServices;
 import main.Main;
 import server.SocketCommunicator;
+import view.panel.SocketClosable;
 
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
@@ -23,7 +24,7 @@ import javax.swing.*;
  *
  * @author HungHandsome
  */
-public class MatchPanel extends JPanel implements KeyListener {
+public class MatchPanel extends JPanel implements KeyListener, SocketClosable {
 
     private static final int CHATBOX_Y = 200;
     private static final int CHATBOX_W = 200;
@@ -156,6 +157,12 @@ public class MatchPanel extends JPanel implements KeyListener {
             chatCommunicator.flushOutput();
             chatTyper.setText("");
         }
+    }
+
+    @Override
+    public void closeSocket() {
+        chatCommunicator.close();
+        battleCommunicator.close();
     }
 
     private class GameThread extends Thread {

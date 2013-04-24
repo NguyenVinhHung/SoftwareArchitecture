@@ -93,6 +93,13 @@ public class Main extends JFrame {
     private void logout() {
         if(communicator != null) {
             communicator.sendRequestHeader(Services.LOGOUT);
+
+            int result = communicator.readInt();
+
+            if(currPanel instanceof SocketClosable) {
+                ((SocketClosable)currPanel).closeSocket();
+            }
+
             communicator.close();
         }
     }

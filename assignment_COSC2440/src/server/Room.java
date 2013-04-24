@@ -6,6 +6,7 @@ import model.Player;
 import model.pokemon.PokeInBattleInfo;
 import model.pokemon.PokemonFactory;
 import model.pokemon.SelectedPokeInfo;
+import server.waitingroomhandler.WaitingRoomServer;
 import utility.MoveUtil;
 
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ public class Room {
     public static final int ADD_PLAYER_FAILED = 0;
     public static final int REMOVE_ONLY_PLAYER = 1;
     public static final int REMOVE_PLAYER_AND_ROOM = 2;
+    public static final int REMOVE_PLAYER_AND_CHANGE_HOST = 3;
 
     public static final int WAITING_STATE = 0;
     public static final int PLAYING_STATE = 1;
@@ -35,8 +37,10 @@ public class Room {
     private ChatServer chatServer;
     private int chatServerPort;
 
+    private WaitingRoomServer waitingRoomServer;
     private BattleServer battleServer;
-    private int battleServerPort;
+    private int roomServerPort;
+//    private int battleServerPort;
 
     private Map<String, SocketCommunicator> team1;
     private Map<String, SocketCommunicator> team2;
@@ -62,6 +66,10 @@ public class Room {
         chatServer = new ChatServer(chatServerPort);
         chatServer.start();
         ///////////////////////
+
+        roomServerPort = Server.makeNewPort();
+        waitingRoomServer = new WaitingRoomServer(roomServerPort);
+        waitingRoomServer.start();
     }
 
 //    @Override
@@ -143,24 +151,22 @@ public class Room {
         Map<String, SocketCommunicator> team = (team1.containsKey(p.getUsername())) ? team1 : team2;
         Map<String, SocketCommunicator> otherTeam = (team==team1) ? team2 : team1;
 
+        stopPlayerChatSocket(p.getUsername());
+        team.remove(p.getUsername());
+
         if(team.size() > 1) {
-            stopPlayerChatSocket(p.getUsername());
-            team.remove(p.getUsername());
             hostName = ((SocketCommunicator)(team.values().toArray()[0])).getUsername();
-            return REMOVE_ONLY_PLAYER;
+            return REMOVE_PLAYER_AND_CHANGE_HOST;
         } else if(!otherTeam.isEmpty()) {
-            stopPlayerChatSocket(p.getUsername());
-            team.remove(p.getUsername());
             hostName = ((SocketCommunicator)(otherTeam.values().toArray()[0])).getUsername();
-            return REMOVE_ONLY_PLAYER;
+            return REMOVE_PLAYER_AND_CHANGE_HOST;
         } else {
-            team.remove(p.getUsername());
             return REMOVE_PLAYER_AND_ROOM;
         }
     }
 
     private void stopPlayerChatSocket(String username) {
-        chatServer.closePlaySocket(username);
+        chatServer.closePlayerSocket(username);
     }
 
     public void notifyAllPlayers(int msg, SocketCommunicator except) {
@@ -187,6 +193,20 @@ public class Room {
                 continue;
             }
             sc.write(new Integer(msg));
+            sc.flushOutput();
+        }
+    }
+
+    public void notifySelectedPoke() {
+        for(SocketCommunicator sc : team1.values()) {
+            sc.write(getSelectedPokeInfoTeam(Room.TEAM_1));
+            sc.write(getSelectedPokeInfoTeam(Room.TEAM_2));
+            sc.flushOutput();
+        }
+
+        for(SocketCommunicator sc : team2.values()) {
+            sc.write(getSelectedPokeInfoTeam(Room.TEAM_1));
+            sc.write(getSelectedPokeInfoTeam(Room.TEAM_2));
             sc.flushOutput();
         }
     }
@@ -275,12 +295,21 @@ public class Room {
     }
 
     public void startBattle() {
-        battleServerPort = Server.makeNewPort();
-        battleServer = new BattleServer(battleServerPort);
+//        roomServerPort = Server.makeNewPort();
+        waitingRoomServer.stopThread();
+        battleServer = new BattleServer(roomServerPort);
     }
 
     public void close() {
         chatServer.stopThread();
+
+        if(waitingRoomServer != null) {
+            waitingRoomServer.stopThread();
+        }
+
+        if(battleServer != null) {
+            battleServer.stopThread();
+        }
     }
 
     public boolean isEmpty() {
