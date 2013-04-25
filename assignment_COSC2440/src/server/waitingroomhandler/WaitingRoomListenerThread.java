@@ -61,7 +61,7 @@ public class WaitingRoomListenerThread extends Thread {
         SelectedPokeInfo[] team1 = (SelectedPokeInfo[])communicator.read();
         SelectedPokeInfo[] team2 = (SelectedPokeInfo[])communicator.read();
 
-
+        roomView.reinitSelectedPokeView(team1, team2);
     }
 
     public void stopThread() {

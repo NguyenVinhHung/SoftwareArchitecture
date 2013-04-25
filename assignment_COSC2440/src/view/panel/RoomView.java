@@ -65,7 +65,7 @@ public class RoomView extends AfterLoginTemplate implements KeyListener, SocketC
     private SocketCommunicator waitingRoomCommunicator;
     private WaitingRoomListenerThread waitingRoomListenerThread;
 
-    private boolean waiting = true;
+//    private boolean waiting = true;
     private boolean isTeam1;
 //    private int roomIdx;
 
@@ -91,23 +91,26 @@ public class RoomView extends AfterLoginTemplate implements KeyListener, SocketC
 
         isTeam1 = teamNo==-1;
 
-        try {
-            Socket chatSocket = new Socket(Server.IP, roomInfo.getChatServerPort());
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(chatSocket.getOutputStream());
-            ObjectInputStream objectInputStream = new ObjectInputStream(chatSocket.getInputStream());
-            chatCommunicator = new SocketCommunicator(chatSocket, objectOutputStream, objectInputStream, null);
+//        try {
+//            Socket chatSocket = new Socket(Server.IP, roomInfo.getChatServerPort());
+//            ObjectOutputStream objectOutputStream = new ObjectOutputStream(chatSocket.getOutputStream());
+//            ObjectInputStream objectInputStream = new ObjectInputStream(chatSocket.getInputStream());
+//            chatCommunicator = new SocketCommunicator(chatSocket, objectOutputStream, objectInputStream, null);
+//
+////            objectOutputStream.write(new Integer(ChatServices.JOIN_TEAM_1));
+//            objectOutputStream.writeInt((isTeam1) ? ChatServices.JOIN_TEAM_1 : ChatServices.JOIN_TEAM_2);
+//            objectOutputStream.flush();
+//
+////            new ChatListenerThread(chatSocket,objectOutputStream,objectInputStream).start();
+//            chatListenerThread = new ChatListenerThread(chatCommunicator, globalChat);
+//            chatListenerThread.start();
+//        } catch (IOException e) {
+//            System.out.println("Cannot create chat socket");
+//        }
+        initChatServer();
 
-//            objectOutputStream.write(new Integer(ChatServices.JOIN_TEAM_1));
-            objectOutputStream.writeInt((isTeam1) ? ChatServices.JOIN_TEAM_1 : ChatServices.JOIN_TEAM_2);
-            objectOutputStream.flush();
 
-//            new ChatListenerThread(chatSocket,objectOutputStream,objectInputStream).start();
-            chatListenerThread = new ChatListenerThread(chatCommunicator, globalChat);
-            chatListenerThread.start();
 
-        } catch (IOException e) {
-            System.out.println("Cannot create chat socket");
-        }
 
 //        new Thread() {
 //            @Override
@@ -207,6 +210,25 @@ public class RoomView extends AfterLoginTemplate implements KeyListener, SocketC
         add(chatTyper);
     }
 
+    private void initChatServer() {
+        try {
+            Socket chatSocket = new Socket(Server.IP, roomInfo.getChatServerPort());
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(chatSocket.getOutputStream());
+            ObjectInputStream objectInputStream = new ObjectInputStream(chatSocket.getInputStream());
+            chatCommunicator = new SocketCommunicator(chatSocket, objectOutputStream, objectInputStream, null);
+
+//            objectOutputStream.write(new Integer(ChatServices.JOIN_TEAM_1));
+            objectOutputStream.writeInt((isTeam1) ? ChatServices.JOIN_TEAM_1 : ChatServices.JOIN_TEAM_2);
+            objectOutputStream.flush();
+
+//            new ChatListenerThread(chatSocket,objectOutputStream,objectInputStream).start();
+            chatListenerThread = new ChatListenerThread(chatCommunicator, globalChat);
+            chatListenerThread.start();
+        } catch (IOException e) {
+            System.out.println("Cannot create chat socket");
+        }
+    }
+
     private void initSelectedPokeView() {
         g1 = new ArrayList<SelectedPokeView>();
         g2 = new ArrayList<SelectedPokeView>();
@@ -228,7 +250,7 @@ public class RoomView extends AfterLoginTemplate implements KeyListener, SocketC
         repaint();
     }
 
-    private void reinitSelectedPokeView(SelectedPokeInfo[] t1, SelectedPokeInfo[] t2) {
+    public void reinitSelectedPokeView(SelectedPokeInfo[] t1, SelectedPokeInfo[] t2) {
         g1.clear();
         g2.clear();
 
@@ -292,8 +314,8 @@ public class RoomView extends AfterLoginTemplate implements KeyListener, SocketC
 
     private void toMatchPanel() {
         System.out.println("toMatchPanel start changing panel");
-        waiting = false;
-//                chatCommunicator.close();
+//        waiting = false;
+//        chatCommunicator.close();
         Main.getInstance().setCurrPanel(new MatchPanel(MapUtil.MAP_ARRS[0],
                 chatCommunicator, chatListenerThread, isTeam1, roomInfo.getHostname()));
         System.out.println("toMatchPanel end");

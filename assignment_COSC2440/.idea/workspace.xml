@@ -52,10 +52,10 @@
     <file path="/ImageButton.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1364724439458" ignored="false" />
     <file path="/RoomSelectorView.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1365152631371" ignored="false" />
     <file path="/GameStartView.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1364980098075" ignored="false" />
-    <file path="/RoomPublicInfo.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1366100292391" ignored="false" />
+    <file path="/RoomPublicInfo.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1366847747479" ignored="false" />
     <file path="/CreateRoomView.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1365046953928" ignored="false" />
     <file path="/AfterLoginTemplate.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1364751043504" ignored="false" />
-    <file path="/RoomView.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1366796849122" ignored="false" />
+    <file path="/RoomView.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1366847933080" ignored="false" />
     <file path="/ServerThread2.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1364782151617" ignored="false" />
     <file path="/PokemonFactory.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1365174954397" ignored="false" />
     <file path="/SkillFactory.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1364780406956" ignored="false" />
@@ -79,7 +79,7 @@
     <file path="/SocketClosable.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1366788100523" ignored="false" />
     <file path="/WaitingRoomThread.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1366793826599" ignored="false" />
     <file path="/WaitingRoomServer.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1366794078576" ignored="false" />
-    <file path="/WaitingRoomListenerThread.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1366796116431" ignored="false" />
+    <file path="/WaitingRoomListenerThread.java" changelist="5a89e405-183d-4d19-bd6a-04b481908e0d" time="1366846330809" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -149,7 +149,25 @@
       <file leaf-file-name="Room.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/server/Room.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="215" column="30" selection-start="6872" selection-end="6894" vertical-scroll-proportion="0.0">
+            <state line="240" column="30" selection-start="8013" selection-end="8013" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RoomView.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/view/panel/RoomView.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="64" column="55" selection-start="2135" selection-end="2135" vertical-scroll-proportion="0.17789292">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RoomPublicInfo.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/model/room/RoomPublicInfo.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="20" column="20" selection-start="502" selection-end="502" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -158,63 +176,7 @@
       <file leaf-file-name="WaitingRoomListenerThread.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/server/waitingroomhandler/WaitingRoomListenerThread.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="63" column="8" selection-start="1789" selection-end="1789" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Main.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/Main.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="60" column="51" selection-start="1517" selection-end="1517" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Services.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/server/Services.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="39" column="53" selection-start="1334" selection-end="1334" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="WaitingRoomThread.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/server/waitingroomhandler/WaitingRoomThread.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="24" selection-start="224" selection-end="235" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SocketCommunicator.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/server/SocketCommunicator.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="121" column="33" selection-start="3022" selection-end="3022" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="WaitingRoomServer.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/server/waitingroomhandler/WaitingRoomServer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="30" selection-start="411" selection-end="428" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ChatServer.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/server/chathandler/ChatServer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="86" column="21" selection-start="2771" selection-end="2781" vertical-scroll-proportion="0.0">
+            <state line="63" column="52" selection-start="1841" selection-end="1841" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -229,10 +191,28 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RoomView.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/view/panel/RoomView.java">
+      <file leaf-file-name="SocketCommunicator.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/server/SocketCommunicator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="82" column="86" selection-start="2801" selection-end="2801" vertical-scroll-proportion="0.30397022">
+            <state line="144" column="0" selection-start="3368" selection-end="3368" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Services.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/server/Services.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="45" column="53" selection-start="1536" selection-end="1536" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Main.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/Main.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="67" column="51" selection-start="1660" selection-end="1660" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -248,7 +228,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/main/Main.java" />
         <option value="$PROJECT_DIR$/src/server/OnlinePlayerList.java" />
         <option value="$PROJECT_DIR$/src/server/ServerThread.java" />
         <option value="$PROJECT_DIR$/src/server/chathandler/ChatServer.java" />
@@ -263,6 +242,7 @@
         <option value="$PROJECT_DIR$/src/server/waitingroomhandler/ChatListenerThread.java" />
         <option value="$PROJECT_DIR$/src/server/Services.java" />
         <option value="$PROJECT_DIR$/src/server/waitingroomhandler/WaitingRoomListenerThread.java" />
+        <option value="$PROJECT_DIR$/src/model/room/RoomPublicInfo.java" />
         <option value="$PROJECT_DIR$/src/view/panel/RoomView.java" />
       </list>
     </option>
@@ -270,8 +250,8 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1296" />
-    <option name="height" value="1010" />
+    <option name="width" value="1382" />
+    <option name="height" value="784" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -299,6 +279,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -626,7 +607,6 @@
         </subPane>
       </pane>
       <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -642,12 +622,12 @@
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
-    <property name="FullScreen" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
+    <property name="FullScreen" value="false" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="options.searchVisible" value="true" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="dynamic.classpath" value="false" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -779,7 +759,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1296" height="1010" extended-state="0" />
+    <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
     <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -790,17 +770,17 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32473624" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290735" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.20502432" sideWeight="0.41735053" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20502432" sideWeight="0.9988277" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5029308" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19166666" sideWeight="0.49840257" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.50159746" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290735" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.0" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32473624" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -870,9 +850,44 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://C:/Program Files (x86)/Java/jdk1.7.0_01/src.zip!/java/util/Map.java">
+    <entry file="file://$PROJECT_DIR$/src/server/Room.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="259" column="6" selection-start="12131" selection-end="12131" vertical-scroll-proportion="0.3325062">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="60" column="51" selection-start="1517" selection-end="1517" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/server/Services.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="39" column="53" selection-start="1335" selection-end="1335" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/server/SocketCommunicator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="117" column="33" selection-start="2807" selection-end="2807" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/server/ServerThread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="44" column="49" selection-start="1164" selection-end="1164" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/panel/RoomView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="82" column="86" selection-start="2758" selection-end="2758" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -893,42 +908,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/server/SocketCommunicator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="121" column="33" selection-start="3022" selection-end="3022" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/server/battlehandler/BattleThread.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="55" column="29" selection-start="1471" selection-end="1471" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/server/battlehandler/BattleServer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="62" column="30" selection-start="1683" selection-end="1683" vertical-scroll-proportion="0.51488835">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/server/chathandler/ChatServer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="86" column="21" selection-start="2771" selection-end="2781" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/server/waitingroomhandler/WaitingRoomThread.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="24" selection-start="224" selection-end="235" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/server/chathandler/ChatListenerThread.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="50" column="8" selection-start="1512" selection-end="1512" vertical-scroll-proportion="0.74689823">
+        <state line="144" column="0" selection-start="3368" selection-end="3368" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -942,44 +922,42 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/server/Services.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="53" selection-start="1334" selection-end="1334" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/server/waitingroomhandler/WaitingRoomServer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="30" selection-start="411" selection-end="428" vertical-scroll-proportion="0.0">
+        <state line="45" column="53" selection-start="1536" selection-end="1536" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/server/Room.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="215" column="30" selection-start="6872" selection-end="6894" vertical-scroll-proportion="0.0">
+        <state line="240" column="30" selection-start="8013" selection-end="8013" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="60" column="51" selection-start="1517" selection-end="1517" vertical-scroll-proportion="0.0">
+        <state line="67" column="51" selection-start="1660" selection-end="1660" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/server/waitingroomhandler/WaitingRoomListenerThread.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="63" column="8" selection-start="1789" selection-end="1789" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state line="63" column="52" selection-start="1841" selection-end="1841" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/room/RoomPublicInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="20" selection-start="502" selection-end="502" vertical-scroll-proportion="0.0">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/view/panel/RoomView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="82" column="86" selection-start="2801" selection-end="2801" vertical-scroll-proportion="0.30397022">
+        <state line="64" column="55" selection-start="2135" selection-end="2135" vertical-scroll-proportion="0.17789292">
           <folding />
         </state>
       </provider>
