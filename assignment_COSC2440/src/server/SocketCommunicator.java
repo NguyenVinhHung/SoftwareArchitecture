@@ -22,17 +22,17 @@ public class SocketCommunicator {
 //    public SocketCommunicator(Socket s, Player p) {
     public SocketCommunicator(Socket s) {
         socket = s;
-        
+
+        try {
+            to = new ObjectOutputStream(socket.getOutputStream());
+        } catch(Exception ex) {
+            System.out.println("Error getting OUTPUT STREAM");
+        }
+
         try {
             from = new ObjectInputStream(socket.getInputStream());
         } catch(Exception ex) { 
             System.out.println("Error getting INPUT STREAM");
-        }
-        
-        try {
-            to = new ObjectOutputStream(socket.getOutputStream());
-        } catch(Exception ex) {        
-            System.out.println("Error getting OUTPUT STREAM");
         }
     }
 

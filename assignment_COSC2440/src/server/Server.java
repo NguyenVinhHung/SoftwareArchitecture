@@ -7,6 +7,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Calendar;
 import java.util.LinkedHashSet;
 import java.util.Random;
 import java.util.Set;
@@ -21,7 +22,7 @@ import java.util.Set;
 public class Server extends JFrame {
 
     public static final String IP = "localhost";
-    public static final int PORT_NUM = 16453;
+    public static final int MAIN_PORT = 16453;
     public static final Set<Integer> USING_PORT = new LinkedHashSet<Integer>();
 
     private ServerSocket serverSocket;
@@ -35,21 +36,14 @@ public class Server extends JFrame {
 
     public static int makeNewPort() {
         int port = 0;
-        Random random = new Random();
-        boolean isValid = false;
+        Random random = new Random(Calendar.getInstance().getTimeInMillis());
 
-        while (!isValid) {
-            while (port < 1024) {
-                port = random.nextInt(65536);
-            }
-            if (USING_PORT.add(port)) {
-                isValid = true;
-            } else {
-                isValid = false;
+        while (true) {
+            port = random.nextInt(64511) + 1025;
+            if (port!=MAIN_PORT && USING_PORT.add(port)) {
+                return port;
             }
         }
-
-        return port;
     }
 
     private void init() {

@@ -190,6 +190,7 @@ public class ServerThread implements Runnable {
 
         communicator.write(roomInfos);
         communicator.flushOutput();
+//        System.out.println("retreiveRoomList() end");
     }
 
     private synchronized void createRoom(ObjectInputStream input, ObjectOutputStream output) throws Exception {
@@ -197,7 +198,7 @@ public class ServerThread implements Runnable {
         int type = (Integer)input.readObject();
         Room r = new Room(communicator, type);
         String hostname = opl.addRoom(r);
-        RoomPublicInfo rpi = new RoomPublicInfo("", type, hostname, r.getChatServerPort(), Services.INVALID);
+        RoomPublicInfo rpi = new RoomPublicInfo("", type, hostname, r.getChatServerPort(), r.getRoomServerPort());
 
         communicator.write(rpi);
         communicator.flushOutput();
@@ -207,7 +208,6 @@ public class ServerThread implements Runnable {
     private synchronized void logout() {
         OnlinePlayerList opl = (OnlinePlayerList)ServerSpring.getBean("onlinePlayerList");
         opl.logoutPlayer(communicator, communicator.getUsername());
-//        opl.logoutPlayer(communicator, currRoom);
         communicator.sendRequestHeader(Services.LOGIN_SUCCESS);
         communicator.flushOutput();
         communicator.close();
@@ -227,7 +227,7 @@ public class ServerThread implements Runnable {
             opl.getWaitingPlayers().remove(communicator);
             communicator.write(new Integer(Services.GET_IN_ROOM_SUCCESS));
             communicator.write(new RoomPublicInfo("Room #", r.getNumPlayersPerTeam(), r.getHostName(),
-                                                    r.getChatServerPort(), Services.INVALID));
+                                                    r.getChatServerPort(), r.getRoomServerPort()));
             communicator.write(new Integer(result));
             communicator.flushOutput();
         }

@@ -53,7 +53,6 @@ public class WaitingRoomListenerThread extends Thread {
             }
         }
 //        } catch (IOException e) {
-//
 //        }
     }
 

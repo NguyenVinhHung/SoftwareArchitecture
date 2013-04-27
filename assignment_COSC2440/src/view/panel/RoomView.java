@@ -108,7 +108,7 @@ public class RoomView extends AfterLoginTemplate implements KeyListener, SocketC
 //            System.out.println("Cannot create chat socket");
 //        }
         initChatServer();
-
+        initWaitintgRoomServer();
 
 
 
@@ -226,6 +226,30 @@ public class RoomView extends AfterLoginTemplate implements KeyListener, SocketC
             chatListenerThread.start();
         } catch (IOException e) {
             System.out.println("Cannot create chat socket");
+        }
+    }
+
+    private void initWaitintgRoomServer() {
+        try {
+            Socket roomSocket = new Socket(Server.IP, roomInfo.getRoomServerPort());
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(roomSocket.getOutputStream());
+            ObjectInputStream objectInputStream = new ObjectInputStream(roomSocket.getInputStream());
+
+            System.out.println("Start creating waitingRoomCommunicator");
+            waitingRoomCommunicator = new SocketCommunicator(roomSocket, objectOutputStream, objectInputStream, null);
+
+//            objectOutputStream.writeInt((isTeam1) ? ChatServices.JOIN_TEAM_1 : ChatServices.JOIN_TEAM_2);
+//            objectOutputStream.flush();
+
+            System.out.println("waitingRoomCommunicator created");
+
+//            new WaitingRoomListenerThread(chatSocket,objectOutputStream,objectInputStream).start();
+            waitingRoomListenerThread = new WaitingRoomListenerThread(this, waitingRoomCommunicator);
+            waitingRoomListenerThread.start();
+
+            System.out.println("waitingRoomThread started");
+        } catch (IOException e) {
+            System.out.println("Cannot create room socket");
         }
     }
 

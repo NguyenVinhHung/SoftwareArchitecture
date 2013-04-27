@@ -5,6 +5,8 @@ import server.SocketCommunicator;
 import server.chathandler.ChatServices;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Vector;
@@ -42,9 +44,19 @@ public class WaitingRoomServer extends Thread {
         try {
             while(!serverSocket.isClosed()) {
                 Socket socket = serverSocket.accept();
+
+                System.out.println("New Room socket created");
+
+//                ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
+//                ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
+
                 SocketCommunicator communicator = new SocketCommunicator(socket);
+
+                System.out.println("Room socket communicator created");
+
                 WaitingRoomThread thread = new WaitingRoomThread(communicator);
 
+                System.out.println("Start new room server thread");
                 threads.add(thread);
                 new Thread(thread).start();
             }

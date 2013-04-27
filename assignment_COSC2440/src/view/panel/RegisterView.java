@@ -145,7 +145,7 @@ public class RegisterView extends CustomPanel {
         }
 
         try {
-            Socket s = new Socket(Server.IP, Server.PORT_NUM);
+            Socket s = new Socket(Server.IP, Server.MAIN_PORT);
             ObjectOutputStream output = new ObjectOutputStream(s.getOutputStream());
             ObjectInputStream input = new ObjectInputStream(s.getInputStream());
 

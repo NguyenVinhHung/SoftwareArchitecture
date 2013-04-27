@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import javax.swing.ImageIcon;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
@@ -109,7 +108,7 @@ public class LoginView extends CustomPanel {
         }
 
         try {
-            Socket s = new Socket(Server.IP, Server.PORT_NUM);
+            Socket s = new Socket(Server.IP, Server.MAIN_PORT);
             ObjectOutputStream output = new ObjectOutputStream(s.getOutputStream());
             ObjectInputStream input = new ObjectInputStream(s.getInputStream());
 

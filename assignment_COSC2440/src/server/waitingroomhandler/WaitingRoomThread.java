@@ -22,9 +22,12 @@ public class WaitingRoomThread implements Runnable {
         try {
             int service;
 
+            System.out.println("WaitingRoomThread is running");
+
             while (!communicator.isClosed()) {
                 service = communicator.readInt();
 
+                System.out.println("WaitingRoomThread requesr: " + service);
                 switch (service) {
                     case Services.IN_ROOM_NOTIFY_SELECTED_POK: {
                         notifySelectedPokesInRoom();

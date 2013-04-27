@@ -89,17 +89,17 @@ public class Room {
 //        }
 //    }
 
-    private void processWaitingState() {
-
-    }
-
-    private void processPlayingState() {
-
-    }
-
-    private void processEndingState() {
-
-    }
+//    private void processWaitingState() {
+//
+//    }
+//
+//    private void processPlayingState() {
+//
+//    }
+//
+//    private void processEndingState() {
+//
+//    }
 
     public int addPlayer(SocketCommunicator p) {
         if(team1.size()>=numPlayersPerTeam && team2.size()>=numPlayersPerTeam) {
@@ -366,5 +366,9 @@ public class Room {
 
     public PokeInBattleInfo[] getPokeInBattle2() {
         return pokeInBattle2;
+    }
+
+    public int getRoomServerPort() {
+        return roomServerPort;
     }
 }

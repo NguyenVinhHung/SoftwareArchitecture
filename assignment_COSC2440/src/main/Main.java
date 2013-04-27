@@ -93,6 +93,7 @@ public class Main extends JFrame {
     private void logout() {
         if(communicator != null) {
             communicator.sendRequestHeader(Services.LOGOUT);
+            communicator.flushOutput();
 
             int result = communicator.readInt();
 
