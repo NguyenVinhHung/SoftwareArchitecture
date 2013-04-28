@@ -1,5 +1,6 @@
 package server.waitingroomhandler;
 
+import main.Main;
 import model.Player;
 import model.pokemon.SelectedPokeInfo;
 import server.Services;
@@ -37,6 +38,10 @@ public class WaitingRoomListenerThread extends Thread {
     @Override
     public void run() {
 //        try {
+        communicator.sendRequestHeader(Services.IN_ROOM_NOTIFY_SELECTED_POK);
+        communicator.write(roomView.getRoomInfo().getHostname());
+        communicator.flushOutput();
+
         int service;
         while (!communicator.isClosed()) {
             service = communicator.readInt();

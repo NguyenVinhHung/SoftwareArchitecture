@@ -167,6 +167,7 @@ public class Room {
 
     private void stopPlayerChatSocket(String username) {
         chatServer.closePlayerSocket(username);
+        waitingRoomServer.closePlayerSocket(username);
     }
 
     public void notifyAllPlayers(int msg, SocketCommunicator except) {
@@ -297,6 +298,7 @@ public class Room {
     public void startBattle() {
 //        roomServerPort = Server.makeNewPort();
         waitingRoomServer.stopThread();
+        waitingRoomServer = null;
         battleServer = new BattleServer(roomServerPort);
     }
 

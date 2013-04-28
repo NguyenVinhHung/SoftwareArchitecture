@@ -1,6 +1,7 @@
 package server.waitingroomhandler;
 
 import server.Server;
+import server.Services;
 import server.SocketCommunicator;
 import server.chathandler.ChatServices;
 
@@ -54,7 +55,7 @@ public class WaitingRoomServer extends Thread {
 
                 System.out.println("Room socket communicator created");
 
-                WaitingRoomThread thread = new WaitingRoomThread(communicator);
+                WaitingRoomThread thread = new WaitingRoomThread(communicator, (String)communicator.read());
 
                 System.out.println("Start new room server thread");
                 threads.add(thread);
@@ -74,6 +75,16 @@ public class WaitingRoomServer extends Thread {
 
         } catch (IOException e) {
             System.out.println("Close the connection ");
+        }
+    }
+
+    public void closePlayerSocket(String username) {
+        for(WaitingRoomThread thr : threads) {
+            if(thr.getUsername().equals(username)) {
+                thr.getCommunicator().sendRequestHeader(Services.IN_ROOM_STOP_WAITING);
+                thr.getCommunicator().flushOutput();
+                thr.stopThread();
+            }
         }
     }
 }

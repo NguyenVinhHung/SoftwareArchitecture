@@ -237,6 +237,8 @@ public class RoomView extends AfterLoginTemplate implements KeyListener, SocketC
 
             System.out.println("Start creating waitingRoomCommunicator");
             waitingRoomCommunicator = new SocketCommunicator(roomSocket, objectOutputStream, objectInputStream, null);
+            waitingRoomCommunicator.write(Main.getCommunicator().getUsername());
+            waitingRoomCommunicator.flushOutput();
 
 //            objectOutputStream.writeInt((isTeam1) ? ChatServices.JOIN_TEAM_1 : ChatServices.JOIN_TEAM_2);
 //            objectOutputStream.flush();
@@ -415,5 +417,9 @@ public class RoomView extends AfterLoginTemplate implements KeyListener, SocketC
     @Override
     public void closeSocket() {
         chatCommunicator.close();
+    }
+
+    public RoomPublicInfo getRoomInfo() {
+        return roomInfo;
     }
 }
