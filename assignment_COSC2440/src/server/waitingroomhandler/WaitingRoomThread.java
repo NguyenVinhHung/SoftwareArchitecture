@@ -12,10 +12,12 @@ import server.*;
  */
 public class WaitingRoomThread implements Runnable {
 
+    private WaitingRoomServer server;
     private SocketCommunicator communicator;
     private String username;
 
-    public WaitingRoomThread(SocketCommunicator com, String username) {
+    public WaitingRoomThread(WaitingRoomServer server, SocketCommunicator com, String username) {
+        this.server = server;
         communicator = com;
         this.username = username;
     }
@@ -63,9 +65,7 @@ public class WaitingRoomThread implements Runnable {
 //        r.notifySelectedPoke();
 
         System.out.println("Start getting SelectedPokeInfoTeam");
-        communicator.write(r.getSelectedPokeInfoTeam(Room.TEAM_1));
-        communicator.write(r.getSelectedPokeInfoTeam(Room.TEAM_2));
-        communicator.flushOutput();
+        server.notifyPlayers(r.getSelectedPokeInfoTeam(Room.TEAM_1), r.getSelectedPokeInfoTeam(Room.TEAM_2));
         System.out.println("Finish getting SelectedPokeInfoTeam");
     }
 

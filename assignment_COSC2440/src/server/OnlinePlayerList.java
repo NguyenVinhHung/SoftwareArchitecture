@@ -26,23 +26,24 @@ public class OnlinePlayerList {
         System.out.println("Player " + sc.getUsername() + " login successfully");
     }
 
-    public void logoutPlayer(SocketCommunicator sc, String username) {
+    public void logoutPlayer(SocketCommunicator sc, String username, Room currRoom) {
         System.out.println("Logout player 1");
 //        logoutPlayer(sc, rooms.get(username));
-        Room room = rooms.get(username);
+//        Room room = rooms.get(username);
 
         waitingPlayers.remove(sc);
 
-        if (room != null) {
-            int removePlayerResult = room.removePlayer(sc);
+        if (currRoom != null) {
+            String oldHostName = currRoom.getHostName();
+            int removePlayerResult = currRoom.removePlayer(sc);
 
             if(removePlayerResult == Room.REMOVE_PLAYER_AND_ROOM) {
                 System.out.println("Remove Room");
-                rooms.remove(username).close();
+                rooms.remove(oldHostName).close();
             } else if(removePlayerResult == Room.REMOVE_PLAYER_AND_CHANGE_HOST) {
                 System.out.println("Change host");
-                rooms.remove(username);
-                rooms.put(room.getHostName(), room);
+                rooms.remove(oldHostName);
+                rooms.put(currRoom.getHostName(), currRoom);
             }
         }
     }

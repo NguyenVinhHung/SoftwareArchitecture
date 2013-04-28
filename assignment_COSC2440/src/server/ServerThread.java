@@ -207,7 +207,7 @@ public class ServerThread implements Runnable {
 
     private synchronized void logout() {
         OnlinePlayerList opl = (OnlinePlayerList)ServerSpring.getBean("onlinePlayerList");
-        opl.logoutPlayer(communicator, communicator.getUsername());
+        opl.logoutPlayer(communicator, communicator.getUsername(), currRoom);
         communicator.sendRequestHeader(Services.LOGIN_SUCCESS);
         communicator.flushOutput();
         communicator.close();

@@ -1,5 +1,8 @@
 package server.waitingroomhandler;
 
+import model.Player;
+import model.pokemon.SelectedPokeInfo;
+import server.Room;
 import server.Server;
 import server.Services;
 import server.SocketCommunicator;
@@ -26,11 +29,13 @@ public class WaitingRoomServer extends Thread {
     private final Vector<WaitingRoomThread> threads = new Vector<WaitingRoomThread>();
 
     private ServerSocket serverSocket;
+//    private Room room;
     private int port;
     private boolean running;
 
     public WaitingRoomServer(int port) {
         this.port = port;
+//        this.room = room;
 
         try {
             serverSocket = new ServerSocket(port);
@@ -46,22 +51,29 @@ public class WaitingRoomServer extends Thread {
             while(!serverSocket.isClosed()) {
                 Socket socket = serverSocket.accept();
 
-                System.out.println("New Room socket created");
-
 //                ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
 //                ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
 
                 SocketCommunicator communicator = new SocketCommunicator(socket);
+                Player p = (Player)communicator.read();
+                WaitingRoomThread thread = new WaitingRoomThread(this, communicator, (String)communicator.read());
 
-                System.out.println("Room socket communicator created");
+                communicator.setPlayer(p);
 
-                WaitingRoomThread thread = new WaitingRoomThread(communicator, (String)communicator.read());
-
-                System.out.println("Start new room server thread");
                 threads.add(thread);
                 new Thread(thread).start();
             }
         } catch (Exception ex) {
+        }
+    }
+
+    public void notifyPlayers(SelectedPokeInfo[] team1, SelectedPokeInfo[] team2) {
+        System.out.println("notifyPlayers - Notify players");
+        for(WaitingRoomThread thread : threads) {
+            thread.getCommunicator().sendRequestHeader(Services.IN_ROOM_NOTIFY_SELECTED_POK);
+            thread.getCommunicator().write(team1);
+            thread.getCommunicator().write(team2);
+            thread.getCommunicator().flushOutput();
         }
     }
 
@@ -79,12 +91,20 @@ public class WaitingRoomServer extends Thread {
     }
 
     public void closePlayerSocket(String username) {
+        WaitingRoomThread t = null;
+
         for(WaitingRoomThread thr : threads) {
             if(thr.getUsername().equals(username)) {
-                thr.getCommunicator().sendRequestHeader(Services.IN_ROOM_STOP_WAITING);
-                thr.getCommunicator().flushOutput();
-                thr.stopThread();
+                t = thr;
+                break;
             }
+        }
+
+        if(t != null) {
+//            t.getCommunicator().sendRequestHeader(Services.IN_ROOM_STOP_WAITING);
+//            t.getCommunicator().flushOutput();
+            t.stopThread();
+            threads.remove(t);
         }
     }
 }

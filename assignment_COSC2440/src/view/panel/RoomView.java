@@ -1,5 +1,6 @@
 package view.panel;
 
+import model.Player;
 import server.chathandler.ChatListenerThread;
 import server.chathandler.ChatServices;
 import main.Main;
@@ -57,6 +58,7 @@ public class RoomView extends AfterLoginTemplate implements KeyListener, SocketC
     private JTextArea teamChat;
     private JTextArea chatTyper;
     //    private Socket chatSocket;
+
     private RoomPublicInfo roomInfo;
 
     private SocketCommunicator chatCommunicator;
@@ -107,8 +109,10 @@ public class RoomView extends AfterLoginTemplate implements KeyListener, SocketC
 //        } catch (IOException e) {
 //            System.out.println("Cannot create chat socket");
 //        }
-        initChatServer();
-        initWaitintgRoomServer();
+
+        Player p = Main.getCommunicator().getPlayer();
+        initChatServer(p);
+        initWaitintgRoomServer(p);
 
 
 
@@ -210,14 +214,15 @@ public class RoomView extends AfterLoginTemplate implements KeyListener, SocketC
         add(chatTyper);
     }
 
-    private void initChatServer() {
+    private void initChatServer(Player p) {
         try {
             Socket chatSocket = new Socket(Server.IP, roomInfo.getChatServerPort());
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(chatSocket.getOutputStream());
             ObjectInputStream objectInputStream = new ObjectInputStream(chatSocket.getInputStream());
-            chatCommunicator = new SocketCommunicator(chatSocket, objectOutputStream, objectInputStream, null);
+            chatCommunicator = new SocketCommunicator(chatSocket, objectOutputStream, objectInputStream, p);
 
 //            objectOutputStream.write(new Integer(ChatServices.JOIN_TEAM_1));
+            objectOutputStream.writeObject(p);
             objectOutputStream.writeInt((isTeam1) ? ChatServices.JOIN_TEAM_1 : ChatServices.JOIN_TEAM_2);
             objectOutputStream.flush();
 
@@ -229,14 +234,16 @@ public class RoomView extends AfterLoginTemplate implements KeyListener, SocketC
         }
     }
 
-    private void initWaitintgRoomServer() {
+    private void initWaitintgRoomServer(Player p) {
         try {
             Socket roomSocket = new Socket(Server.IP, roomInfo.getRoomServerPort());
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(roomSocket.getOutputStream());
             ObjectInputStream objectInputStream = new ObjectInputStream(roomSocket.getInputStream());
 
             System.out.println("Start creating waitingRoomCommunicator");
-            waitingRoomCommunicator = new SocketCommunicator(roomSocket, objectOutputStream, objectInputStream, null);
+            waitingRoomCommunicator = new SocketCommunicator(roomSocket, objectOutputStream, objectInputStream, p);
+
+            waitingRoomCommunicator.write(p);
             waitingRoomCommunicator.write(Main.getCommunicator().getUsername());
             waitingRoomCommunicator.flushOutput();
 
@@ -258,22 +265,22 @@ public class RoomView extends AfterLoginTemplate implements KeyListener, SocketC
     private void initSelectedPokeView() {
         g1 = new ArrayList<SelectedPokeView>();
         g2 = new ArrayList<SelectedPokeView>();
-        SocketCommunicator sc = Main.getCommunicator();
-
-        sc.sendRequestHeader(Services.IN_ROOM_NOTIFY_SELECTED_POK);
-        sc.write(roomInfo.getHostname());
-        sc.flushOutput();
-
-        SelectedPokeInfo[] t1 = (SelectedPokeInfo[]) sc.read();
-        SelectedPokeInfo[] t2 = (SelectedPokeInfo[]) sc.read();
-
-        for (int i = 0, y = BG_Y + 1; i < roomInfo.getPlayersPerTeam(); i++) {
-            g1.add(new SelectedPokeView(t1[i], LEFT_COL_X, y));
-            g2.add(new SelectedPokeView(t2[i], RIGHT_COL_X, y));
-            y += SelectedPokeView.SPV_HEIGHT;
-        }
-
-        repaint();
+//        SocketCommunicator sc = Main.getCommunicator();
+//
+//        sc.sendRequestHeader(Services.IN_ROOM_NOTIFY_SELECTED_POK);
+//        sc.write(roomInfo.getHostname());
+//        sc.flushOutput();
+//
+//        SelectedPokeInfo[] t1 = (SelectedPokeInfo[]) sc.read();
+//        SelectedPokeInfo[] t2 = (SelectedPokeInfo[]) sc.read();
+//
+//        for (int i = 0, y = BG_Y + 1; i < roomInfo.getPlayersPerTeam(); i++) {
+//            g1.add(new SelectedPokeView(t1[i], LEFT_COL_X, y));
+//            g2.add(new SelectedPokeView(t2[i], RIGHT_COL_X, y));
+//            y += SelectedPokeView.SPV_HEIGHT;
+//        }
+//
+//        repaint();
     }
 
     public void reinitSelectedPokeView(SelectedPokeInfo[] t1, SelectedPokeInfo[] t2) {
@@ -295,10 +302,16 @@ public class RoomView extends AfterLoginTemplate implements KeyListener, SocketC
 
         drawTransparentLayer(g, SelectedPokeView.SPV_WIDTH, BG_Y + 1, LAYER_W2, BG_H);
 
-        for (int i = 0; i < roomInfo.getPlayersPerTeam(); i++) {
+        for (int i = 0; i < roomInfo.getPlayersPerTeam() && i < g1.size(); i++) {
             g1.get(i).draw(g);
             g2.get(i).draw(g);
         }
+//        for(SelectedPokeView spv : g1) {
+//            spv.draw(g);
+//        }
+//        for(SelectedPokeView spv : g2) {
+//            spv.draw(g);
+//        }
 
         for (PokeForSelectView p : pokeListView) {
             p.draw(g);
@@ -417,6 +430,10 @@ public class RoomView extends AfterLoginTemplate implements KeyListener, SocketC
     @Override
     public void closeSocket() {
         chatCommunicator.close();
+
+//        waitingRoomCommunicator.sendRequestHeader(Services.IN_ROOM_NOTIFY_SELECTED_POK);
+//        waitingRoomCommunicator.flushOutput();
+        waitingRoomCommunicator.close();
     }
 
     public RoomPublicInfo getRoomInfo() {

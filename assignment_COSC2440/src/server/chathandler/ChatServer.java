@@ -1,5 +1,7 @@
 package server.chathandler;
 
+import model.Player;
+import server.Room;
 import server.Server;
 import server.SocketCommunicator;
 
@@ -44,7 +46,10 @@ public class ChatServer extends Thread {
             while (running) {
                 socket = serverSocket.accept();
                 SocketCommunicator chatCommunicator = new SocketCommunicator(socket);
+                Player p = (Player)chatCommunicator.read();
                 ChatServerThread serverThread = new ChatServerThread(this, chatCommunicator);
+
+                chatCommunicator.setPlayer(p);
 
                 // Get user team
                 int team1Orteam2 = chatCommunicator.getFrom().readInt();
@@ -68,6 +73,7 @@ public class ChatServer extends Thread {
                 ChatServerThread csv = serverThreadVectorTeam1.get(i);
                 if(csv.getUsername().equals(username)) {
                     csv.getChatCommunicator().close();
+                    serverThreadVectorTeam1.remove(csv);
                     return;
                 }
             }
@@ -76,11 +82,14 @@ public class ChatServer extends Thread {
                 ChatServerThread csv = serverThreadVectorTeam2.get(i);
                 if(csv.getUsername().equals(username)) {
                     csv.getChatCommunicator().close();
+                    serverThreadVectorTeam2.remove(csv);
                     return;
                 }
             }
         } catch(Exception ex) {
 //            serverThreadVectorTeam1.clear();
+            System.out.println("closePlayerSocket - Exception");
+            ex.printStackTrace();
         }
     }
 

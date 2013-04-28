@@ -126,14 +126,30 @@ public class Room {
     }
 
     public int removePlayer(SocketCommunicator p) {
+        int result;
+
+        System.out.println("removePlayer - begin");
+
         if(p.getUsername().equals(hostName)) {
-            return changeRoomHost(p);
+            System.out.println("removePlayer - need change host in room");
+            result = changeRoomHost(p);
         } else {
+            System.out.println("removePlayer - only remove player");
             team1.remove(p.getUsername());
             team2.remove(p.getUsername());
-            stopPlayerChatSocket(p.getUsername());
-            return REMOVE_ONLY_PLAYER;
+
+            System.out.println("removePlayer - Stopping player sockets");
+            stopPlayerSocket(p.getUsername());
+            System.out.println("removePlayer - Player sockets has been stopped");
+
+            result = REMOVE_ONLY_PLAYER;
         }
+
+        System.out.println("Notify other players after a player logged out");
+        waitingRoomServer.notifyPlayers(getSelectedPokeInfoTeam(Room.TEAM_1), getSelectedPokeInfoTeam(Room.TEAM_2));
+        System.out.println("Finish notifying");
+
+        return result;
     }
 
     public Map<String, Player> getPlayerTeam(boolean isTeam1) {
@@ -151,7 +167,7 @@ public class Room {
         Map<String, SocketCommunicator> team = (team1.containsKey(p.getUsername())) ? team1 : team2;
         Map<String, SocketCommunicator> otherTeam = (team==team1) ? team2 : team1;
 
-        stopPlayerChatSocket(p.getUsername());
+        stopPlayerSocket(p.getUsername());
         team.remove(p.getUsername());
 
         if(team.size() > 1) {
@@ -165,7 +181,7 @@ public class Room {
         }
     }
 
-    private void stopPlayerChatSocket(String username) {
+    private void stopPlayerSocket(String username) {
         chatServer.closePlayerSocket(username);
         waitingRoomServer.closePlayerSocket(username);
     }
