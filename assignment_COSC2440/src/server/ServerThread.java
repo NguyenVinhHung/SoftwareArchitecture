@@ -1,8 +1,9 @@
 package server;
 
+import database.DatabaseSpring;
+import database.PlayerDAOImpl;
 import model.Player;
 import model.room.RoomPublicInfo;
-import utility.DatabaseUtil;
 
 import java.io.EOFException;
 import java.io.ObjectInputStream;
@@ -123,8 +124,9 @@ public class ServerThread implements Runnable {
         try {
             String username = input.readUTF();
             String pw = input.readUTF();
+            PlayerDAOImpl playerDAO = DatabaseSpring.getPlayerDAO();
 
-            if(DatabaseUtil.addPlayer(username, pw) == null) {
+            if(playerDAO.addPlayer(username, pw) == 0) {
                 output.writeInt(Services.REGISTER_FAILED_DUPLICATE_NAME);
             } else {
                 output.writeInt(Services.REGISTER_SUCCESS);
@@ -144,7 +146,15 @@ public class ServerThread implements Runnable {
         try {
             String username = input.readUTF();
             String pw = input.readUTF();
-            Player p = DatabaseUtil.getPlayers().get(username);
+            PlayerDAOImpl playerDAO = DatabaseSpring.getPlayerDAO();
+//            Player p = DatabaseUtil.getPlayers().get(username);
+            Player p;
+
+            try {
+                p = playerDAO.getPlayer(username).get(0);
+            } catch(Exception ex) {
+                p = null;
+            }
 
             if(p == null) {
                 output.writeInt(Services.LOGIN_WRONG_USER);

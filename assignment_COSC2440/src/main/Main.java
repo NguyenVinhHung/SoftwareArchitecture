@@ -6,7 +6,7 @@ import javax.swing.JPanel;
 import model.Player;
 import server.Services;
 import server.SocketCommunicator;
-import utility.DatabaseUtil;
+//import utility.DatabaseUtil;
 import view.panel.*;
 
 import java.awt.event.WindowAdapter;

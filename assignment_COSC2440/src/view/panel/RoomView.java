@@ -1,10 +1,10 @@
 package view.panel;
 
 import model.Player;
+import model.pokemon.Pokemon;
 import server.chathandler.ChatListenerThread;
 import server.chathandler.ChatServices;
 import main.Main;
-import model.pokemon.Pokemon;
 import model.pokemon.PokemonFactory;
 import model.pokemon.SelectedPokeInfo;
 import model.room.RoomPublicInfo;

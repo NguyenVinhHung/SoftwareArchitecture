@@ -8,7 +8,7 @@
     </bean>
     -->
 
-    <bean id="server" class="server.Server" init-method="init">
+    <bean id="server" class="server.Server" init-method="init" destroy-method="close">
         <property name="serverSocket" ref="serverSocket"/>
         <property name="log" ref="log"/>
     </bean>

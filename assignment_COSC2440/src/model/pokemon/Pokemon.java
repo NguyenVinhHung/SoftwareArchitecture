@@ -1,9 +1,9 @@
 package model.pokemon;
 
 import java.io.Serializable;
-import java.util.Map;
+ import java.util.Map;
 
-/**
+ /**
  *
  *
  */
@@ -36,6 +36,15 @@ public class Pokemon implements Serializable {
         this.accuracy = accuracy;
         this.hp = hp;
         this.mana = mana;
+    }
+
+    public Pokemon(String name, int atk, int hp, int type) {
+        this.name = name;
+        this.atk = atk;
+        this.hp = hp;
+
+        types = new int[1];
+        types[0] = type;
     }
 
     public String getName() {

@@ -45,11 +45,28 @@ public class Player implements Serializable {
 //        selectedPoke = pokemons.get(r.nextInt(3));
         selectedPoke = pokemons.get(0);
 
-        if(selectedPoke == null) {
-            System.out.println("Initialize Selected pokemon is null");
-        } else {
-            System.out.println("Initialize Selected pokemon is " + selectedPoke.getName());
+//        if(selectedPoke == null) {
+//            System.out.println("Initialize Selected pokemon is null");
+//        } else {
+//            System.out.println("Initialize Selected pokemon is " + selectedPoke.getName());
+//        }
+    }
+
+    public Player(String username, String pw, List<Pokemon> pokemons) {
+        this.username = username;
+        this.pw = pw;
+        this.pokemons = pokemons;
+
+//        selectedPoke = pokemons.get(r.nextInt(3));
+        if(pokemons != null) {
+            selectedPoke = pokemons.get(0);
         }
+
+//        if(selectedPoke == null) {
+//            System.out.println("Initialize Selected pokemon is null");
+//        } else {
+//            System.out.println("Initialize Selected pokemon is " + selectedPoke.getName());
+//        }
     }
 
     public SelectedPokeInfo makeSelectedPokeInfo(boolean host) {
@@ -73,7 +90,7 @@ public class Player implements Serializable {
     }
 
     public List<Pokemon> getPokemons() {
-        System.out.println("Pokemon list size: " + pokemons.size());
+        System.out.println("Pokemon2 list size: " + pokemons.size());
         return pokemons;
     }
 

@@ -1,6 +1,6 @@
 package server;
 
-import utility.DatabaseUtil;
+//import utility.DatabaseUtil;
 
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
@@ -29,7 +29,7 @@ public class Server extends JFrame {
     private JTextArea log;
 
     public static void main(String args[]) {
-        DatabaseUtil.load();
+//        DatabaseUtil.load();
         Server server = (Server) ServerSpring.getBean("server");
         server.runServer();
     }
@@ -51,7 +51,7 @@ public class Server extends JFrame {
             @Override
             public void windowClosing(WindowEvent e) {
                 System.out.println("Server closing");
-                DatabaseUtil.save();
+//                DatabaseUtil.save();
             }
         });
 
@@ -61,6 +61,11 @@ public class Server extends JFrame {
         setSize(400, 400);
         setLocationRelativeTo(null);
         setVisible(true);
+    }
+
+    private void close() {
+        System.out.println("Server close()");
+//        DatabaseUtil.save();
     }
 
     public void runServer() {
