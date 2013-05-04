@@ -51,6 +51,10 @@ public class WaitingRoomListenerThread extends Thread {
                     getSelectedPokes();
                     break;
                 }
+                case Services.BATTLE_START: {
+                    battleStart();
+                    break;
+                }
                 case Services.IN_ROOM_STOP_WAITING: {
                     stopThread();
                     return;
@@ -66,6 +70,12 @@ public class WaitingRoomListenerThread extends Thread {
         SelectedPokeInfo[] team2 = (SelectedPokeInfo[])communicator.read();
 
         roomView.reinitSelectedPokeView(team1, team2);
+    }
+
+    private void battleStart() {
+
+        roomView.toMatchPanel();
+        System.out.println("startBattle receive result");
     }
 
     public void stopThread() {

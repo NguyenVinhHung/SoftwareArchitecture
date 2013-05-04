@@ -29,7 +29,7 @@ public class WelcomeView extends CustomPanel {
     private JPanel regBtn;
     
     public WelcomeView() {
-//        bg = new ImageIcon(FileUtility.WELCOME_IMG_URL).getImage();
+//        bg = new ImageIcon(FileUtility.WELCOME_IMG_URL).getImageURL();
         playBtn = new JPanel();
         regBtn = new JPanel();
         

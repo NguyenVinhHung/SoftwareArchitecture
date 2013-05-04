@@ -68,6 +68,8 @@ public class Server extends JFrame {
 
         add(log);
 
+        System.out.println(pokemonDAO.getPokemonWithOwner("abcd").get(0).getName());
+
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(400, 400);
         setLocationRelativeTo(null);

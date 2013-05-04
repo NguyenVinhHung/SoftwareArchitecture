@@ -70,12 +70,17 @@ public class PokemonFactory {
     public static Image getPokeAvatar(String pokeName) {
 //        System.out.println("Update avatar of SelectedPokeView");
         if(pokeName.equals(CHARIZARD)) {
+            System.out.println("CHARIZARD_AVAR");
             return FileUtility.CHARIZARD_AVAR;
         } else if(pokeName.equals(BLASTOISE)) {
+            System.out.println("BLASTOISE_AVAR");
             return FileUtility.BLASTOISE_AVAR;
         } else if(pokeName.equals(VENUSAUR)) {
+            System.out.println("VENUSAUR_AVAR");
             return FileUtility.VENUSAUR_AVAR;
         }
+
+        System.out.println("Null avatar");
         return null;
     }
 
@@ -89,5 +94,17 @@ public class PokemonFactory {
             return FileUtility.VENUSAUR_ICON;
         }
         return null;
+    }
+
+    public static String getPokeIconURL(String pokeName) {
+//        System.out.println("Update avatar of SelectedPokeView");
+        if(pokeName.equals(CHARIZARD)) {
+            return FileUtility.CHARIZARD_ICON_URL;
+        } else if(pokeName.equals(BLASTOISE)) {
+            return FileUtility.BLASTOISE_ICON_URL;
+        } else if(pokeName.equals(VENUSAUR)) {
+            return FileUtility.VENUSAUR_ICON_URL;
+        }
+        return "";
     }
 }

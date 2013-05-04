@@ -14,23 +14,23 @@ import java.io.Serializable;
  */
 public class PokeInBattleInfo implements Serializable {
 
-    private static final long serialVersionUID = 113121110987654321L;
+    private static final long serialVersionUID = 999L;
 
-    private Image image;
+    private String imageURL;
     private String owner;
     private int i;
     private int j;
 
-    public PokeInBattleInfo(String owner, Image img, int i, int j) {
+    public PokeInBattleInfo(String owner, String imgURL, int i, int j) {
         this.owner = owner;
-        image = img;
+        imageURL = imgURL;
         this.i = i;
         this.j = j;
     }
 
-    public PokeInBattleInfo(String owner, Image img, Move move) {
+    public PokeInBattleInfo(String owner, String imgURL, Move move) {
         this.owner = owner;
-        image = img;
+        imageURL = imgURL;
         this.i = move.i;
         this.j = move.j;
     }
@@ -39,8 +39,8 @@ public class PokeInBattleInfo implements Serializable {
         return owner;
     }
 
-    public Image getImage() {
-        return image;
+    public String getImageURL() {
+        return imageURL;
     }
 
     public void setLocation(int i, int j) {

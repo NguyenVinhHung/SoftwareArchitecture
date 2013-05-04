@@ -47,7 +47,7 @@ public class FileUtility {
     public static final Image LOGO_IMG = new ImageIcon(LOGO_URL).getImage();
     public static final Image WELCOME_IMG = new ImageIcon(WELCOME_IMG_URL).getImage();
     public static final Image POPUP_IMG = new ImageIcon(POPUP_IMG_URL).getImage();
-//    public static final Image TRANS_LAYER_IMG = new ImageIcon(TRANSPARENT_LAYER).getImage();
+//    public static final Image TRANS_LAYER_IMG = new ImageIcon(TRANSPARENT_LAYER).getImageURL();
 
     public static final Image GS_BTN_IMG = new ImageIcon(GSTART_BTN).getImage();
     public static final Image GS_BG_IMG = new ImageIcon(GSTART_BG).getImage();

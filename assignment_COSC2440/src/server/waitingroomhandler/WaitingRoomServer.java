@@ -80,10 +80,29 @@ public class WaitingRoomServer extends Thread {
     public void stopThread() {
         try {
             for (int i = 0; i < threads.size(); i++) {
-                threads.get(i).stopThread();
+                WaitingRoomThread t = threads.get(i);
+                t.stopThread();
             }
             serverSocket.close();
             Server.USING_PORT.remove(port);
+
+        } catch (IOException e) {
+            System.out.println("Close the connection ");
+        }
+    }
+
+    public void startBattle() {
+        try {
+            for (int i = 0; i < threads.size(); i++) {
+                WaitingRoomThread t = threads.get(i);
+
+                System.out.println("WaitingRoomServer Start battle");
+                t.getCommunicator().sendRequestHeader(Services.BATTLE_START);
+                t.getCommunicator().flushOutput();
+                t.stopThread();
+            }
+            serverSocket.close();
+//            Server.USING_PORT.remove(port);
 
         } catch (IOException e) {
             System.out.println("Close the connection ");

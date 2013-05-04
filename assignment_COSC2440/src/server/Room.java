@@ -51,13 +51,13 @@ public class Room {
     private int state;
     private int numPlayersPerTeam; // Max number of player per team.
     private int currentTurn;
-    
+
     public Room(SocketCommunicator host, int type) {
         team1 = new LinkedHashMap<String, SocketCommunicator>();
         team2 = new LinkedHashMap<String, SocketCommunicator>();
         hostName = host.getUsername();
         this.numPlayersPerTeam = type;
-        
+
         team1.put(hostName, host);
         ///////////////////////
 //        Server.makeNewPort();
@@ -102,21 +102,21 @@ public class Room {
 //    }
 
     public int addPlayer(SocketCommunicator p) {
-        if(team1.size()>=numPlayersPerTeam && team2.size()>=numPlayersPerTeam) {
+        if (team1.size() >= numPlayersPerTeam && team2.size() >= numPlayersPerTeam) {
             return ADD_PLAYER_FAILED;
         }
 
-        if(team1.size()<numPlayersPerTeam && team2.size()>=numPlayersPerTeam) {
+        if (team1.size() < numPlayersPerTeam && team2.size() >= numPlayersPerTeam) {
             team1.put(p.getUsername(), p);
             return TEAM_1;
         }
 
-        if(team1.size()>=numPlayersPerTeam && team2.size()<numPlayersPerTeam) {
+        if (team1.size() >= numPlayersPerTeam && team2.size() < numPlayersPerTeam) {
             team2.put(p.getUsername(), p);
             return TEAM_2;
         }
 
-        if(team1.size() <= team2.size()) {
+        if (team1.size() <= team2.size()) {
             team1.put(p.getUsername(), p);
             return TEAM_1;
         } else {
@@ -130,7 +130,7 @@ public class Room {
 
         System.out.println("removePlayer - begin");
 
-        if(p.getUsername().equals(hostName)) {
+        if (p.getUsername().equals(hostName)) {
             System.out.println("removePlayer - need change host in room");
             result = changeRoomHost(p);
         } else {
@@ -156,7 +156,7 @@ public class Room {
         Map<String, Player> map = new LinkedHashMap<String, Player>();
         Map<String, SocketCommunicator> team = (isTeam1) ? team1 : team2;
 
-        for(String name : team.keySet()) {
+        for (String name : team.keySet()) {
             map.put(name, team.get(name).getPlayer());
         }
 
@@ -165,16 +165,16 @@ public class Room {
 
     public int changeRoomHost(SocketCommunicator p) {
         Map<String, SocketCommunicator> team = (team1.containsKey(p.getUsername())) ? team1 : team2;
-        Map<String, SocketCommunicator> otherTeam = (team==team1) ? team2 : team1;
+        Map<String, SocketCommunicator> otherTeam = (team == team1) ? team2 : team1;
 
         stopPlayerSocket(p.getUsername());
         team.remove(p.getUsername());
 
-        if(team.size() > 1) {
-            hostName = ((SocketCommunicator)(team.values().toArray()[0])).getUsername();
+        if (team.size() > 1) {
+            hostName = ((SocketCommunicator) (team.values().toArray()[0])).getUsername();
             return REMOVE_PLAYER_AND_CHANGE_HOST;
-        } else if(!otherTeam.isEmpty()) {
-            hostName = ((SocketCommunicator)(otherTeam.values().toArray()[0])).getUsername();
+        } else if (!otherTeam.isEmpty()) {
+            hostName = ((SocketCommunicator) (otherTeam.values().toArray()[0])).getUsername();
             return REMOVE_PLAYER_AND_CHANGE_HOST;
         } else {
             return REMOVE_PLAYER_AND_ROOM;
@@ -193,8 +193,8 @@ public class Room {
 
     public void notifyTeam1(int msg, SocketCommunicator except) {
         System.out.println("Notify Team 1");
-        for(SocketCommunicator sc : team1.values()) {
-            if(sc == except) {
+        for (SocketCommunicator sc : team1.values()) {
+            if (sc == except) {
                 continue;
             }
             sc.write(new Integer(msg));
@@ -204,8 +204,8 @@ public class Room {
 
     public void notifyTeam2(int msg, SocketCommunicator except) {
         System.out.println("Notify Team 2");
-        for(SocketCommunicator sc : team2.values()) {
-            if(sc == except) {
+        for (SocketCommunicator sc : team2.values()) {
+            if (sc == except) {
                 System.out.println("Skip notify for " + sc.getUsername());
                 continue;
             }
@@ -215,13 +215,13 @@ public class Room {
     }
 
     public void notifySelectedPoke() {
-        for(SocketCommunicator sc : team1.values()) {
+        for (SocketCommunicator sc : team1.values()) {
             sc.write(getSelectedPokeInfoTeam(Room.TEAM_1));
             sc.write(getSelectedPokeInfoTeam(Room.TEAM_2));
             sc.flushOutput();
         }
 
-        for(SocketCommunicator sc : team2.values()) {
+        for (SocketCommunicator sc : team2.values()) {
             sc.write(getSelectedPokeInfoTeam(Room.TEAM_1));
             sc.write(getSelectedPokeInfoTeam(Room.TEAM_2));
             sc.flushOutput();
@@ -229,11 +229,11 @@ public class Room {
     }
 
     public SelectedPokeInfo[] getSelectedPokeInfoTeam(int teamNo) {
-        Map<String, SocketCommunicator> team = (teamNo==TEAM_1) ? team1 : team2;
+        Map<String, SocketCommunicator> team = (teamNo == TEAM_1) ? team1 : team2;
         SelectedPokeInfo[] spi = new SelectedPokeInfo[numPlayersPerTeam];
         ArrayList<SocketCommunicator> t = new ArrayList<SocketCommunicator>(team.values());
 
-        for(int i=0; i<t.size(); i++) {
+        for (int i = 0; i < t.size(); i++) {
             Player p = t.get(i).getPlayer();
             spi[i] = p.makeSelectedPokeInfo(p.getUsername().equals(hostName));
         }
@@ -241,36 +241,36 @@ public class Room {
         return spi;
     }
 
-    public void generatePlayerOrder() {
-        ArrayList<SocketCommunicator> t1 = new ArrayList<SocketCommunicator>(team1.values());
-        ArrayList<SocketCommunicator> t2 = new ArrayList<SocketCommunicator>(team2.values());
-        pokeInBattle1 = new PokeInBattleInfo[team1.size()];
-        pokeInBattle2 = new PokeInBattleInfo[team2.size()];
-        orderOfPlayers = new ArrayList<SocketCommunicator>();
-
-        for(int i=0; i<t1.size(); i++) {
-            SocketCommunicator sc = t1.get(i);
-            orderOfPlayers.add(sc);
-            String pokeName = sc.getPlayer().getSelectedPoke().getName();
-            pokeInBattle1[i] = new PokeInBattleInfo(sc.getUsername(),
-                    PokemonFactory.getPokeIcon(pokeName), MoveUtil.START_POSITIONS_T1[i]);
-        }
-
-        for(int i=0; i<t2.size(); i++) {
-            SocketCommunicator sc = t2.get(i);
-            orderOfPlayers.add(sc);
-            String pokeName = sc.getPlayer().getSelectedPoke().getName();
-            pokeInBattle2[i] = new PokeInBattleInfo(sc.getUsername(),
-                    PokemonFactory.getPokeIcon(pokeName), MoveUtil.START_POSITIONS_T2[i]);
-        }
-
-        currentTurn = 0;
-
-//        initializeForBattle(t1, t2);
-    }
+//    public void generatePlayerOrder() {
+//        ArrayList<SocketCommunicator> t1 = new ArrayList<SocketCommunicator>(team1.values());
+//        ArrayList<SocketCommunicator> t2 = new ArrayList<SocketCommunicator>(team2.values());
+//        pokeInBattle1 = new PokeInBattleInfo[team1.size()];
+//        pokeInBattle2 = new PokeInBattleInfo[team2.size()];
+//        orderOfPlayers = new ArrayList<SocketCommunicator>();
+//
+//        for (int i = 0; i < t1.size(); i++) {
+//            SocketCommunicator sc = t1.get(i);
+//            orderOfPlayers.add(sc);
+//            String pokeName = sc.getPlayer().getSelectedPoke().getName();
+//            pokeInBattle1[i] = new PokeInBattleInfo(sc.getUsername(),
+//                    PokemonFactory.getPokeIcon(pokeName), MoveUtil.START_POSITIONS_T1[i]);
+//        }
+//
+//        for (int i = 0; i < t2.size(); i++) {
+//            SocketCommunicator sc = t2.get(i);
+//            orderOfPlayers.add(sc);
+//            String pokeName = sc.getPlayer().getSelectedPoke().getName();
+//            pokeInBattle2[i] = new PokeInBattleInfo(sc.getUsername(),
+//                    PokemonFactory.getPokeIcon(pokeName), MoveUtil.START_POSITIONS_T2[i]);
+//        }
+//
+//        currentTurn = 0;
+//
+////        initializeForBattle(t1, t2);
+//    }
 
     public SocketCommunicator nextTurn() {
-        if(currentTurn < orderOfPlayers.size()) {
+        if (currentTurn < orderOfPlayers.size()) {
             return orderOfPlayers.get(++currentTurn);
         } else {
             currentTurn = 0;
@@ -278,33 +278,40 @@ public class Room {
         }
     }
 
-    public void initializeForBattle(ArrayList<SocketCommunicator> t1, ArrayList<SocketCommunicator> t2) {
+    public void initializeBattle() {
+        System.out.println("Room initializing battle");
+
         pokeInBattle1 = new PokeInBattleInfo[team1.size()];
         pokeInBattle2 = new PokeInBattleInfo[team2.size()];
+        ArrayList<SocketCommunicator> t1 = new ArrayList<SocketCommunicator>(team1.values());
+        ArrayList<SocketCommunicator> t2 = new ArrayList<SocketCommunicator>(team2.values());
 
+        System.out.println("Room arrays created");
 
-        for(int i=0; i<pokeInBattle1.length; i++) {
+        for (int i = 0; i < pokeInBattle1.length; i++) {
             SocketCommunicator sc = t1.get(i);
             String pokeName = sc.getPlayer().getSelectedPoke().getName();
             pokeInBattle1[i] = new PokeInBattleInfo(sc.getUsername(),
-                    PokemonFactory.getPokeIcon(pokeName), MoveUtil.START_POSITIONS_T1[i]);
+                    PokemonFactory.getPokeIconURL(pokeName), MoveUtil.START_POSITIONS_T1[i]);
         }
-        for(int i=0; i<pokeInBattle2.length; i++) {
+        for (int i = 0; i < pokeInBattle2.length; i++) {
             SocketCommunicator sc = t2.get(i);
             String pokeName = sc.getPlayer().getSelectedPoke().getName();
             pokeInBattle2[i] = new PokeInBattleInfo(sc.getUsername(),
-                    PokemonFactory.getPokeIcon(pokeName), MoveUtil.START_POSITIONS_T2[i]);
+                    PokemonFactory.getPokeIconURL(pokeName), MoveUtil.START_POSITIONS_T2[i]);
         }
+
+        System.out.println("Room Finish init battle");
     }
 
     public PokeInBattleInfo getPokeInBattle(String owner) {
-        for(PokeInBattleInfo p : pokeInBattle1) {
-            if(p.getOwner().equals(owner)) {
+        for (PokeInBattleInfo p : pokeInBattle1) {
+            if (p.getOwner().equals(owner)) {
                 return p;
             }
         }
-        for(PokeInBattleInfo p : pokeInBattle2) {
-            if(p.getOwner().equals(owner)) {
+        for (PokeInBattleInfo p : pokeInBattle2) {
+            if (p.getOwner().equals(owner)) {
                 return p;
             }
         }
@@ -312,20 +319,26 @@ public class Room {
     }
 
     public void startBattle() {
-//        roomServerPort = Server.makeNewPort();
-        waitingRoomServer.stopThread();
-        waitingRoomServer = null;
-        battleServer = new BattleServer(roomServerPort);
+//        if (waitingRoomServer != null) {
+//            waitingRoomServer.stopThread();
+        waitingRoomServer.startBattle();
+//            waitingRoomServer = null;
+//        }
+        System.out.println("Room waitingRoomServer stopped");
+        battleServer = new BattleServer(this, roomServerPort);
+        battleServer.start();
+
+        System.out.println("Room Battle started");
     }
 
     public void close() {
         chatServer.stopThread();
 
-        if(waitingRoomServer != null) {
+        if (waitingRoomServer != null) {
             waitingRoomServer.stopThread();
         }
 
-        if(battleServer != null) {
+        if (battleServer != null) {
             battleServer.stopThread();
         }
     }

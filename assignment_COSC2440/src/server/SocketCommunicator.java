@@ -58,6 +58,7 @@ public class SocketCommunicator {
             System.out.println("EXCEPTION IN WRITING OBJECT InvalidClassException");
         } catch(NotSerializableException ex) {
             System.out.println("EXCEPTION IN WRITING OBJECT NotSerializableException");
+            ex.printStackTrace();
         } catch(IOException ex) {
             System.out.println("EXCEPTION IN WRITING OBJECT IOException");
         }
@@ -91,6 +92,7 @@ public class SocketCommunicator {
         try {
             return from.readObject();
         } catch(Exception ex) {
+            ex.printStackTrace();
             return null;
         }
     }

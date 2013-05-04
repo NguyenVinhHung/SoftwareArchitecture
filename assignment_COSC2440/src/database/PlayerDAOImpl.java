@@ -46,15 +46,16 @@ public class PlayerDAOImpl implements PlayerDAO {
 
     @Override
     public int addPlayer(Player player) {
-        if(!getPlayer(player.getUsername()).isEmpty()) {
+        try {
+            jdbcTemplate.update(INSERT_CMD, player.getUsername(), player.getPw());
+            PokemonDAOImpl pokemonDAO = DatabaseSpring.getPokemonDAO();
+
+            pokemonDAO.addPokemon(player.getPokemon(0), player.getUsername());
+            return 1;
+        } catch(Exception ex) {
+            System.out.println("addPlayer() - already exist");
             return 0;
         }
-
-        jdbcTemplate.update(INSERT_CMD, player.getUsername(), player.getPw());
-        PokemonDAOImpl pokemonDAO = DatabaseSpring.getPokemonDAO();
-
-        pokemonDAO.addPokemon(player.getPokemon(0), player.getUsername());
-        return 1;
     }
 
     public List<Player> getPlayer(String requestedUserName) {
@@ -63,24 +64,47 @@ public class PlayerDAOImpl implements PlayerDAO {
         List<Player> accountList = jdbcTemplate.query(sql, new RowMapper<Player>() {
             @Override
             public Player mapRow(ResultSet resultSet, int i) throws SQLException {
-                PokemonDAOImpl pokemonDAO = DatabaseSpring.getPokemonDAO();
+//                PokemonDAOImpl pokemonDAO = DatabaseSpring.getPokemonDAO();
                 String username = resultSet.getString(1);
                 String pw = resultSet.getString(2);
 
-                List<Pokemon> pokemons = pokemonDAO.getPokemonWithOwner(username);
-                Player account = new Player(username, pw, pokemons);
+//                List<Pokemon> pokemons = pokemonDAO.getPokemonWithOwner(username);
+                Player account = new Player(username, pw, null);
+
+                System.out.println("Username " + username);
+
+                return account;
+            }
+        });
+
+        PokemonDAOImpl pokemonDAO = DatabaseSpring.getPokemonDAO();
+        List<Pokemon> pokemons = pokemonDAO.getPokemonWithOwner(accountList.get(0).getUsername());
+
+        accountList.get(0).setPokemons(pokemons);
+        System.out.println("Number of players found: " + accountList.size());
+        return accountList;
+    }
+
+    @Override
+    public boolean contains(String username) {
+        String sql = "select * from Account where Username='" + username + "'";
+
+        List<Player> accountList = jdbcTemplate.query(sql, new RowMapper<Player>() {
+            @Override
+            public Player mapRow(ResultSet resultSet, int i) throws SQLException {
+                String username = resultSet.getString(1);
+                String pw = resultSet.getString(2);
+
+                Player account = new Player(username, pw, null);
+
+                System.out.println("Username " + username);
 
                 return account;
             }
         });
 
         System.out.println("Number of players found: " + accountList.size());
-        return accountList;
-    }
-
-    @Override
-    public boolean contains(String userName) {
-        return !getPlayer(userName).isEmpty();
+        return !accountList.isEmpty();
     }
 
     @Override

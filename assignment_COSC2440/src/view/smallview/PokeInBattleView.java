@@ -1,9 +1,9 @@
 package view.smallview;
 
 import model.pokemon.PokeInBattleInfo;
-import org.springframework.core.env.MapPropertySource;
 import view.map.MapUtil;
 
+import javax.swing.*;
 import java.awt.*;
 
 /**
@@ -16,12 +16,14 @@ import java.awt.*;
 public class PokeInBattleView {
 
     private PokeInBattleInfo model;
+    private Image img;
 
     public PokeInBattleView(PokeInBattleInfo model) {
         this.model = model;
+        img = new ImageIcon(model.getImageURL()).getImage();
     }
 
     public void draw(Graphics g) {
-        g.drawImage(model.getImage(), model.getI(), model.getJ(), MapUtil.TILE_SIZE, MapUtil.TILE_SIZE, null);
+        g.drawImage(img, model.getI(), model.getJ(), MapUtil.TILE_SIZE, MapUtil.TILE_SIZE, null);
     }
 }

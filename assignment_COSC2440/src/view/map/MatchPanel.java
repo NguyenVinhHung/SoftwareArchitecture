@@ -4,7 +4,11 @@
  */
 package view.map;
 
+import model.pokemon.PokeInBattleInfo;
+import model.room.RoomPublicInfo;
 import server.Server;
+import server.Services;
+import server.battlehandler.BattleListenerThread;
 import server.chathandler.ChatListenerThread;
 import server.chathandler.ChatServices;
 import main.Main;
@@ -41,25 +45,28 @@ public class MatchPanel extends JPanel implements KeyListener, SocketClosable {
     //    private Socket chatSocket;
     private SocketCommunicator chatCommunicator;
     private SocketCommunicator battleCommunicator;
+    private BattleListenerThread battleListenerThread;
     private String hostName;
+    private RoomPublicInfo roomInfo;
     private boolean isTeam1;
     
     public MatchPanel(GameMap m, SocketCommunicator chatCommunicator,
                       ChatListenerThread chatListenerThread, String hostName) {
-        init(m, chatCommunicator, chatListenerThread, hostName);
+        init(m, chatCommunicator, chatListenerThread, hostName, null);
     }
 
     public MatchPanel(int[][] mapArr, SocketCommunicator chatCommunicator, ChatListenerThread chatListenerThread
-                        , boolean isTeam1, String hostName) {
+                        , boolean isTeam1, String hostName, RoomPublicInfo roomInfo) {
         this.isTeam1 = isTeam1;
-        init(new GameMap(this, mapArr), chatCommunicator, chatListenerThread, hostName);
+        init(new GameMap(this, mapArr), chatCommunicator, chatListenerThread, hostName, roomInfo);
     }
 
     private void init(GameMap m, SocketCommunicator chatCommunicator,
-                      ChatListenerThread chatListenerThread, String hostName) {
+                      ChatListenerThread chatListenerThread, String hostName, RoomPublicInfo roomInfo) {
         map = m;
         this.chatCommunicator = chatCommunicator;
         this.hostName = hostName;
+        this.roomInfo = roomInfo;
 
         setLayout(null);
         initChatFeature();
@@ -83,6 +90,8 @@ public class MatchPanel extends JPanel implements KeyListener, SocketClosable {
 //        if(!map.isMyTurn()) {
 //            gameThread.start();
 //        }
+
+        initBattleSocket();
     }
 
     private void initChatFeature() {
@@ -103,22 +112,33 @@ public class MatchPanel extends JPanel implements KeyListener, SocketClosable {
     }
 
     private void initBattleSocket() {
-//        try {
-//            Socket chatSocket = new Socket(Server.IP, roomInfo.getChatServerPort());
-//            ObjectOutputStream objectOutputStream = new ObjectOutputStream(chatSocket.getOutputStream());
-//            ObjectInputStream objectInputStream = new ObjectInputStream(chatSocket.getInputStream());
-//            battleCommunicator = new SocketCommunicator(chatSocket, objectOutputStream, objectInputStream, null);
+        try {
+            Socket socket = new Socket(Server.IP, roomInfo.getRoomServerPort());
+
+            ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
+
+            battleCommunicator = new SocketCommunicator(socket, objectOutputStream, objectInputStream, null);
+
+            objectOutputStream.writeInt((isTeam1) ? ChatServices.JOIN_TEAM_1 : ChatServices.JOIN_TEAM_2);
+            objectOutputStream.flush();
 //
-////            objectOutputStream.write(new Integer(ChatServices.JOIN_TEAM_1));
-//            objectOutputStream.writeInt((isTeam1) ? ChatServices.JOIN_TEAM_1 : ChatServices.JOIN_TEAM_2);
-//            objectOutputStream.flush();
+            if(roomInfo.getHostname().equals(Main.getCommunicator().getUsername())) {
+                battleCommunicator.sendRequestHeader(Services.BATTLE_INITIALIZATION);
+                battleCommunicator.flushOutput();
+            }
 //
-//            chatListenerThread = new ChatListenerThread(chatCommunicator, globalChat);
-//            chatListenerThread.start();
-//
-//        } catch (IOException e) {
-//            System.out.println("Cannot create chat socket");
-//        }
+            battleListenerThread = new BattleListenerThread(battleCommunicator, this);
+            battleListenerThread.start();
+
+        } catch (IOException e) {
+            System.out.println("Cannot create chat socket");
+        }
+    }
+
+    public void initPokeOnMap(PokeInBattleInfo[] t1, PokeInBattleInfo[] t2) {
+        map.setPokeModels1(t1);
+        map.setPokeModels2(t2);
     }
 
     @Override

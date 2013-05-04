@@ -105,4 +105,12 @@ public class Player implements Serializable {
     public void setSelectedPoke(Pokemon selectedPoke) {
         this.selectedPoke = selectedPoke;
     }
+
+    public void setPokemons(List<Pokemon> pokemons) {
+        this.pokemons = pokemons;
+
+        if(pokemons != null) {
+            selectedPoke = pokemons.get(0);
+        }
+    }
 }

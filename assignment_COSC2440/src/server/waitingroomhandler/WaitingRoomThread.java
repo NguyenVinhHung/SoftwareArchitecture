@@ -29,13 +29,17 @@ public class WaitingRoomThread implements Runnable {
 
             System.out.println("WaitingRoomThread is running");
 
-            while (!communicator.isClosed() && service!=Services.INVALID) {
+            while (!communicator.isClosed() && service != Services.INVALID) {
                 service = communicator.readInt();
 
-                System.out.println("WaitingRoomThread requesr: " + service);
+                System.out.println("WaitingRoomThread request: " + service);
                 switch (service) {
                     case Services.IN_ROOM_NOTIFY_SELECTED_POK: {
                         notifySelectedPokesInRoom();
+                        break;
+                    }
+                    case Services.BATTLE_START: {
+                        startBattle();
                         break;
                     }
                     case Services.IN_ROOM_STOP_WAITING: {
@@ -59,9 +63,11 @@ public class WaitingRoomThread implements Runnable {
     }
 
     private synchronized void notifySelectedPokesInRoom() {
-        OnlinePlayerList opl = (OnlinePlayerList) ServerSpring.getBean("onlinePlayerList");
-        String host = (String)communicator.read();
-        Room r = opl.getRooms().get(host);
+//        OnlinePlayerList opl = (OnlinePlayerList) ServerSpring.getBean("onlinePlayerList");
+//        String host = (String)communicator.read();
+//        Room r = opl.getRooms().get(host);
+        Room r = getRoom();
+
 //        r.notifySelectedPoke();
 
         System.out.println("Start getting SelectedPokeInfoTeam");
@@ -69,8 +75,20 @@ public class WaitingRoomThread implements Runnable {
         System.out.println("Finish getting SelectedPokeInfoTeam");
     }
 
+    private void startBattle() {
+        Room r = getRoom();
+
+        r.startBattle();
+    }
+
     public void stopThread() {
         communicator.close();
+    }
+
+    private Room getRoom() {
+        OnlinePlayerList opl = (OnlinePlayerList) ServerSpring.getBean("onlinePlayerList");
+        String host = (String) communicator.read();
+        return opl.getRooms().get(host);
     }
 
     public boolean isStopped() {

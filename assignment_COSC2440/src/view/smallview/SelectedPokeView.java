@@ -53,7 +53,11 @@ public class SelectedPokeView extends InteractiveView {
         g.drawImage(FileUtility.SELECTED_POKE_IMG, x, y, null);
 
         if(pokemon == null) {
-//            System.out.println("SelectedPokeView in draw(), pokemon is null");
+            System.out.println("SelectedPokeView in draw(), pokemon is null");
+            return;
+        }
+        if(img == null) {
+            System.out.println("SelectedPokeView in draw(), img is null");
             return;
         }
 

@@ -46,8 +46,8 @@ public class RegisterView extends CustomPanel {
     private RawButton cancelBtn;
 
     public RegisterView() {
-//        bg = new ImageIcon(FileUtility.WELCOME_IMG_URL).getImage();
-//        popup = new ImageIcon(FileUtility.POPUP_IMG_URL).getImage();
+//        bg = new ImageIcon(FileUtility.WELCOME_IMG_URL).getImageURL();
+//        popup = new ImageIcon(FileUtility.POPUP_IMG_URL).getImageURL();
         user = new JTextField(TEXT_FIELD_COLS);
         password = new JPasswordField(TEXT_FIELD_COLS);
         confirmPw = new JPasswordField(TEXT_FIELD_COLS);

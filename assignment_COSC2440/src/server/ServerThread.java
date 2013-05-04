@@ -39,7 +39,9 @@ public class ServerThread implements Runnable {
             int service;
 
             while (!socket.isClosed()) {
+                System.out.println("Wait for request");
                 service = input.readInt();
+                System.out.println("Receive request: " + service);
 
                 switch (service) {
                     case Services.REGISTER: {
@@ -122,11 +124,17 @@ public class ServerThread implements Runnable {
 
     private synchronized void register(ObjectInputStream input, ObjectOutputStream output) {
         try {
+            System.out.println("Wait for username & password");
+
             String username = input.readUTF();
             String pw = input.readUTF();
             PlayerDAOImpl playerDAO = DatabaseSpring.getPlayerDAO();
 
+            System.out.println("Username & password were got");
+
             if(playerDAO.addPlayer(username, pw) == 0) {
+//            if(!playerDAO.contains(username)) {
+//                playerDAO.addPlayer(username, pw);
                 System.out.println("register " + Services.REGISTER_FAILED_DUPLICATE_NAME);
                 output.writeInt(Services.REGISTER_FAILED_DUPLICATE_NAME);
             } else {
@@ -141,6 +149,7 @@ public class ServerThread implements Runnable {
             socket.close();
         } catch(Exception ex) {
             System.out.println("Adding account has error");
+            ex.printStackTrace();
         }
     }
 
@@ -275,7 +284,7 @@ public class ServerThread implements Runnable {
         communicator.write(new Integer(Services.BATTLE_START));
         communicator.flushOutput();
 
-        r.generatePlayerOrder();
+//        r.generatePlayerOrder();
     }
 
     private void checkBattleState() {

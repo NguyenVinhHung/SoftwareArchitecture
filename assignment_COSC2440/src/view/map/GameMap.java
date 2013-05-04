@@ -98,6 +98,21 @@ public class GameMap {
 //            y += MapUtil.TILE_SIZE;
 //        }
 
+        if(pokeViews1 != null) {
+            for(int i=0; i<pokeViews1.length; i++) {
+                pokeViews1[i].draw(g);
+                System.out.println("pokeViews1 " + i);
+            }
+
+        }
+
+        if(pokeViews2 != null) {
+            for(int i=0; i<pokeViews2.length; i++) {
+                pokeViews2[i].draw(g);
+                System.out.println("pokeViews2 " + i);
+            }
+        }
+
         if(isMyTurn) {
 
         }
@@ -152,6 +167,10 @@ public class GameMap {
     }
 
     public void setPokeModels2(PokeInBattleInfo[] pokeModels2) {
+//        if(pokeModels2 == null) {
+//            return;
+//        }
+
         this.pokeModels2 = pokeModels2;
         pokeViews2 = new PokeInBattleView[pokeModels2.length];
 

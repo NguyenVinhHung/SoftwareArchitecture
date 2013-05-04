@@ -1,10 +1,14 @@
 package server.battlehandler;
 
+import model.pokemon.PokeInBattleInfo;
+import server.Room;
 import server.Server;
+import server.Services;
 import server.SocketCommunicator;
 import server.chathandler.ChatServices;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Vector;
@@ -22,11 +26,13 @@ public class BattleServer extends Thread {
     private final Vector<BattleThread> team2Threads = new Vector<BattleThread>();
 
     private ServerSocket serverSocket;
+    private Room room;
     private int port;
     private boolean running;
 
-    public BattleServer(int port) {
+    public BattleServer(Room r, int port) {
         this.port = port;
+        room = r;
 
         try {
             serverSocket = new ServerSocket(port);
@@ -40,9 +46,20 @@ public class BattleServer extends Thread {
 
         try {
             while(running) {
+                System.out.println("BatttleServer wait for socket");
                 Socket socket = serverSocket.accept();
+
+                System.out.println("BattleServer received socket");
+
                 SocketCommunicator communicator = new SocketCommunicator(socket);
-                BattleThread battleThread = new BattleThread(communicator);
+//                ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
+//                ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
+//                SocketCommunicator communicator = new SocketCommunicator(socket,
+//                        objectOutputStream, objectInputStream, null);
+
+                System.out.println("BattleServer communicator created");
+
+                BattleThread battleThread = new BattleThread(communicator, this);
 
                 // Get user team
                 int team1Orteam2 = communicator.getFrom().readInt();
@@ -58,6 +75,57 @@ public class BattleServer extends Thread {
             }
         } catch (Exception ex) {
         }
+    }
+
+    public void initBattle() {
+        System.out.println("BattleServer Start initializing battle");
+
+        room.initializeBattle();
+
+        notifyPokeInBattleToPlayers(Services.BATTLE_INITIALIZATION, room.getPokeInBattle1());
+        notifyPokeInBattleToPlayers(Services.BATTLE_INITIALIZATION, room.getPokeInBattle2());
+
+        System.out.println("BattleServer Finish init battle");
+    }
+
+//    private <T extends Serializable> void notifyPokeInBattleToPlayers(int response, T obj) {
+//        System.out.println("BattleServer start notifying Players");
+//
+//        for (int i = 0; i < team1Threads.size(); i++) {
+//            SocketCommunicator sc = team1Threads.get(i).getCommunicator();
+//            sc.sendRequestHeader(response);
+//            sc.write(obj);
+//            sc.flushOutput();
+//        }
+//
+//        for (int i = 0; i < team2Threads.size(); i++) {
+//            SocketCommunicator sc = team2Threads.get(i).getCommunicator();
+//            sc.sendRequestHeader(response);
+//            sc.write(obj);
+//            sc.flushOutput();
+//        }
+//
+//        System.out.println("BattleServer finish notifying Players");
+//    }
+
+    private void notifyPokeInBattleToPlayers(int response, PokeInBattleInfo[] obj) {
+        System.out.println("BattleServer start notifying Players");
+
+        for (int i = 0; i < team1Threads.size(); i++) {
+            SocketCommunicator sc = team1Threads.get(i).getCommunicator();
+            sc.sendRequestHeader(response);
+            sc.write(obj);
+            sc.flushOutput();
+        }
+
+        for (int i = 0; i < team2Threads.size(); i++) {
+            SocketCommunicator sc = team2Threads.get(i).getCommunicator();
+            sc.sendRequestHeader(response);
+            sc.write(obj);
+            sc.flushOutput();
+        }
+
+        System.out.println("BattleServer finish notifying Players");
     }
 
     public void stopThread() {

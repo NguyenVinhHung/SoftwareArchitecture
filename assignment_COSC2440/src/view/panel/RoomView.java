@@ -306,6 +306,7 @@ public class RoomView extends AfterLoginTemplate implements KeyListener, SocketC
             g1.get(i).draw(g);
             g2.get(i).draw(g);
         }
+
 //        for(SelectedPokeView spv : g1) {
 //            spv.draw(g);
 //        }
@@ -319,14 +320,18 @@ public class RoomView extends AfterLoginTemplate implements KeyListener, SocketC
     }
 
     private void startBattle() {
-        SocketCommunicator sc = Main.getCommunicator();
-        sc.sendRequestHeader(Services.BATTLE_START);
-        sc.flushOutput();
+//        SocketCommunicator sc = Main.getCommunicator();
+//        sc.sendRequestHeader(Services.BATTLE_START);
+//        sc.flushOutput();
+        waitingRoomCommunicator.sendRequestHeader(Services.BATTLE_START);
+        waitingRoomCommunicator.write(roomInfo.getHostname());
+        waitingRoomCommunicator.flushOutput();
 
         System.out.println("startBattle request sent");
 
-        int result = (Integer)sc.read();
-        System.out.println("startBattle receive result");
+//        int result = (Integer)waitingRoomCommunicator.read();
+
+
 //        System.out.println("startBattle start changing panel");
 //        try {
 //            Thread.sleep(3000);
@@ -351,12 +356,12 @@ public class RoomView extends AfterLoginTemplate implements KeyListener, SocketC
         }
     }
 
-    private void toMatchPanel() {
+    public void toMatchPanel() {
         System.out.println("toMatchPanel start changing panel");
 //        waiting = false;
 //        chatCommunicator.close();
         Main.getInstance().setCurrPanel(new MatchPanel(MapUtil.MAP_ARRS[0],
-                chatCommunicator, chatListenerThread, isTeam1, roomInfo.getHostname()));
+                chatCommunicator, chatListenerThread, isTeam1, roomInfo.getHostname(), roomInfo));
         System.out.println("toMatchPanel end");
     }
 

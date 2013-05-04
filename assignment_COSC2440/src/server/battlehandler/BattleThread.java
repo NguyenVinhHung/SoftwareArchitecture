@@ -1,5 +1,6 @@
 package server.battlehandler;
 
+import server.Room;
 import server.Services;
 import server.SocketCommunicator;
 
@@ -18,23 +19,28 @@ import java.net.SocketException;
 public class BattleThread implements Runnable {
 
     private SocketCommunicator communicator;
+    private BattleServer server;
 
-    public BattleThread(SocketCommunicator com) {
+    public BattleThread(SocketCommunicator com, BattleServer s) {
         communicator = com;
+        server = s;
     }
 
     @Override
     public void run() {
+        System.out.println("BattleThread running");
+
         try {
             int service;
 
             while (!communicator.isClosed()) {
                 service = communicator.readInt();
 
+                System.out.println("BattleThread service: " + service);
                 switch (service) {
-                    case Services.REGISTER: {
-//                        register(input, output);
-                        return;
+                    case Services.BATTLE_INITIALIZATION: {
+                        initBattle();
+                        break;
                     }
                 }
             }
@@ -52,7 +58,15 @@ public class BattleThread implements Runnable {
         }
     }
 
+    private void initBattle() {
+        server.initBattle();
+    }
+
     public void stopThread() {
         communicator.close();
+    }
+
+    public SocketCommunicator getCommunicator() {
+        return communicator;
     }
 }

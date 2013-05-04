@@ -31,16 +31,16 @@ public class MapUtil {
 //    public static final int RED_BLASTER = 9;
 
 //    public static final Image TILES[] = {
-//        new ImageIcon(FileUtility.TILES[BROWN]).getImage(),
-//        new ImageIcon(FileUtility.TILES[GRASS]).getImage(),
-//        new ImageIcon(FileUtility.TILES[DIRT]).getImage(),
-//        new ImageIcon(FileUtility.TILES[WATER]).getImage(),
-//        new ImageIcon(FileUtility.TILES[MAGMA]).getImage(),
-//        new ImageIcon(FileUtility.TILES[TREE_SHORT]).getImage(),
-//        new ImageIcon(FileUtility.TILES[TREE_TALL]).getImage(),
-//        new ImageIcon(FileUtility.TILES[TREE_UGLY]).getImage(),
-//        new ImageIcon(FileUtility.TILES[BLACK_BLASTER]).getImage(),
-//        new ImageIcon(FileUtility.TILES[RED_BLASTER]).getImage()
+//        new ImageIcon(FileUtility.TILES[BROWN]).getImageURL(),
+//        new ImageIcon(FileUtility.TILES[GRASS]).getImageURL(),
+//        new ImageIcon(FileUtility.TILES[DIRT]).getImageURL(),
+//        new ImageIcon(FileUtility.TILES[WATER]).getImageURL(),
+//        new ImageIcon(FileUtility.TILES[MAGMA]).getImageURL(),
+//        new ImageIcon(FileUtility.TILES[TREE_SHORT]).getImageURL(),
+//        new ImageIcon(FileUtility.TILES[TREE_TALL]).getImageURL(),
+//        new ImageIcon(FileUtility.TILES[TREE_UGLY]).getImageURL(),
+//        new ImageIcon(FileUtility.TILES[BLACK_BLASTER]).getImageURL(),
+//        new ImageIcon(FileUtility.TILES[RED_BLASTER]).getImageURL()
 //    };
 
     public static final Image SELECTED_TILE = new ImageIcon(FileUtility.SELECTED_TILE_URL).getImage();

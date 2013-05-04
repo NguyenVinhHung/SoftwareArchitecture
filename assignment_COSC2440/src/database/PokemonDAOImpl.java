@@ -48,15 +48,21 @@ public class PokemonDAOImpl implements PokemonDAO {
 
     @Override
     public List<Pokemon> getPokemonWithOwner(String ownerName) {
-
+        System.out.println("Pokemon list is getting");
         String sql = "select * from Pokemon where OwnerName='" + ownerName + "'";
+
         List<Pokemon> pokemonList = jdbcTemplate.query(sql, new RowMapper<Pokemon>() {
             @Override
             public Pokemon mapRow(ResultSet resultSet, int i) throws SQLException {
-                return new Pokemon(resultSet.getString(2), resultSet.getInt(3), resultSet.getInt(4), resultSet.getInt(5));
+                Pokemon p = new Pokemon(resultSet.getString(2), resultSet.getInt(3),
+                        resultSet.getInt(4), resultSet.getInt(5));
 
+                System.out.println(p.toString());
+                return p;
             }
         });
+
+        System.out.println("Pokemon list size 2: " + pokemonList.size());
         return pokemonList;
 
     }
