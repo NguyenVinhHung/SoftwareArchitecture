@@ -2,6 +2,11 @@ package server;
 
 //import utility.DatabaseUtil;
 
+import database.DatabaseSpring;
+import database.PlayerDAOImpl;
+import database.PokemonDAO;
+import database.PokemonDAOImpl;
+
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -47,6 +52,12 @@ public class Server extends JFrame {
     }
 
     private void init() {
+        PlayerDAOImpl playerDAO = DatabaseSpring.getPlayerDAO();
+        PokemonDAOImpl pokemonDAO = DatabaseSpring.getPokemonDAO();
+
+        playerDAO.createPlayerTable();
+        pokemonDAO.createPokemonTable();
+
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {

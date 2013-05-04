@@ -127,8 +127,10 @@ public class ServerThread implements Runnable {
             PlayerDAOImpl playerDAO = DatabaseSpring.getPlayerDAO();
 
             if(playerDAO.addPlayer(username, pw) == 0) {
+                System.out.println("register " + Services.REGISTER_FAILED_DUPLICATE_NAME);
                 output.writeInt(Services.REGISTER_FAILED_DUPLICATE_NAME);
             } else {
+                System.out.println("register " + Services.REGISTER_SUCCESS);
                 output.writeInt(Services.REGISTER_SUCCESS);
             }
 
@@ -157,6 +159,7 @@ public class ServerThread implements Runnable {
             }
 
             if(p == null) {
+                System.out.println(Services.LOGIN_WRONG_USER);
                 output.writeInt(Services.LOGIN_WRONG_USER);
                 output.flush();
                 input.close();
@@ -164,6 +167,7 @@ public class ServerThread implements Runnable {
                 socket.close();
                 return false;
             } else if(!p.getPw().equals(pw)) {
+                System.out.println(Services.LOGIN_WRONG_PW);
                 output.writeInt(Services.LOGIN_WRONG_PW);
                 output.flush();
                 input.close();

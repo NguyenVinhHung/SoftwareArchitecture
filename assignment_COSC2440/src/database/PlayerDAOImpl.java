@@ -46,11 +46,15 @@ public class PlayerDAOImpl implements PlayerDAO {
 
     @Override
     public int addPlayer(Player player) {
-        int numRowsAffected = jdbcTemplate.update(INSERT_CMD, player.getUsername(), player.getPw());
+        if(!getPlayer(player.getUsername()).isEmpty()) {
+            return 0;
+        }
+
+        jdbcTemplate.update(INSERT_CMD, player.getUsername(), player.getPw());
         PokemonDAOImpl pokemonDAO = DatabaseSpring.getPokemonDAO();
 
         pokemonDAO.addPokemon(player.getPokemon(0), player.getUsername());
-        return numRowsAffected;
+        return 1;
     }
 
     public List<Player> getPlayer(String requestedUserName) {
@@ -69,6 +73,8 @@ public class PlayerDAOImpl implements PlayerDAO {
                 return account;
             }
         });
+
+        System.out.println("Number of players found: " + accountList.size());
         return accountList;
     }
 

@@ -140,20 +140,18 @@ public class LoginView extends CustomPanel {
             case Services.LOGIN_SUCCESS:
                 System.out.println("Login successful");
                 Main.getInstance().toStartGame(s, output, input);
-                break;
+                return;
             case Services.LOGIN_WRONG_USER:
                 System.out.println("Login wrong username");
                 Main.getInstance().pushPanel(new AlertPopup("This username does not exist."));
-                output.close();
-                input.close();
-                s.close();
                 break;
             case Services.LOGIN_WRONG_PW:
                 System.out.println("Login wrong password");
                 Main.getInstance().pushPanel(new AlertPopup("Password not match"));
-                output.close();
-                input.close();
-                s.close();
         }
+
+        output.close();
+        input.close();
+        s.close();
     }
 }
