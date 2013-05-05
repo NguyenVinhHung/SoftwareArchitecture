@@ -81,9 +81,7 @@ public class BattleServer extends Thread {
         System.out.println("BattleServer Start initializing battle");
 
         room.initializeBattle();
-
-        notifyPokeInBattleToPlayers(Services.BATTLE_INITIALIZATION, room.getPokeInBattle1());
-        notifyPokeInBattleToPlayers(Services.BATTLE_INITIALIZATION, room.getPokeInBattle2());
+        notifyPokeInBattleToPlayers(Services.BATTLE_INITIALIZATION, room.getPokeInBattle1(), room.getPokeInBattle2());
 
         System.out.println("BattleServer Finish init battle");
     }
@@ -108,20 +106,22 @@ public class BattleServer extends Thread {
 //        System.out.println("BattleServer finish notifying Players");
 //    }
 
-    private void notifyPokeInBattleToPlayers(int response, PokeInBattleInfo[] obj) {
+    private void notifyPokeInBattleToPlayers(int response, PokeInBattleInfo[] t1, PokeInBattleInfo[] t2) {
         System.out.println("BattleServer start notifying Players");
 
         for (int i = 0; i < team1Threads.size(); i++) {
             SocketCommunicator sc = team1Threads.get(i).getCommunicator();
             sc.sendRequestHeader(response);
-            sc.write(obj);
+            sc.write(t1);
+            sc.write(t2);
             sc.flushOutput();
         }
 
         for (int i = 0; i < team2Threads.size(); i++) {
             SocketCommunicator sc = team2Threads.get(i).getCommunicator();
             sc.sendRequestHeader(response);
-            sc.write(obj);
+            sc.write(t1);
+            sc.write(t2);
             sc.flushOutput();
         }
 
