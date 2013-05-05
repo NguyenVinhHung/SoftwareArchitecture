@@ -63,9 +63,9 @@ public class FileUtility {
     public static final String CHARIZARD_IMG_URL = POKE_IMAGES_URL + "006.gif";
     public static final String BLASTOISE_IMG_URL = POKE_IMAGES_URL + "009.gif";
     public static final String VENUSAUR_IMG_URL = POKE_IMAGES_URL + "003.gif";
-    public static final String CHARIZARD_ICON_URL = POKE_IMAGES_URL + "6.gif";
-    public static final String BLASTOISE_ICON_URL = POKE_IMAGES_URL + "9.gif";
-    public static final String VENUSAUR_ICON_URL = POKE_IMAGES_URL + "3.gif";
+    public static final String CHARIZARD_ICON_URL = POKE_IMAGES_URL + "6.png";
+    public static final String BLASTOISE_ICON_URL = POKE_IMAGES_URL + "9.png";
+    public static final String VENUSAUR_ICON_URL = POKE_IMAGES_URL + "3.png";
 
     public static final Image CHARIZARD_IMG = new ImageIcon(CHARIZARD_IMG_URL).getImage();
     public static final Image BLASTOISE_IMG = new ImageIcon(BLASTOISE_IMG_URL).getImage();

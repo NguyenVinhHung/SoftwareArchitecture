@@ -5,6 +5,7 @@
 package view.map;
 
 import model.pokemon.PokeInBattleInfo;
+import model.pokemon.PokeInBattleRequest;
 import model.room.RoomPublicInfo;
 import server.Server;
 import server.Services;
@@ -13,11 +14,11 @@ import server.chathandler.ChatListenerThread;
 import server.chathandler.ChatServices;
 import main.Main;
 import server.SocketCommunicator;
+import utility.Move;
 import view.panel.SocketClosable;
 
 import java.awt.Graphics;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -43,11 +44,13 @@ public class MatchPanel extends JPanel implements KeyListener, SocketClosable {
 //    private JTextArea teamChat;
     private JTextArea chatTyper;
     //    private Socket chatSocket;
+    private JButton endTurnBtn;
     private SocketCommunicator chatCommunicator;
     private SocketCommunicator battleCommunicator;
     private BattleListenerThread battleListenerThread;
     private String hostName;
     private RoomPublicInfo roomInfo;
+    private String currPlayerName;
     private boolean isTeam1;
     
     public MatchPanel(GameMap m, SocketCommunicator chatCommunicator,
@@ -70,6 +73,7 @@ public class MatchPanel extends JPanel implements KeyListener, SocketClosable {
 
         setLayout(null);
         initChatFeature();
+        initBtns();
 
         chatListenerThread.setChatBox(chatBox);
 
@@ -91,6 +95,13 @@ public class MatchPanel extends JPanel implements KeyListener, SocketClosable {
 //            gameThread.start();
 //        }
 
+//        addMouseMotionListener(new MouseAdapter() {
+//            @Override
+//            public void mouseDragged(MouseEvent e) {
+//                System.out.println("x: " + e.getX() + " - y: " + e.getY());
+//            }
+//        });
+
         initBattleSocket();
     }
 
@@ -109,6 +120,27 @@ public class MatchPanel extends JPanel implements KeyListener, SocketClosable {
 
         add(chatBox);
         add(chatTyper);
+    }
+
+    private void initBtns() {
+        endTurnBtn = new JButton("End turn");
+
+        endTurnBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+//                map.setMyTurn(false);
+                if(!map.isMyTurn()) {
+                    return;
+                }
+
+                battleCommunicator.sendRequestHeader(Services.BATTLE_END_TURN);
+                battleCommunicator.flushOutput();
+            }
+        });
+
+        endTurnBtn.setBounds(GameMap.WIDTH + 10 - CHATBOX_W - 150, CHATTYPER_Y + 80, 100, 40);
+
+        add(endTurnBtn);
     }
 
     private void initBattleSocket() {
@@ -136,9 +168,11 @@ public class MatchPanel extends JPanel implements KeyListener, SocketClosable {
         }
     }
 
-    public void initPokeOnMap(PokeInBattleInfo[] t1, PokeInBattleInfo[] t2) {
+    public void initPokeOnMap(String currPlayerName, PokeInBattleInfo[] t1, PokeInBattleInfo[] t2) {
+        this.currPlayerName = currPlayerName;
         map.setPokeModels1(t1);
         map.setPokeModels2(t2);
+        map.init();
     }
 
     @Override
@@ -179,6 +213,12 @@ public class MatchPanel extends JPanel implements KeyListener, SocketClosable {
         }
     }
 
+    public void sendRequest(int request, PokeInBattleRequest requestObj) {
+        battleCommunicator.sendRequestHeader(request);
+        battleCommunicator.write(requestObj);
+        battleCommunicator.flushOutput();
+    }
+
     @Override
     public void closeSocket() {
         chatCommunicator.close();
@@ -196,5 +236,22 @@ public class MatchPanel extends JPanel implements KeyListener, SocketClosable {
 
             }
         }
+    }
+
+    public boolean isTeam1() {
+        return isTeam1;
+    }
+
+    public String getCurrPlayerName() {
+        return currPlayerName;
+    }
+
+    public void setCurrPlayerName(String currPlayerName) {
+        this.currPlayerName = currPlayerName;
+        map.setMyTurn(currPlayerName.equals(Main.getCommunicator().getUsername()));
+    }
+
+    public GameMap getMap() {
+        return map;
     }
 }

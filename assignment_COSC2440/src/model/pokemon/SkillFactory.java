@@ -9,5 +9,9 @@ package model.pokemon;
  */
 public class SkillFactory {
 
-//    public static Skill makeSkill()
+    public static Skill makeDefaultSkill(int type) {
+        return new Skill("Default attack", type, 80, 100, 5);
+    }
+
+
 }

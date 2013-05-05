@@ -4,7 +4,12 @@
  */
 package view.map;
 
+import main.Main;
 import model.pokemon.PokeInBattleInfo;
+import model.pokemon.PokeInBattleRequest;
+import server.Room;
+import server.Services;
+import server.SocketCommunicator;
 import utility.FileUtility;
 import view.smallview.PokeInBattleView;
 
@@ -34,7 +39,9 @@ public class GameMap {
     private int[][] mapArrays;
     private int selectedX = -MapUtil.TILE_SIZE;
     private int selectedY = -MapUtil.TILE_SIZE;
-    private boolean isMyTurn;
+    private int hoverX = -MapUtil.TILE_SIZE;
+    private int hoverY = -MapUtil.TILE_SIZE;
+    private boolean myTurn;
     
     public GameMap(final MatchPanel parent, int[][] mapArrs) {
         this.parent = parent;
@@ -53,13 +60,24 @@ public class GameMap {
                 tilePanels[i][j].addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseReleased(MouseEvent e) {
-                        if(!isMyTurn) {
+                        if(!myTurn) {
+                            System.out.println("Not your turn");
                             return;
                         }
 
                         selectedX = tX;
                         selectedY = tY;
                         parent.repaint();
+
+                        handleMouseClick();
+                    }
+
+                    @Override
+                    public void mouseEntered(MouseEvent e) {
+                        hoverX = tX;
+                        hoverY = tY;
+                        parent.repaint();
+//                        System.out.println("tX: " + tX + " - tY" + tY);
                     }
                 });
 
@@ -67,6 +85,8 @@ public class GameMap {
             }
             tileY += MapUtil.TILE_SIZE;
         }
+
+        ////
     }
     
     public void draw(Graphics g) {
@@ -101,7 +121,7 @@ public class GameMap {
         if(pokeViews1 != null) {
             for(int i=0; i<pokeViews1.length; i++) {
                 pokeViews1[i].draw(g);
-                System.out.println("pokeViews1 " + i);
+//                System.out.println("pokeViews1 " + i + " - " + pokeViews1[i]);
             }
 
         }
@@ -109,19 +129,71 @@ public class GameMap {
         if(pokeViews2 != null) {
             for(int i=0; i<pokeViews2.length; i++) {
                 pokeViews2[i].draw(g);
-                System.out.println("pokeViews2 " + i);
+//                System.out.println("pokeViews2 " + i + " - " + pokeViews2[i]);
             }
         }
 
-        if(isMyTurn) {
+        if(myTurn) {
 
         }
 
         // Draw selected tile
-        if(selectedX >= 0) {
+        if(hoverX >= 0) {
             g.drawImage(MapUtil.SELECTED_TILE,
-                    selectedX, selectedY, MapUtil.TILE_SIZE, MapUtil.TILE_SIZE, null);
+                    hoverX, hoverY, MapUtil.TILE_SIZE, MapUtil.TILE_SIZE, null);
+//            g.fillRect(selectedX, selectedY, MapUtil.TILE_SIZE, MapUtil.TILE_SIZE);
         }
+    }
+
+    public void init() {
+        SocketCommunicator sc = Main.getCommunicator();
+        myTurn = sc.getUsername().equals(parent.getCurrPlayerName());
+
+        PokeInBattleInfo[] myTeam;
+        if(parent.isTeam1()) {
+            myTeam = pokeModels1;
+        } else {
+            myTeam = pokeModels2;
+        }
+
+        for(PokeInBattleInfo p : myTeam) {
+            if(p.getOwner().equals(sc.getUsername())) {
+                myPoke = p;
+                break;
+            }
+        }
+    }
+
+    private void handleMouseClick() {
+        int request = Services.BATTLE_MOVE;
+        int enemyIndex = -1;
+        PokeInBattleView[] enemyTeam = (myPoke.getTeamNo()==Room.TEAM_1) ? pokeViews2 : pokeViews1;
+        PokeInBattleView enemy = null;
+
+        for(int i=0; i<enemyTeam.length; i++) {
+            if(selectedX==enemyTeam[i].getX() && selectedY==enemyTeam[i].getY()) {
+                request = Services.BATTLE_ATK;
+                enemyIndex = i;
+                enemy = enemyTeam[i];
+                break;
+            }
+        }
+
+        if(request == Services.BATTLE_ATK) {
+            int teamNo = (parent.isTeam1()) ? Room.TEAM_1 : Room.TEAM_2;
+
+            PokeInBattleRequest requestObj = new PokeInBattleRequest(enemy.getOwner(), teamNo);
+            requestObj.setPokeModels1(pokeModels1);
+            requestObj.setPokeModels2(pokeModels2);
+
+            parent.sendRequest(request, requestObj);
+            return;
+        }
+
+        myPoke.setI(selectedX / MapUtil.TILE_SIZE);
+        myPoke.setJ(selectedY / MapUtil.TILE_SIZE);
+
+        parent.sendRequest(request, new PokeInBattleRequest(enemyIndex, pokeModels1, pokeModels2));
     }
 
     public JPanel[][] getTilePanels() {
@@ -139,13 +211,12 @@ public class GameMap {
 //        }
 //    }
 
-
     public boolean isMyTurn() {
-        return isMyTurn;
+        return myTurn;
     }
 
     public void setMyTurn(boolean myTurn) {
-        isMyTurn = myTurn;
+        this.myTurn = myTurn;
     }
 
     public PokeInBattleInfo[] getPokeModels1() {

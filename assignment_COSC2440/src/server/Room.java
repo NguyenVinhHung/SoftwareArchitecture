@@ -1,11 +1,9 @@
 package server;
 
+import model.pokemon.*;
 import server.battlehandler.BattleServer;
 import server.chathandler.ChatServer;
 import model.Player;
-import model.pokemon.PokeInBattleInfo;
-import model.pokemon.PokemonFactory;
-import model.pokemon.SelectedPokeInfo;
 import server.waitingroomhandler.WaitingRoomServer;
 import utility.MoveUtil;
 
@@ -241,13 +239,13 @@ public class Room {
         return spi;
     }
 
-//    public void generatePlayerOrder() {
+    public void generatePlayerOrder() {
 //        ArrayList<SocketCommunicator> t1 = new ArrayList<SocketCommunicator>(team1.values());
 //        ArrayList<SocketCommunicator> t2 = new ArrayList<SocketCommunicator>(team2.values());
 //        pokeInBattle1 = new PokeInBattleInfo[team1.size()];
 //        pokeInBattle2 = new PokeInBattleInfo[team2.size()];
 //        orderOfPlayers = new ArrayList<SocketCommunicator>();
-//
+
 //        for (int i = 0; i < t1.size(); i++) {
 //            SocketCommunicator sc = t1.get(i);
 //            orderOfPlayers.add(sc);
@@ -263,14 +261,34 @@ public class Room {
 //            pokeInBattle2[i] = new PokeInBattleInfo(sc.getUsername(),
 //                    PokemonFactory.getPokeIcon(pokeName), MoveUtil.START_POSITIONS_T2[i]);
 //        }
+
+
+//        for(int i=0; i<team1.size() || i<team2.size(); i++) {
+//            if(i<team1.size()) {
+//                SocketCommunicator sc = t1.get(i);
+//                orderOfPlayers.add(sc);
+//                String pokeName = sc.getPlayer().getSelectedPoke().getName();
+//                pokeInBattle1[i] = new PokeInBattleInfo(sc.getUsername(),
+//                        PokemonFactory.getPokeIcon(pokeName), MoveUtil.START_POSITIONS_T1[i]);
+//            }
+//
+//            if(i<team2.size()) {
+//                SocketCommunicator sc = t2.get(i);
+//                orderOfPlayers.add(sc);
+//                String pokeName = sc.getPlayer().getSelectedPoke().getName();
+//                pokeInBattle2[i] = new PokeInBattleInfo(sc.getUsername(),
+//                        PokemonFactory.getPokeIcon(pokeName), MoveUtil.START_POSITIONS_T2[i]);
+//            }
+//        }
 //
 //        currentTurn = 0;
-//
-////        initializeForBattle(t1, t2);
-//    }
+
+
+//        initializeForBattle(t1, t2);
+    }
 
     public SocketCommunicator nextTurn() {
-        if (currentTurn < orderOfPlayers.size()) {
+        if (currentTurn < orderOfPlayers.size()-1) {
             return orderOfPlayers.get(++currentTurn);
         } else {
             currentTurn = 0;
@@ -290,16 +308,32 @@ public class Room {
 
         for (int i = 0; i < pokeInBattle1.length; i++) {
             SocketCommunicator sc = t1.get(i);
-            String pokeName = sc.getPlayer().getSelectedPoke().getName();
+            Pokemon pokemon = sc.getPlayer().getSelectedPoke();
+            String pokeName = pokemon.getName();
+
             pokeInBattle1[i] = new PokeInBattleInfo(sc.getUsername(),
-                    PokemonFactory.getPokeIconURL(pokeName), MoveUtil.START_POSITIONS_T1[i]);
+                    PokemonFactory.getPokeIconURL(pokeName), MoveUtil.START_POSITIONS_T1[i], TEAM_1, pokemon.getHp());
         }
         for (int i = 0; i < pokeInBattle2.length; i++) {
             SocketCommunicator sc = t2.get(i);
-            String pokeName = sc.getPlayer().getSelectedPoke().getName();
+            Pokemon pokemon = sc.getPlayer().getSelectedPoke();
+            String pokeName = pokemon.getName();
             pokeInBattle2[i] = new PokeInBattleInfo(sc.getUsername(),
-                    PokemonFactory.getPokeIconURL(pokeName), MoveUtil.START_POSITIONS_T2[i]);
+                    PokemonFactory.getPokeIconURL(pokeName), MoveUtil.START_POSITIONS_T2[i], TEAM_2, pokemon.getHp());
         }
+
+        orderOfPlayers = new ArrayList<SocketCommunicator>();
+
+        for(int i=0; i<team1.size() || i<team2.size(); i++) {
+            if(i<team1.size()) {
+                orderOfPlayers.add(t1.get(i));
+            }
+            if(i<team2.size()) {
+                orderOfPlayers.add(t2.get(i));
+            }
+        }
+
+        currentTurn = 0;
 
         System.out.println("Room Finish init battle");
     }
@@ -329,6 +363,30 @@ public class Room {
         battleServer.start();
 
         System.out.println("Room Battle started");
+    }
+
+    public void attack(PokeInBattleRequest request) {
+        SocketCommunicator atkSc = getCurrentPlayer();
+        Pokemon atkPoke = atkSc.getPlayer().getSelectedPoke();
+
+        Map<String, SocketCommunicator> enemyTeam = (request.getTeam()==TEAM_1) ? team2 : team1;
+
+        SocketCommunicator enemy = enemyTeam.get(request.getEnemyName());
+        Pokemon enemyPoke = enemy.getPlayer().getSelectedPoke();
+
+        PokeInBattleInfo[] enemyTeamInfo = (request.getTeam()==TEAM_1) ?
+                request.getPokeModels2() : request.getPokeModels1();
+        PokeInBattleInfo enemyInfo = null;
+
+        for(PokeInBattleInfo p : enemyTeamInfo) {
+            if(p.getOwner().equals(enemy.getUsername())) {
+                enemyInfo = p;
+                break;
+            }
+        }
+
+        enemyInfo.setHp(enemyInfo.getHp()
+                - PokeUtil.calculateDamage(SkillFactory.makeDefaultSkill(atkPoke.getType(0)), atkPoke, enemyPoke));
     }
 
     public void close() {

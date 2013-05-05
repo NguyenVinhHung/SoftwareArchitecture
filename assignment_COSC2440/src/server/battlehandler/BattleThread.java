@@ -1,8 +1,10 @@
 package server.battlehandler;
 
+import model.pokemon.PokeInBattleRequest;
 import server.Room;
 import server.Services;
 import server.SocketCommunicator;
+import utility.Move;
 
 import java.io.EOFException;
 import java.io.ObjectInputStream;
@@ -42,6 +44,22 @@ public class BattleThread implements Runnable {
                         initBattle();
                         break;
                     }
+                    case Services.BATTLE_ATK: {
+                        attack();
+                        break;
+                    }
+                    case Services.BATTLE_MOVE: {
+                        move();
+                        break;
+                    }
+                    case Services.BATTLE_END_TURN: {
+                        endTurn();
+                        break;
+                    }
+                }
+
+                if(service>=Services.BATTLE_MOVE && service<=Services.BATTLE_ATK) {
+                    server.calculateActionPoint();
                 }
             }
 
@@ -60,6 +78,24 @@ public class BattleThread implements Runnable {
 
     private void initBattle() {
         server.initBattle();
+    }
+
+    private void attack() {
+        System.out.println("Attacking");
+        PokeInBattleRequest request = (PokeInBattleRequest)communicator.read();
+        server.attack(request);
+//        System.out.println(request);
+    }
+
+    private void move() {
+        System.out.println("Moving");
+        PokeInBattleRequest rq = (PokeInBattleRequest)communicator.read();
+
+        server.notifyPokeInBattleToPlayers(Services.BATTLE_MOVE, rq.getPokeModels1(), rq.getPokeModels2());
+    }
+
+    private void endTurn() {
+        server.endTurn();
     }
 
     public void stopThread() {

@@ -38,16 +38,16 @@ public class ChatListenerThread extends Thread {
 
     @Override
     public void run() {
-//        try {
+        try {
             while (true) {
                 String mess = (String)communicator.read();
 //                System.out.println(mess);
                 chatBox.append(mess);
                 chatBox.setCaretPosition(chatBox.getDocument().getLength());
             }
-//        } catch (IOException e) {
-//
-//        }
+        } catch (Exception e) {
+
+        }
     }
 
     public void setChatBox(JTextArea chatBox) {

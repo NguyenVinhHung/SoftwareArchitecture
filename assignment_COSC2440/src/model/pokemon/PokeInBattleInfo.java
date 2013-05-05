@@ -18,8 +18,10 @@ public class PokeInBattleInfo implements Serializable {
 
     private String imageURL;
     private String owner;
+    private int teamNo;
     private int i;
     private int j;
+    private int hp;
 
     public PokeInBattleInfo(String owner, String imgURL, int i, int j) {
         this.owner = owner;
@@ -28,11 +30,13 @@ public class PokeInBattleInfo implements Serializable {
         this.j = j;
     }
 
-    public PokeInBattleInfo(String owner, String imgURL, Move move) {
+    public PokeInBattleInfo(String owner, String imgURL, Move move, int teamNo, int hp) {
         this.owner = owner;
         imageURL = imgURL;
         this.i = move.i;
         this.j = move.j;
+        this.teamNo = teamNo;
+        this.hp = hp;
     }
 
     public String getOwner() {
@@ -62,5 +66,24 @@ public class PokeInBattleInfo implements Serializable {
 
     public void setJ(int j) {
         this.j = j;
+    }
+
+    public int getTeamNo() {
+        return teamNo;
+    }
+
+    public int getHp() {
+        return hp;
+    }
+
+    public void setHp(int hp) {
+        this.hp = hp;
+    }
+
+    @Override
+    public String toString() {
+        return "PokeInBattleInfo{" +
+                "hp=" + hp +
+                '}';
     }
 }

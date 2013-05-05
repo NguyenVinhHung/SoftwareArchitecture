@@ -27,8 +27,10 @@ public class PokemonFactory {
         skills.put(blastBurn.getName(), blastBurn);
         skills.put(fireBlast.getName(), fireBlast);
 
-        return new Pokemon(CHARIZARD, new int[]{TypeUtils.FIRE, TypeUtils.FLYING}, skills,
-                                149, 143, 177, 150, 185, 200);
+//        return new Pokemon(CHARIZARD, new int[]{TypeUtils.FIRE, TypeUtils.FLYING}, skills,
+//                                149, 143, 177, 150, 185, 200);
+        return new Pokemon(CHARIZARD, new int[]{TypeUtils.FIRE}, skills,
+                149, 143, 177, 150, 185, 200);
     }
 
     public static Pokemon makeBlastoise() {
@@ -99,12 +101,17 @@ public class PokemonFactory {
     public static String getPokeIconURL(String pokeName) {
 //        System.out.println("Update avatar of SelectedPokeView");
         if(pokeName.equals(CHARIZARD)) {
+            System.out.println("pokemon icon: " + CHARIZARD);
             return FileUtility.CHARIZARD_ICON_URL;
         } else if(pokeName.equals(BLASTOISE)) {
+            System.out.println("pokemon icon: " + BLASTOISE);
             return FileUtility.BLASTOISE_ICON_URL;
         } else if(pokeName.equals(VENUSAUR)) {
+            System.out.println("pokemon icon: " + VENUSAUR);
             return FileUtility.VENUSAUR_ICON_URL;
         }
+
+        System.out.println("pokemon icon: null");
         return "";
     }
 }

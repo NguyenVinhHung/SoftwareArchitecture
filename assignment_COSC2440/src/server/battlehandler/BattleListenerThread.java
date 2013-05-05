@@ -4,6 +4,7 @@ import model.Player;
 import model.pokemon.PokeInBattleInfo;
 import server.Services;
 import server.SocketCommunicator;
+import utility.Move;
 import view.map.MatchPanel;
 
 import javax.swing.*;
@@ -42,7 +43,23 @@ public class BattleListenerThread extends Thread {
 
             switch (response) {
                 case Services.BATTLE_INITIALIZATION: {
-                    initBattle();
+                    System.out.println("client - BATTLE_INITIALIZATION");
+                    update();
+                    break;
+                }
+                case Services.BATTLE_ATK: {
+                    System.out.println("client - BATTLE_ATK");
+                    update();
+                    break;
+                }
+                case Services.BATTLE_MOVE: {
+                    System.out.println("client - BATTLE_MOVE");
+                    update();
+                    break;
+                }
+                case Services.BATTLE_END_TURN: {
+                    System.out.println("client - BATTLE_END_TURN");
+                    endTurn();
                     break;
                 }
             }
@@ -52,17 +69,33 @@ public class BattleListenerThread extends Thread {
 //        }
     }
 
-    private void initBattle() {
+//    private void initBattle() {
+//        update();
+//    }
+
+//    private void attack() {
+//        update();
+//    }
+
+//    private void move() {
+//        update();
+//    }
+
+    private void update() {
+        String currPlayerName = (String)communicator.read();
         PokeInBattleInfo[] pokeInBattleInfos1 = (PokeInBattleInfo[])communicator.read();
         PokeInBattleInfo[] pokeInBattleInfos2 = (PokeInBattleInfo[])communicator.read();
+        matchPanel.initPokeOnMap(currPlayerName, pokeInBattleInfos1, pokeInBattleInfos2);
 
-        if(pokeInBattleInfos1 == null) {
-            System.out.println("pokeInBattleInfos1 null");
+        for(PokeInBattleInfo p : pokeInBattleInfos1) {
+            System.out.println(p);
         }
-        if(pokeInBattleInfos2 == null) {
-            System.out.println("pokeInBattleInfos2 null");
+        for(PokeInBattleInfo p : pokeInBattleInfos2) {
+            System.out.println(p);
         }
+    }
 
-        matchPanel.initPokeOnMap(pokeInBattleInfos1, pokeInBattleInfos2);
+    private void endTurn() {
+        matchPanel.setCurrPlayerName((String)communicator.read());
     }
 }

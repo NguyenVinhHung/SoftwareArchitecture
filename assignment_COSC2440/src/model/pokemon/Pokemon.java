@@ -34,7 +34,7 @@ public class Pokemon implements Serializable {
         this.def = def;
         this.agi = agi;
         this.accuracy = accuracy;
-        this.hp = hp;
+        this.hp = hp * 10;
         this.mana = mana;
     }
 
