@@ -366,7 +366,7 @@ public class RoomView extends AfterLoginTemplate implements KeyListener, SocketC
 
         Main.getInstance().setCurrPanel(mp);
 
-        mp.initMapValidSteps();
+//        mp.initMapValidSteps();
         System.out.println("toMatchPanel end");
     }
 

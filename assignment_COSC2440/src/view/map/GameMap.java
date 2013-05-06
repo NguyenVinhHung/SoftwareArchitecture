@@ -179,6 +179,12 @@ public class GameMap {
                 break;
             }
         }
+
+        if(validSteps == null) {
+            calculateValidSteps();
+        }
+
+//        setMyTurn(sc.getUsername().equals(parent.getCurrPlayerName()));
     }
 
     private void handleMouseClick() {
@@ -186,6 +192,21 @@ public class GameMap {
         int enemyIndex = -1;
         PokeInBattleView[] enemyTeam = (myPoke.getTeamNo() == Room.TEAM_1) ? pokeViews2 : pokeViews1;
         PokeInBattleView enemy = null;
+
+        boolean validStep = false;
+        int selectedI = selectedX / MapUtil.TILE_SIZE;
+        int selectedJ = selectedY / MapUtil.TILE_SIZE;
+
+        for (PathFinding.Coordinate coordinate : validSteps) {
+            if (coordinate.getI() == selectedI && coordinate.getJ() == selectedJ) {
+                validStep = true;
+                break;
+            }
+        }
+
+        if (!validStep) {
+            return;
+        }
 
         for (int i = 0; i < enemyTeam.length; i++) {
             if (selectedX == enemyTeam[i].getX() && selectedY == enemyTeam[i].getY()) {
@@ -211,26 +232,10 @@ public class GameMap {
             return;
         }
 
-
-        boolean validStep = false;
-        int selectedI = selectedX / MapUtil.TILE_SIZE;
-        int selectedJ = selectedY / MapUtil.TILE_SIZE;
-
-        for (PathFinding.Coordinate coordinate : validSteps) {
-            if (coordinate.getI() == selectedI && coordinate.getJ() == selectedJ) {
-                validStep = true;
-                break;
-            }
-        }
-
-        if (!validStep) {
-            return;
-        }
-
         int pokeIndex = 0;
         PokeInBattleView[] myTeam = (myPoke.getTeamNo() == Room.TEAM_1) ? pokeViews1 : pokeViews2;
 
-        for (; pokeIndex < myTeam.length; pokeIndex++) {
+        for (;pokeIndex < myTeam.length; pokeIndex++) {
             if (selectedX == myTeam[pokeIndex].getX() && selectedY == myTeam[pokeIndex].getY()) {
                 return;
             }
@@ -242,21 +247,18 @@ public class GameMap {
         PokeMoveRequest requestObj = new PokeMoveRequest(pokeIndex, myPoke.getTeamNo(),
                 myPoke.getI(), myPoke.getJ(), selectedI, selectedJ, pokeModels1, pokeModels2);
 
-//        myPoke.setI(selectedX / MapUtil.TILE_SIZE);
-//        myPoke.setJ(selectedY / MapUtil.TILE_SIZE);
-
         parent.sendRequest(request, requestObj);
     }
 
     public void calculateValidSteps() {
-        if (myPoke == null ){
+        if (myPoke == null ) {
             System.out.println("Poke");
         }
-        if ( mapArrays== null ){
+        if (mapArrays== null ) {
             System.out.println("map");
         }
-        validSteps = PathFinding
-                .findPath(new PathFinding.Coordinate(myPoke.getI(), myPoke.getJ()), mapArrays, 2, myPoke.getType());
+        validSteps = PathFinding.findValidSteps(myPoke.getI(), myPoke.getJ(), mapArrays, myPoke.getType());
+//                .findPath(new PathFinding.Coordinate(myPoke.getI(), myPoke.getJ()), mapArrays, 2, myPoke.getType());
     }
 
     public void moveAnim(int pokeIndex, int teamNo, int fromI, int fromJ, int toI, int toJ) {
@@ -268,6 +270,18 @@ public class GameMap {
         timeline.addPropertyToInterpolate("moveJ", fromJ, toJ);
         timeline.setDuration(AnimUtil.MOVE_DURATION);
         timeline.play();
+
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    sleep(AnimUtil.MOVE_DURATION);
+                } catch(Exception ex) {
+
+                }
+                calculateValidSteps();
+            }
+        }.start();
     }
 
     public void setMoveI(int moveI) {
@@ -310,8 +324,10 @@ public class GameMap {
             parent.handleEndTurnButton();
         }
 
-        validSteps = PathFinding
-                .findPath(new PathFinding.Coordinate(myPoke.getI(), myPoke.getJ()), mapArrays, 2, myPoke.getType());
+        validSteps = PathFinding.findValidSteps(myPoke.getI(), myPoke.getJ(), mapArrays, myPoke.getType());
+//                .findPath(new PathFinding.Coordinate(myPoke.getI(), myPoke.getJ()), mapArrays, 2, myPoke.getType());
+
+        parent.repaint();
     }
 
     public PokeInBattleInfo[] getPokeModels1() {

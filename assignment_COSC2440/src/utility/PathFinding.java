@@ -1,5 +1,6 @@
 package utility;
 
+import model.pokemon.TypeUtils;
 import view.map.MapUtil;
 
 import java.util.*;
@@ -28,14 +29,14 @@ public class PathFinding {
         Coordinate coordinate = new Coordinate(6, 3);
 
         int[][] src = {{2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 34},
-                {2, 2, 12, 28, 4, 12, 4, 4, 28, 2, 2},
-                {2, 11, 1, 1, 1, 20, 4, 2, 2, 28, 2},
-                {2, 23, 1, 1, 13, 2, 2, 2, 2, 4, 2},
-                {2, 3, 3, 11, 2, 2, 2, 12, 4, 4, 2},
-                {2, 3, 2, 2, 2, 2, 13, 1, 1, 28, 2},
-                {2, 23, 2, 2, 3, 19, 1, 1, 1, 12, 2},
-                {2, 2, 23, 3, 3, 11, 3, 23, 11, 2, 2},
-                {30, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2}};
+                        {2, 2, 12, 28, 4, 12, 4, 4, 28, 2, 2},
+                        {2, 11, 1, 1, 1, 20, 4, 2, 2, 28, 2},
+                        {2, 23, 1, 1, 13, 2, 2, 2, 2, 4, 2},
+                        {2, 3, 3, 11, 2, 2, 2, 12, 4, 4, 2},
+                        {2, 3, 2, 2, 2, 2, 13, 1, 1, 28, 2},
+                        {2, 23, 2, 2, 3, 19, 1, 1, 1, 12, 2},
+                        {2, 2, 23, 3, 3, 11, 3, 23, 11, 2, 2},
+                        {30, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2}};
 
         ArrayList<Coordinate> result = pathFinding.findPath(coordinate, src, 3, FLYING);
 
@@ -151,6 +152,51 @@ public class PathFinding {
             }
         }
         return false;
+    }
+
+    public static ArrayList<Coordinate> findValidSteps(int curI, int curJ, int[][] mapArr, int pokeType) {
+        Coordinate[] coords = getDefaultSteps(curI, curJ);
+        ArrayList<Coordinate> coordinates = new ArrayList<Coordinate>();
+
+        for(Coordinate c : coords) {
+            if(pokeType == TypeUtils.FLYING) {
+                coordinates.add(c);
+            } else if(pokeType == TypeUtils.WATER) {
+                try {
+                    if(mapArr[c.getI()][c.getJ()] <= 4) {
+                        coordinates.add(c);
+                    }
+                } catch(Exception ex) {
+                    continue;
+                }
+            } else {
+                try {
+                    if(mapArr[c.getI()][c.getJ()]<=4 && mapArr[c.getI()][c.getJ()]>1) {
+                        coordinates.add(c);
+                    }
+                } catch(Exception ex) {
+                    continue;
+                }
+            }
+        }
+
+        return coordinates;
+    }
+
+    private static Coordinate[] getDefaultSteps(int curI, int curJ) {
+        return new Coordinate[] {
+                new Coordinate(curI-3, curJ),
+                new Coordinate(curI-2, curJ-1), new Coordinate(curI-2, curJ), new Coordinate(curI-2, curJ+1),
+                new Coordinate(curI-1, curJ-2), new Coordinate(curI-1, curJ-1), new Coordinate(curI-1, curJ),
+                    new Coordinate(curI-1, curJ+1), new Coordinate(curI-1, curJ+2),
+                new Coordinate(curI, curJ-3), new Coordinate(curI, curJ-2), new Coordinate(curI, curJ-1),
+                    new Coordinate(curI, curJ), new Coordinate(curI, curJ+1), new Coordinate(curI, curJ+2),
+                    new Coordinate(curI, curJ+3),
+                new Coordinate(curI+1, curJ-2), new Coordinate(curI+1, curJ-1), new Coordinate(curI+1, curJ),
+                    new Coordinate(curI+1, curJ-1), new Coordinate(curI+1, curJ-2),
+                new Coordinate(curI+2, curJ-1), new Coordinate(curI+2, curJ), new Coordinate(curI+2, curJ+1),
+                new Coordinate(curI+3, curJ),
+        };
     }
 
     public static class Coordinate implements Comparable<Coordinate> {

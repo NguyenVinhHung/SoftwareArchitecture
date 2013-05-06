@@ -105,7 +105,7 @@ public class MatchPanel extends JPanel implements KeyListener, SocketClosable {
 
         initBattleSocket();
 
-        map.calculateValidSteps();
+//        map.calculateValidSteps();
     }
 
     private void initChatFeature() {
@@ -225,9 +225,9 @@ public class MatchPanel extends JPanel implements KeyListener, SocketClosable {
         attackAnimPanel.playAnim();
     }
 
-    public void initMapValidSteps() {
-        map.calculateValidSteps();
-    }
+//    public void initMapValidSteps() {
+//        map.calculateValidSteps();
+//    }
 
     @Override
     protected void paintComponent(Graphics g) {
