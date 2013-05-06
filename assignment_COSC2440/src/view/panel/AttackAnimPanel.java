@@ -1,8 +1,11 @@
 package view.panel;
 
 import animation.ScreenCapturer;
+import main.Main;
 import model.pokemon.PokemonFactory;
+import org.pushingpixels.trident.Timeline;
 import utility.FileUtility;
+import view.anim.AnimUtil;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,46 +19,69 @@ import java.awt.*;
  */
 public class AttackAnimPanel extends JPanel {
 
-    private static final int ATK_X = 300;
-    private static final int POKE_Y = 400;
-    private static final int ENE_X = 500;
-//    private static final int BUL_Y = ;
+    private static final int ATK_X = 350;
+    private static final int ATK_Y = 400;
+    private static final int ENE_X = ATK_X + 200;
+    private static final int ENE_Y = ATK_Y - 50;
+
     private static final int TOP_BG_X = 256;
     private static final int TOP_BG_Y = 194;
     private static final int TOP_BG_W = 512;
     private static final int TOP_BG_H = 384;
 
+    private static final int START_X = ATK_X + 40;
+    private static final int END_X = ENE_X;
+    private static final int BUL_Y = ATK_Y;
+
     private Image bg;
     private Image attacker;
     private Image enemy;
+    private Timeline timeline;
 
-    private int bulletX;
+    private int bulletX = START_X;
 
     public AttackAnimPanel(String attackerName, String enemyName) {
         System.out.println(attackerName + " - " + enemyName);
 
         attacker = PokemonFactory.getBackGifImage(attackerName);
         enemy = PokemonFactory.getFrontGifImage(enemyName);
-
-        if(attacker == null) {
-            System.out.println("Attacker Image is null");
-        } else {
-            System.out.println("Attacker Image ok");
-        }
-        if(enemy == null) {
-            System.out.println("Enemy Image is null");
-        } else {
-            System.out.println("Enemy Image ok");
-        }
     }
 
     @Override
     protected void paintComponent(Graphics g) {
-//        g.drawImage(ScreenCapturer.getScreenShot(), 0, 0, getWidth(), getHeight(), null);
+        g.drawImage(ScreenCapturer.getScreenShot(), 0, 0, getWidth(), getHeight(), null);
         g.drawImage(FileUtility.OVERLAY_BG_IMG, 0, 0, getWidth(), getHeight(), null);
         g.drawImage(FileUtility.TOP_BG_IMG, TOP_BG_X, TOP_BG_Y, TOP_BG_W, TOP_BG_H, null);
 
-        g.drawImage(attacker, ATK_X, POKE_Y, null);
-        g.drawImage(enemy, ENE_X, POKE_Y, null);
+        g.drawImage(attacker, ATK_X, ATK_Y, null);
+        g.drawImage(enemy, ENE_X, ENE_Y, null);
+
+        if(timeline!=null && !timeline.isDone()) {
+            g.drawImage(FileUtility.BULLET_IMG, bulletX, BUL_Y, null);
+        }
+    }
+
+    public void playAnim() {
+        timeline = new Timeline(this);
+        timeline.addPropertyToInterpolate("bulletX", START_X, END_X);
+        timeline.setDuration(AnimUtil.ATK_DURATION);
+        timeline.play();
+
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    sleep(AnimUtil.ATK_DURATION);
+                } catch(Exception ex) {
+
+                }
+                Main.getInstance().popPanel();
+            }
+        }.start();
+    }
+
+    public void setBulletX(int bulletX) {
+        this.bulletX = bulletX;
+        repaint();
     }
 }

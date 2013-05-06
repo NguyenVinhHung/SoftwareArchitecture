@@ -214,7 +214,9 @@ public class MatchPanel extends JPanel implements KeyListener, SocketClosable {
         map.init();
 
 //        Image background = Main.getInstance().captureFrame();
-        Main.getInstance().pushPanel(new AttackAnimPanel(attackPoke, enemyPoke));
+        AttackAnimPanel attackAnimPanel = new AttackAnimPanel(attackPoke, enemyPoke);
+        Main.getInstance().pushPanel(attackAnimPanel);
+        attackAnimPanel.playAnim();
     }
 
     @Override

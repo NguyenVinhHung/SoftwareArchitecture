@@ -10,5 +10,6 @@ package view.anim;
 public class AnimUtil {
 
     public static final int MOVE_DURATION = 1000;
+    public static final int ATK_DURATION = 1500;
 
 }
