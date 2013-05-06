@@ -21,7 +21,7 @@ public abstract class CustomPanel extends JPanel {
 //        addMouseMotionListener(new MouseAdapter() {
 //            @Override
 //            public void mouseDragged(MouseEvent e) {
-//                System.out.println(e.getX() + " - " + e.getY());
+//                System.out.println(e.getI() + " - " + e.getJ());
 //            }
 //        });
     }

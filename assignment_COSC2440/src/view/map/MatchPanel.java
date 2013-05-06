@@ -99,11 +99,13 @@ public class MatchPanel extends JPanel implements KeyListener, SocketClosable {
 //        addMouseMotionListener(new MouseAdapter() {
 //            @Override
 //            public void mouseDragged(MouseEvent e) {
-//                System.out.println("x: " + e.getX() + " - y: " + e.getY());
+//                System.out.println("x: " + e.getI() + " - y: " + e.getJ());
 //            }
 //        });
 
         initBattleSocket();
+
+        map.calculateValidSteps();
     }
 
     private void initChatFeature() {
@@ -221,6 +223,10 @@ public class MatchPanel extends JPanel implements KeyListener, SocketClosable {
         AttackAnimPanel attackAnimPanel = new AttackAnimPanel(attackPoke, enemyPoke);
         Main.getInstance().pushPanel(attackAnimPanel);
         attackAnimPanel.playAnim();
+    }
+
+    public void initMapValidSteps() {
+        map.calculateValidSteps();
     }
 
     @Override

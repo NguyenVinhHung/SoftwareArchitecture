@@ -309,7 +309,7 @@ public class Room {
 
             pokeInBattle1[i] = new PokeInBattleInfo(sc.getUsername(),
                     PokemonFactory.getPokeIconURL(pokeName),
-                    MoveUtil.START_POSITIONS_T1[i], TEAM_1, pokemon.getHp(), pokemon.getHp());
+                    MoveUtil.START_POSITIONS_T1[i], TEAM_1, pokemon.getHp(), pokemon.getHp(), pokemon.getType(0));
         }
         for (int i = 0; i < pokeInBattle2.length; i++) {
             SocketCommunicator sc = t2.get(i);
@@ -317,7 +317,7 @@ public class Room {
             String pokeName = pokemon.getName();
             pokeInBattle2[i] = new PokeInBattleInfo(sc.getUsername(),
                     PokemonFactory.getPokeIconURL(pokeName),
-                    MoveUtil.START_POSITIONS_T2[i], TEAM_2, pokemon.getHp(), pokemon.getHp());
+                    MoveUtil.START_POSITIONS_T2[i], TEAM_2, pokemon.getHp(), pokemon.getHp(), pokemon.getType(0));
         }
 
         orderOfPlayers = new ArrayList<SocketCommunicator>();

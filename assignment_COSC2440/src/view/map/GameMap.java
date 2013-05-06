@@ -13,6 +13,7 @@ import server.Room;
 import server.Services;
 import server.SocketCommunicator;
 import utility.FileUtility;
+import utility.PathFinding;
 import view.anim.AnimUtil;
 import view.smallview.PokeInBattleView;
 
@@ -20,6 +21,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 
 public class GameMap {
@@ -36,6 +38,7 @@ public class GameMap {
     private PokeInBattleInfo myPoke;
     private PokeInBattleInfo movingPoke;
     private MatchPanel parent;
+    private ArrayList<PathFinding.Coordinate> validSteps;
     private int[][] mapArrays;
     private int moveI;
     private int moveJ;
@@ -89,6 +92,8 @@ public class GameMap {
                 tileX += MapUtil.TILE_SIZE;
             }
             tileY += MapUtil.TILE_SIZE;
+
+
         }
 
         ////
@@ -101,14 +106,14 @@ public class GameMap {
 
         if (pokeViews1 != null) {
             for (int i = 0; i < pokeViews1.length; i++) {
-                if(!pokeModels1[i].isDead()) {
+                if (!pokeModels1[i].isDead()) {
                     g.setColor(Color.BLUE);
                     g.fillOval(pokeViews1[i].getX(), pokeViews1[i].getY(), MapUtil.TILE_SIZE, MapUtil.TILE_SIZE);
 
-                    if(pokeModels1[i].getOwner().equals(userName)) {
+                    if (pokeModels1[i].getOwner().equals(userName)) {
                         g.setColor(Color.GREEN);
-                        g.fillOval(pokeViews1[i].getX()+10, pokeViews1[i].getY()+10,
-                                MapUtil.TILE_SIZE-20, MapUtil.TILE_SIZE-20);
+                        g.fillOval(pokeViews1[i].getX() + 10, pokeViews1[i].getY() + 10,
+                                MapUtil.TILE_SIZE - 20, MapUtil.TILE_SIZE - 20);
                     }
 
                     pokeViews1[i].draw(g);
@@ -119,14 +124,14 @@ public class GameMap {
 
         if (pokeViews2 != null) {
             for (int i = 0; i < pokeViews2.length; i++) {
-                if(!pokeModels2[i].isDead()) {
+                if (!pokeModels2[i].isDead()) {
                     g.setColor(Color.RED);
                     g.fillOval(pokeViews2[i].getX(), pokeViews2[i].getY(), MapUtil.TILE_SIZE, MapUtil.TILE_SIZE);
 
-                    if(pokeModels2[i].getOwner().equals(userName)) {
+                    if (pokeModels2[i].getOwner().equals(userName)) {
                         g.setColor(Color.GREEN);
-                        g.fillOval(pokeViews2[i].getX()+10, pokeViews2[i].getY()+10,
-                                MapUtil.TILE_SIZE-20, MapUtil.TILE_SIZE-20);
+                        g.fillOval(pokeViews2[i].getX() + 10, pokeViews2[i].getY() + 10,
+                                MapUtil.TILE_SIZE - 20, MapUtil.TILE_SIZE - 20);
                     }
 
                     pokeViews2[i].draw(g);
@@ -134,8 +139,19 @@ public class GameMap {
             }
         }
 
-        if (myTurn) {
+        if (myTurn && validSteps != null) {
+            Graphics2D g2d = (Graphics2D) g.create();
+            int type = AlphaComposite.SRC_OVER;
+            AlphaComposite alpha = AlphaComposite.getInstance(type, 0.5f);
 
+            g2d.setComposite(alpha);
+            g2d.setColor(Color.GREEN);
+
+
+            for (int i = 0; i < validSteps.size(); i++) {
+                PathFinding.Coordinate c = validSteps.get(i);
+                g2d.fillRect(c.getX(), c.getY(), MapUtil.TILE_SIZE, MapUtil.TILE_SIZE);
+            }
         }
 
         // Draw selected tile
@@ -173,7 +189,7 @@ public class GameMap {
 
         for (int i = 0; i < enemyTeam.length; i++) {
             if (selectedX == enemyTeam[i].getX() && selectedY == enemyTeam[i].getY()) {
-                if(enemyTeam[i].getModel().isDead()) {
+                if (enemyTeam[i].getModel().isDead()) {
                     continue;
                 }
 
@@ -195,6 +211,22 @@ public class GameMap {
             return;
         }
 
+
+        boolean validStep = false;
+        int selectedI = selectedX / MapUtil.TILE_SIZE;
+        int selectedJ = selectedY / MapUtil.TILE_SIZE;
+
+        for (PathFinding.Coordinate coordinate : validSteps) {
+            if (coordinate.getI() == selectedI && coordinate.getJ() == selectedJ) {
+                validStep = true;
+                break;
+            }
+        }
+
+        if (!validStep) {
+            return;
+        }
+
         int pokeIndex = 0;
         PokeInBattleView[] myTeam = (myPoke.getTeamNo() == Room.TEAM_1) ? pokeViews1 : pokeViews2;
 
@@ -208,13 +240,23 @@ public class GameMap {
         }
 
         PokeMoveRequest requestObj = new PokeMoveRequest(pokeIndex, myPoke.getTeamNo(),
-                myPoke.getI(), myPoke.getJ(), selectedX / MapUtil.TILE_SIZE, selectedY / MapUtil.TILE_SIZE,
-                pokeModels1, pokeModels2);
+                myPoke.getI(), myPoke.getJ(), selectedI, selectedJ, pokeModels1, pokeModels2);
 
 //        myPoke.setI(selectedX / MapUtil.TILE_SIZE);
 //        myPoke.setJ(selectedY / MapUtil.TILE_SIZE);
 
         parent.sendRequest(request, requestObj);
+    }
+
+    public void calculateValidSteps() {
+        if (myPoke == null ){
+            System.out.println("Poke");
+        }
+        if ( mapArrays== null ){
+            System.out.println("map");
+        }
+        validSteps = PathFinding
+                .findPath(new PathFinding.Coordinate(myPoke.getI(), myPoke.getJ()), mapArrays, 2, myPoke.getType());
     }
 
     public void moveAnim(int pokeIndex, int teamNo, int fromI, int fromJ, int toI, int toJ) {
@@ -264,9 +306,12 @@ public class GameMap {
     public void setMyTurn(boolean myTurn) {
         this.myTurn = myTurn;
 
-        if(myTurn && myPoke.isDead()) {
+        if (myTurn && myPoke.isDead()) {
             parent.handleEndTurnButton();
         }
+
+        validSteps = PathFinding
+                .findPath(new PathFinding.Coordinate(myPoke.getI(), myPoke.getJ()), mapArrays, 2, myPoke.getType());
     }
 
     public PokeInBattleInfo[] getPokeModels1() {

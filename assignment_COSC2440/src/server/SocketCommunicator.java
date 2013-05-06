@@ -92,7 +92,7 @@ public class SocketCommunicator {
         try {
             return from.readObject();
         } catch(Exception ex) {
-            ex.printStackTrace();
+//            ex.printStackTrace();
             return null;
         }
     }

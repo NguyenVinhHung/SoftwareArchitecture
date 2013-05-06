@@ -360,8 +360,13 @@ public class RoomView extends AfterLoginTemplate implements KeyListener, SocketC
         System.out.println("toMatchPanel start changing panel");
 //        waiting = false;
 //        chatCommunicator.close();
-        Main.getInstance().setCurrPanel(new MatchPanel(MapUtil.MAP_ARRS[0],
-                chatCommunicator, chatListenerThread, isTeam1, roomInfo.getHostname(), roomInfo));
+
+        MatchPanel mp = new MatchPanel(MapUtil.MAP_ARRS[0],
+                chatCommunicator, chatListenerThread, isTeam1, roomInfo.getHostname(), roomInfo);
+
+        Main.getInstance().setCurrPanel(mp);
+
+        mp.initMapValidSteps();
         System.out.println("toMatchPanel end");
     }
 

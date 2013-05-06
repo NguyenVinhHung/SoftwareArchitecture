@@ -37,7 +37,7 @@ public class BattleServer extends Thread {
 
         try {
             serverSocket = new ServerSocket(port);
-        } catch(IOException ex) {
+        } catch (IOException ex) {
         }
     }
 
@@ -46,7 +46,7 @@ public class BattleServer extends Thread {
         running = true;
 
         try {
-            while(running) {
+            while (running) {
                 System.out.println("BatttleServer wait for socket");
                 Socket socket = serverSocket.accept();
 
@@ -172,16 +172,16 @@ public class BattleServer extends Thread {
     public void attack(PokeInBattleRequest request) {
         String[] result = room.attack(request);
 
-        if(result.length > 1) {
+        if (result.length > 1) {
             System.out.println(result[0] + " - " + result[1]);
-    //        notifyPokeInBattleToPlayers(Services.BATTLE_ATK, request.getPokeModels1(), request.getPokeModels2());
+            //        notifyPokeInBattleToPlayers(Services.BATTLE_ATK, request.getPokeModels1(), request.getPokeModels2());
 
             notifyPlayers(Services.BATTLE_ATK, new PokeAttackResponse(request.getPokeModels1(), request.getPokeModels2(),
                     result[0], result[1]));
         } else {
             notifyPlayers(Services.BATTLE_FINISH, new Integer(Integer.parseInt(result[0])));
 
-            OnlinePlayerList opl = (OnlinePlayerList)ServerSpring.getBean("onlinePlayerList");
+            OnlinePlayerList opl = (OnlinePlayerList) ServerSpring.getBean("onlinePlayerList");
             opl.removeRoom(room.getHostName());
         }
     }
@@ -189,9 +189,9 @@ public class BattleServer extends Thread {
     public void calculateActionPoint() {
         --actionPoint;
 
-        System.out.println("ACTION POINT " + actionPoint);
+        System.out.println("ACTION POINT " + room.getCurrentPlayer() + " ->" + actionPoint);
 
-        if(actionPoint == 0) {
+        if (actionPoint == 0) {
             actionPoint = 2;
             endTurn();
         }
@@ -199,6 +199,7 @@ public class BattleServer extends Thread {
 
     public void endTurn() {
         String currTurnName = room.nextTurn().getUsername();
+        actionPoint = 2;
         notifyPlayers(Services.BATTLE_END_TURN, currTurnName);
     }
 
