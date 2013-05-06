@@ -57,17 +57,30 @@ public class PokemonFactory {
                 147, 148, 167, 167, 187, 200);
     }
 
-    public static Image getGifImage(String pokeName) {
+    public static Image getFrontGifImage(String pokeName) {
         System.out.println("Update image");
         if(pokeName.equals(CHARIZARD)) {
-            return FileUtility.CHARIZARD_IMG;
+            return FileUtility.CHARIZARD_FRONT_IMG;
         } else if(pokeName.equals(BLASTOISE)) {
-            return FileUtility.BLASTOISE_IMG;
+            return FileUtility.BLASTOISE_FRONT_IMG;
         } else if(pokeName.equals(VENUSAUR)) {
-            return FileUtility.VENUSAUR_IMG;
+            return FileUtility.VENUSAUR_FRONT_IMG;
         }
         return null;
     }
+
+    public static Image getBackGifImage(String pokeName) {
+        System.out.println("Update image");
+        if(pokeName.equals(CHARIZARD)) {
+            return FileUtility.CHARIZARD_BACK_IMG;
+        } else if(pokeName.equals(BLASTOISE)) {
+            return FileUtility.BLASTOISE_BACK_IMG;
+        } else if(pokeName.equals(VENUSAUR)) {
+            return FileUtility.VENUSAUR_BACK_IMG;
+        }
+        return null;
+    }
+    
 
     public static Image getPokeAvatar(String pokeName) {
 //        System.out.println("Update avatar of SelectedPokeView");

@@ -98,11 +98,11 @@ public class SelectedPokeView extends InteractiveView {
 //    private void updateImage() {
 //        System.out.println("Update image of SelectedPokeView");
 //        if(pokemon.getName().equals("Charizard")) {
-//            img = FileUtility.CHARIZARD_IMG;
+//            img = FileUtility.CHARIZARD_FRONT_IMG;
 //        } else if(pokemon.getName().equals("Blastoise")) {
-//            img = FileUtility.BLASTOISE_IMG;
+//            img = FileUtility.BLASTOISE_FRONT_IMG;
 //        } else if(pokemon.getName().equals("Venusaur")) {
-//            img = FileUtility.VENUSAUR_IMG;
+//            img = FileUtility.VENUSAUR_FRONT_IMG;
 //        }
 //
 //    }

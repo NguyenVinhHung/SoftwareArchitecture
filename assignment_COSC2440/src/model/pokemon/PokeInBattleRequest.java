@@ -9,12 +9,14 @@ import java.io.Serializable;
  * Time: 2:33 PM
  * To change this template use File | Settings | File Templates.
  */
-public class PokeInBattleRequest implements Serializable {
+public class PokeInBattleRequest extends InBattleRequest implements Serializable {
 
     private static final long serialVersionUID = 555L;
 
     private int pokeIndex;
     private int team;
+    private int currI;
+    private int currJ;
     private int selectedX;
     private int selectedY;
     private int enemyIndex;
@@ -43,7 +45,24 @@ public class PokeInBattleRequest implements Serializable {
         this.team = attackerTeam;
     }
 
+    public int getCurrI() {
+        return currI;
+    }
+
+    public void setCurrI(int currI) {
+        this.currI = currI;
+    }
+
+    public int getCurrJ() {
+        return currJ;
+    }
+
+    public void setCurrJ(int currJ) {
+        this.currJ = currJ;
+    }
+
     public int getPokeIndex() {
+
         return pokeIndex;
     }
 

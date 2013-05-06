@@ -1,6 +1,7 @@
 package server.battlehandler;
 
 import model.pokemon.PokeInBattleRequest;
+import model.pokemon.PokeMoveRequest;
 import server.Room;
 import server.Services;
 import server.SocketCommunicator;
@@ -89,9 +90,10 @@ public class BattleThread implements Runnable {
 
     private void move() {
         System.out.println("Moving");
-        PokeInBattleRequest rq = (PokeInBattleRequest)communicator.read();
+        PokeMoveRequest rq = (PokeMoveRequest)communicator.read();
 
-        server.notifyPokeInBattleToPlayers(Services.BATTLE_MOVE, rq.getPokeModels1(), rq.getPokeModels2());
+//        server.notifyPokeInBattleToPlayers(Services.BATTLE_MOVE, rq.getPokeModels1(), rq.getPokeModels2());
+        server.notifyPlayers(Services.BATTLE_MOVE, rq);
     }
 
     private void endTurn() {

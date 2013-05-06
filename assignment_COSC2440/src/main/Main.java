@@ -3,12 +3,14 @@ package main;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import animation.ScreenCapturer;
 import model.Player;
 import server.Services;
 import server.SocketCommunicator;
 //import utility.DatabaseUtil;
 import view.panel.*;
 
+import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.ObjectInputStream;
@@ -144,6 +146,14 @@ public class Main extends JFrame {
 
     public void popPanel() {
         setCurrPanel(tempPanels.pop());
+    }
+
+    public Image captureFrame() {
+        return ScreenCapturer.captureScreen(this);
+    }
+
+    public Image getCapturedImage() {
+        return ScreenCapturer.getScreenShot();
     }
 
     public void setCurrPanel(JPanel curr) {

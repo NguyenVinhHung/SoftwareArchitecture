@@ -24,13 +24,15 @@ public class PokeInBattleView {
     public PokeInBattleView(PokeInBattleInfo model) {
         this.model = model;
         img = new ImageIcon(model.getImageURL()).getImage();
-//        img = FileUtility.BLASTOISE_IMG;
+//        img = FileUtility.BLASTOISE_FRONT_IMG;
 
         x = model.getI() * MapUtil.TILE_SIZE;
         y = model.getJ() * MapUtil.TILE_SIZE;
     }
 
     public void draw(Graphics g) {
+        x = model.getI() * MapUtil.TILE_SIZE;
+        y = model.getJ() * MapUtil.TILE_SIZE;
         g.drawImage(img, x, y, MapUtil.TILE_SIZE, MapUtil.TILE_SIZE, null);
     }
 

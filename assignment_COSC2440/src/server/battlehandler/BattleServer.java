@@ -1,5 +1,6 @@
 package server.battlehandler;
 
+import model.pokemon.PokeAttackResponse;
 import model.pokemon.PokeInBattleInfo;
 import model.pokemon.PokeInBattleRequest;
 import server.Room;
@@ -89,7 +90,7 @@ public class BattleServer extends Thread {
         System.out.println("BattleServer Finish init battle");
     }
 
-    private <T extends Serializable> void notifyPlayers(int response, T obj) {
+    public <T extends Serializable> void notifyPlayers(int response, T obj) {
         System.out.println("BattleServer start notifying Players");
 
         for (int i = 0; i < team1Threads.size(); i++) {
@@ -102,6 +103,28 @@ public class BattleServer extends Thread {
         for (int i = 0; i < team2Threads.size(); i++) {
             SocketCommunicator sc = team2Threads.get(i).getCommunicator();
             sc.sendRequestHeader(response);
+            sc.write(obj);
+            sc.flushOutput();
+        }
+
+        System.out.println("BattleServer finish notifying Players");
+    }
+
+    public <T extends Serializable> void notifyPlayersWithCurrPlayerName(int response, T obj) {
+        System.out.println("BattleServer start notifying Players");
+
+        for (int i = 0; i < team1Threads.size(); i++) {
+            SocketCommunicator sc = team1Threads.get(i).getCommunicator();
+            sc.sendRequestHeader(response);
+            sc.write(room.getCurrentPlayer().getUsername());
+            sc.write(obj);
+            sc.flushOutput();
+        }
+
+        for (int i = 0; i < team2Threads.size(); i++) {
+            SocketCommunicator sc = team2Threads.get(i).getCommunicator();
+            sc.sendRequestHeader(response);
+            sc.write(room.getCurrentPlayer().getUsername());
             sc.write(obj);
             sc.flushOutput();
         }
@@ -150,16 +173,23 @@ public class BattleServer extends Thread {
     }
 
     public void attack(PokeInBattleRequest request) {
-        room.attack(request);
-        notifyPokeInBattleToPlayers(Services.BATTLE_ATK, request.getPokeModels1(), request.getPokeModels2());
+        String[] pokeNames = room.attack(request);
+
+        System.out.println(pokeNames[0] + " - " + pokeNames[1]);
+//        notifyPokeInBattleToPlayers(Services.BATTLE_ATK, request.getPokeModels1(), request.getPokeModels2());
+
+        notifyPlayers(Services.BATTLE_ATK, new PokeAttackResponse(request.getPokeModels1(), request.getPokeModels2(),
+                pokeNames[0], pokeNames[1]));
     }
 
     public void calculateActionPoint() {
         --actionPoint;
 
+        System.out.println("ACTION POINT " + actionPoint);
+
         if(actionPoint == 0) {
             actionPoint = 2;
-            room.nextTurn();
+            endTurn();
         }
     }
 

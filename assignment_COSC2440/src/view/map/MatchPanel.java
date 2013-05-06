@@ -4,9 +4,9 @@
  */
 package view.map;
 
-import model.pokemon.PokeInBattleInfo;
-import model.pokemon.PokeInBattleRequest;
+import model.pokemon.*;
 import model.room.RoomPublicInfo;
+import server.Room;
 import server.Server;
 import server.Services;
 import server.battlehandler.BattleListenerThread;
@@ -15,9 +15,11 @@ import server.chathandler.ChatServices;
 import main.Main;
 import server.SocketCommunicator;
 import utility.Move;
+import view.anim.AnimUtil;
+import view.panel.AttackAnimPanel;
 import view.panel.SocketClosable;
 
-import java.awt.Graphics;
+import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -175,6 +177,46 @@ public class MatchPanel extends JPanel implements KeyListener, SocketClosable {
         map.init();
     }
 
+    public void movePokemon(PokeMoveRequest res) {
+        int fromI = res.getFromI();
+        int fromJ = res.getFromJ();
+        int toI = res.getToI();
+        int toJ = res.getToJ();
+
+        map.setPokeModels1(res.getPokeModels1());
+        map.setPokeModels2(res.getPokeModels2());
+        map.init();
+
+//        if(map.isMyTurn()) {
+
+            map.moveAnim(res.getPokeIndex(), res.getTeam(), fromI, fromJ, toI, toJ);
+//        }
+
+//        new Thread() {
+//            @Override
+//            public void run() {
+//                try {
+//                    sleep(AnimUtil.MOVE_DURATION);
+//                } catch(Exception ex) {
+//
+//                }
+//                currPlayerName = currName;
+//            }
+//        }.start();
+    }
+
+    public void attackPokemon(PokeAttackResponse res) {
+        String attackPoke = res.getAttackerName();
+        String enemyPoke = res.getEnemyName();
+
+        map.setPokeModels1(res.getPokeModels1());
+        map.setPokeModels2(res.getPokeModels2());
+        map.init();
+
+//        Image background = Main.getInstance().captureFrame();
+        Main.getInstance().pushPanel(new AttackAnimPanel(attackPoke, enemyPoke));
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         g.fillRect(0, 0, getWidth(), getHeight());
@@ -213,7 +255,7 @@ public class MatchPanel extends JPanel implements KeyListener, SocketClosable {
         }
     }
 
-    public void sendRequest(int request, PokeInBattleRequest requestObj) {
+    public void sendRequest(int request, InBattleRequest requestObj) {
         battleCommunicator.sendRequestHeader(request);
         battleCommunicator.write(requestObj);
         battleCommunicator.flushOutput();

@@ -1,5 +1,6 @@
 package model.pokemon;
 
+import org.pushingpixels.trident.Timeline;
 import utility.Move;
 
 import java.awt.*;
@@ -38,6 +39,13 @@ public class PokeInBattleInfo implements Serializable {
         this.teamNo = teamNo;
         this.hp = hp;
     }
+
+//    public void moveAnim(int fromI, int fromJ, int toI, int toJ) {
+//        Timeline timeline = new Timeline(this);
+//        timeline.addPropertyToInterpolate("i", fromI, toI);
+//        timeline.addPropertyToInterpolate("j", fromJ, toJ);
+//        timeline.play();
+//    }
 
     public String getOwner() {
         return owner;

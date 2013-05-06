@@ -1,13 +1,19 @@
 package server.battlehandler;
 
+import main.Main;
 import model.Player;
+import model.pokemon.PokeAttackResponse;
 import model.pokemon.PokeInBattleInfo;
+import model.pokemon.PokeInBattleRequest;
+import model.pokemon.PokeMoveRequest;
 import server.Services;
 import server.SocketCommunicator;
 import utility.Move;
 import view.map.MatchPanel;
+import view.panel.AttackAnimPanel;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
@@ -49,12 +55,12 @@ public class BattleListenerThread extends Thread {
                 }
                 case Services.BATTLE_ATK: {
                     System.out.println("client - BATTLE_ATK");
-                    update();
+                    attack();
                     break;
                 }
                 case Services.BATTLE_MOVE: {
                     System.out.println("client - BATTLE_MOVE");
-                    update();
+                    move();
                     break;
                 }
                 case Services.BATTLE_END_TURN: {
@@ -73,13 +79,17 @@ public class BattleListenerThread extends Thread {
 //        update();
 //    }
 
-//    private void attack() {
-//        update();
-//    }
+    private void attack() {
+        matchPanel.attackPokemon((PokeAttackResponse)communicator.read());
+    }
 
-//    private void move() {
+    private void move() {
 //        update();
-//    }
+//        String currPlayerName = (String)communicator.read();
+        PokeMoveRequest response = (PokeMoveRequest)communicator.read();
+
+        matchPanel.movePokemon(response);
+    }
 
     private void update() {
         String currPlayerName = (String)communicator.read();
@@ -87,12 +97,12 @@ public class BattleListenerThread extends Thread {
         PokeInBattleInfo[] pokeInBattleInfos2 = (PokeInBattleInfo[])communicator.read();
         matchPanel.initPokeOnMap(currPlayerName, pokeInBattleInfos1, pokeInBattleInfos2);
 
-        for(PokeInBattleInfo p : pokeInBattleInfos1) {
-            System.out.println(p);
-        }
-        for(PokeInBattleInfo p : pokeInBattleInfos2) {
-            System.out.println(p);
-        }
+//        for(PokeInBattleInfo p : pokeInBattleInfos1) {
+//            System.out.println(p);
+//        }
+//        for(PokeInBattleInfo p : pokeInBattleInfos2) {
+//            System.out.println(p);
+//        }
     }
 
     private void endTurn() {

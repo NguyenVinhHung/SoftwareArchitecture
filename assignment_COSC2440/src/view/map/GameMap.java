@@ -7,10 +7,13 @@ package view.map;
 import main.Main;
 import model.pokemon.PokeInBattleInfo;
 import model.pokemon.PokeInBattleRequest;
+import model.pokemon.PokeMoveRequest;
+import org.pushingpixels.trident.Timeline;
 import server.Room;
 import server.Services;
 import server.SocketCommunicator;
 import utility.FileUtility;
+import view.anim.AnimUtil;
 import view.smallview.PokeInBattleView;
 
 import javax.swing.*;
@@ -35,8 +38,11 @@ public class GameMap {
     private PokeInBattleView[] pokeViews2;
     private JPanel[][] tilePanels;
     private PokeInBattleInfo myPoke;
+    private PokeInBattleInfo movingPoke;
     private MatchPanel parent;
     private int[][] mapArrays;
+    private int moveI;
+    private int moveJ;
     private int selectedX = -MapUtil.TILE_SIZE;
     private int selectedY = -MapUtil.TILE_SIZE;
     private int hoverX = -MapUtil.TILE_SIZE;
@@ -180,9 +186,9 @@ public class GameMap {
         }
 
         if(request == Services.BATTLE_ATK) {
-            int teamNo = (parent.isTeam1()) ? Room.TEAM_1 : Room.TEAM_2;
+//            int teamNo = (parent.isTeam1()) ? Room.TEAM_1 : Room.TEAM_2;
 
-            PokeInBattleRequest requestObj = new PokeInBattleRequest(enemy.getOwner(), teamNo);
+            PokeInBattleRequest requestObj = new PokeInBattleRequest(enemy.getOwner(), myPoke.getTeamNo());
             requestObj.setPokeModels1(pokeModels1);
             requestObj.setPokeModels2(pokeModels2);
 
@@ -190,10 +196,51 @@ public class GameMap {
             return;
         }
 
-        myPoke.setI(selectedX / MapUtil.TILE_SIZE);
-        myPoke.setJ(selectedY / MapUtil.TILE_SIZE);
+        int pokeIndex = 0;
+        PokeInBattleView[] myTeam = (myPoke.getTeamNo()==Room.TEAM_1) ? pokeViews1 : pokeViews2;
 
-        parent.sendRequest(request, new PokeInBattleRequest(enemyIndex, pokeModels1, pokeModels2));
+        for(;pokeIndex < myTeam.length; pokeIndex++) {
+            if(selectedX==myTeam[pokeIndex].getX() && selectedY==myTeam[pokeIndex].getY()) {
+                return;
+            }
+            if(myTeam[pokeIndex].getOwner().equals(myPoke.getOwner())) {
+                break;
+            }
+        }
+
+        PokeMoveRequest requestObj = new PokeMoveRequest(pokeIndex, myPoke.getTeamNo(),
+                myPoke.getI(), myPoke.getJ(), selectedX / MapUtil.TILE_SIZE, selectedY / MapUtil.TILE_SIZE,
+                pokeModels1, pokeModels2);
+
+//        myPoke.setI(selectedX / MapUtil.TILE_SIZE);
+//        myPoke.setJ(selectedY / MapUtil.TILE_SIZE);
+
+        parent.sendRequest(request, requestObj);
+    }
+
+    public void moveAnim(int pokeIndex, int teamNo, int fromI, int fromJ, int toI, int toJ) {
+        PokeInBattleInfo[] t = (teamNo==Room.TEAM_1) ? pokeModels1 : pokeModels2;
+        movingPoke = t[pokeIndex];
+
+        Timeline timeline = new Timeline(this);
+        timeline.addPropertyToInterpolate("moveI", fromI, toI);
+        timeline.addPropertyToInterpolate("moveJ", fromJ, toJ);
+        timeline.setDuration(AnimUtil.MOVE_DURATION);
+        timeline.play();
+    }
+
+    public void setMoveI(int moveI) {
+        this.moveI = moveI;
+        movingPoke.setI(moveI);
+        System.out.println("MoveI: " + movingPoke.getI() + " - " + moveI);
+        parent.repaint();
+    }
+
+    public void setMoveJ(int moveJ) {
+        this.moveJ = moveJ;
+        movingPoke.setJ(moveJ);
+        System.out.println("MoveJ: " + movingPoke.getJ() + " - " + moveJ);
+        parent.repaint();
     }
 
     public JPanel[][] getTilePanels() {
@@ -257,5 +304,13 @@ public class GameMap {
 
     public void setMyPoke(PokeInBattleInfo myPoke) {
         this.myPoke = myPoke;
+    }
+
+    public PokeInBattleInfo getMovingPoke() {
+        return movingPoke;
+    }
+
+    public void setMovingPoke(PokeInBattleInfo movingPoke) {
+        this.movingPoke = movingPoke;
     }
 }

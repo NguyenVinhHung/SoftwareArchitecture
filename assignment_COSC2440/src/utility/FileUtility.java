@@ -51,29 +51,38 @@ public class FileUtility {
 
     public static final Image GS_BTN_IMG = new ImageIcon(GSTART_BTN).getImage();
     public static final Image GS_BG_IMG = new ImageIcon(GSTART_BG).getImage();
-    public static final Image GS_HELP_IMG = new ImageIcon(GSTART_HELP).getImage();
-    public static final Image GS_PROFILE_IMG = new ImageIcon(GSTART_PROFILE).getImage();
-    public static final Image GS_SETTING_IMG = new ImageIcon(GSTART_SETTING).getImage();
-    public static final Image GS_SHOP_IMG = new ImageIcon(GSTART_SHOP).getImage();
+//    public static final Image GS_HELP_IMG = new ImageIcon(GSTART_HELP).getImage();
+//    public static final Image GS_PROFILE_IMG = new ImageIcon(GSTART_PROFILE).getImage();
+//    public static final Image GS_SETTING_IMG = new ImageIcon(GSTART_SETTING).getImage();
+//    public static final Image GS_SHOP_IMG = new ImageIcon(GSTART_SHOP).getImage();
 
     public static final Image SELECTED_POKE_IMG = new ImageIcon(SELECTED_POKE_URL).getImage();
 
 
-    public static final String POKE_IMAGES_URL = IMAGE_URL + "/pokemon/";
-    public static final String CHARIZARD_IMG_URL = POKE_IMAGES_URL + "006.gif";
-    public static final String BLASTOISE_IMG_URL = POKE_IMAGES_URL + "009.gif";
-    public static final String VENUSAUR_IMG_URL = POKE_IMAGES_URL + "003.gif";
-    public static final String CHARIZARD_ICON_URL = POKE_IMAGES_URL + "6.png";
-    public static final String BLASTOISE_ICON_URL = POKE_IMAGES_URL + "9.png";
-    public static final String VENUSAUR_ICON_URL = POKE_IMAGES_URL + "3.png";
+    public static final String POKE_FRONT_IMAGES_URL = IMAGE_URL + "/pokemon/";
+    public static final String CHARIZARD_FRONT_IMG_URL = POKE_FRONT_IMAGES_URL + "006.gif";
+    public static final String BLASTOISE_FRONT_IMG_URL = POKE_FRONT_IMAGES_URL + "009.gif";
+    public static final String VENUSAUR_FRONT_IMG_URL = POKE_FRONT_IMAGES_URL + "003.gif";
+    public static final String CHARIZARD_ICON_URL = POKE_FRONT_IMAGES_URL + "6.png";
+    public static final String BLASTOISE_ICON_URL = POKE_FRONT_IMAGES_URL + "9.png";
+    public static final String VENUSAUR_ICON_URL = POKE_FRONT_IMAGES_URL + "3.png";
 
-    public static final Image CHARIZARD_IMG = new ImageIcon(CHARIZARD_IMG_URL).getImage();
-    public static final Image BLASTOISE_IMG = new ImageIcon(BLASTOISE_IMG_URL).getImage();
-    public static final Image VENUSAUR_IMG = new ImageIcon(VENUSAUR_IMG_URL).getImage();
+    public static final Image CHARIZARD_FRONT_IMG = new ImageIcon(CHARIZARD_FRONT_IMG_URL).getImage();
+    public static final Image BLASTOISE_FRONT_IMG = new ImageIcon(BLASTOISE_FRONT_IMG_URL).getImage();
+    public static final Image VENUSAUR_FRONT_IMG = new ImageIcon(VENUSAUR_FRONT_IMG_URL).getImage();
 
     public static final Image CHARIZARD_ICON = new ImageIcon(CHARIZARD_ICON_URL).getImage();
     public static final Image BLASTOISE_ICON = new ImageIcon(BLASTOISE_ICON_URL).getImage();
     public static final Image VENUSAUR_ICON = new ImageIcon(VENUSAUR_ICON_URL).getImage();
+
+    public static final String POKE_BACK_IMAGES_URL = IMAGE_URL + "/poke_back/";
+    public static final String CHARIZARD_BACK_IMG_URL = POKE_BACK_IMAGES_URL + "006.gif";
+    public static final String BLASTOISE_BACK_IMG_URL = POKE_BACK_IMAGES_URL + "009.gif";
+    public static final String VENUSAUR_BACK_IMG_URL = POKE_BACK_IMAGES_URL + "003.gif";
+
+    public static final Image CHARIZARD_BACK_IMG = new ImageIcon(CHARIZARD_BACK_IMG_URL).getImage();
+    public static final Image BLASTOISE_BACK_IMG = new ImageIcon(BLASTOISE_BACK_IMG_URL).getImage();
+    public static final Image VENUSAUR_BACK_IMG = new ImageIcon(VENUSAUR_BACK_IMG_URL).getImage();
 
     public static final String POKE_AVAR_URL = IMAGE_URL + "/poke_avatar/";
     public static final String CHARIZARD_AVAR_URL = POKE_AVAR_URL + "charizard.png";
@@ -83,4 +92,10 @@ public class FileUtility {
     public static final Image CHARIZARD_AVAR = new ImageIcon(CHARIZARD_AVAR_URL).getImage();
     public static final Image BLASTOISE_AVAR = new ImageIcon(BLASTOISE_AVAR_URL).getImage();
     public static final Image VENUSAUR_AVAR = new ImageIcon(VENUSAUR_AVAR_URL).getImage();
+
+    public static final String SKILL_ANIM_URL = IMAGE_URL + "/skill_animation/";
+    public static final Image BULLET_IMG = new ImageIcon(SKILL_ANIM_URL + "bullets.png").getImage();
+    public static final Image OVERLAY_BG_IMG = new ImageIcon(SKILL_ANIM_URL + "overlay_bg.png").getImage();
+    public static final Image TOP_BG_IMG = new ImageIcon(SKILL_ANIM_URL + "top_bg.png").getImage();
+
 }

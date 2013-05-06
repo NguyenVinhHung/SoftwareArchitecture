@@ -365,7 +365,7 @@ public class Room {
         System.out.println("Room Battle started");
     }
 
-    public void attack(PokeInBattleRequest request) {
+    public String[] attack(PokeInBattleRequest request) {
         SocketCommunicator atkSc = getCurrentPlayer();
         Pokemon atkPoke = atkSc.getPlayer().getSelectedPoke();
 
@@ -387,6 +387,8 @@ public class Room {
 
         enemyInfo.setHp(enemyInfo.getHp()
                 - PokeUtil.calculateDamage(SkillFactory.makeDefaultSkill(atkPoke.getType(0)), atkPoke, enemyPoke));
+
+        return new String[] {atkPoke.getName(), enemyPoke.getName()};
     }
 
     public void close() {
