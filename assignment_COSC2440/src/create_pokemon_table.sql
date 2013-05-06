@@ -1,4 +1,3 @@
-drop table if exists Pokemon;
 create table if not exists Pokemon (
     PokemonId int primary key,
     PokemonName text,

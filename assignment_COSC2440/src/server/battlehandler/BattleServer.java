@@ -3,10 +3,7 @@ package server.battlehandler;
 import model.pokemon.PokeAttackResponse;
 import model.pokemon.PokeInBattleInfo;
 import model.pokemon.PokeInBattleRequest;
-import server.Room;
-import server.Server;
-import server.Services;
-import server.SocketCommunicator;
+import server.*;
 import server.chathandler.ChatServices;
 
 import java.io.IOException;
@@ -173,13 +170,20 @@ public class BattleServer extends Thread {
     }
 
     public void attack(PokeInBattleRequest request) {
-        String[] pokeNames = room.attack(request);
+        String[] result = room.attack(request);
 
-        System.out.println(pokeNames[0] + " - " + pokeNames[1]);
-//        notifyPokeInBattleToPlayers(Services.BATTLE_ATK, request.getPokeModels1(), request.getPokeModels2());
+        if(result.length > 1) {
+            System.out.println(result[0] + " - " + result[1]);
+    //        notifyPokeInBattleToPlayers(Services.BATTLE_ATK, request.getPokeModels1(), request.getPokeModels2());
 
-        notifyPlayers(Services.BATTLE_ATK, new PokeAttackResponse(request.getPokeModels1(), request.getPokeModels2(),
-                pokeNames[0], pokeNames[1]));
+            notifyPlayers(Services.BATTLE_ATK, new PokeAttackResponse(request.getPokeModels1(), request.getPokeModels2(),
+                    result[0], result[1]));
+        } else {
+            notifyPlayers(Services.BATTLE_FINISH, new Integer(Integer.parseInt(result[0])));
+
+            OnlinePlayerList opl = (OnlinePlayerList)ServerSpring.getBean("onlinePlayerList");
+            opl.removeRoom(room.getHostName());
+        }
     }
 
     public void calculateActionPoint() {

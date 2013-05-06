@@ -28,7 +28,7 @@ public class AlertPopup extends AbstractPopup {
         okBtn = new RawButton("Ok", OK_X, OK_Y, RawButton.DEFAULT_WIDTH, RawButton.DEFAULT_HEIGHT) {
             @Override
             public void onClick() {
-                Main.getInstance().popPanel();
+                okClicked();
             }
         };
 
@@ -46,5 +46,9 @@ public class AlertPopup extends AbstractPopup {
         g.drawString(msg, x, START_Y);
 
         okBtn.draw(g);
+    }
+
+    public void okClicked() {
+        Main.getInstance().popPanel();
     }
 }

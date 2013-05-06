@@ -8,10 +8,7 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import utility.FileUtility;
 
-/**
- *
- * @author HungHandsome
- */
+
 public class MapUtil {
     
     public static final int MAP_W = 1024;

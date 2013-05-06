@@ -17,7 +17,9 @@ import server.SocketCommunicator;
 import utility.Move;
 import view.anim.AnimUtil;
 import view.panel.AttackAnimPanel;
+import view.panel.GameStartView;
 import view.panel.SocketClosable;
+import view.popup.AlertPopup;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -27,10 +29,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import javax.swing.*;
 
-/**
- *
- * @author HungHandsome
- */
+
 public class MatchPanel extends JPanel implements KeyListener, SocketClosable {
 
     private static final int CHATBOX_Y = 200;
@@ -266,6 +265,18 @@ public class MatchPanel extends JPanel implements KeyListener, SocketClosable {
         battleCommunicator.sendRequestHeader(request);
         battleCommunicator.write(requestObj);
         battleCommunicator.flushOutput();
+    }
+
+    public void finishBattle(int winTeam) {
+        AlertPopup popup = new AlertPopup("Team " + (-1*winTeam) + " wins") {
+            @Override
+            public void okClicked() {
+                Main.getInstance().setCurrPanel(new GameStartView());
+                closeSocket();
+            }
+        };
+
+        Main.getInstance().setCurrPanel(popup);
     }
 
     @Override

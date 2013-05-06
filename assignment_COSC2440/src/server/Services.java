@@ -48,4 +48,5 @@ public class Services {
     public static final int BATTLE_ATK = 73;
     public static final int BATTLE_END_TURN = 74;
     public static final int BATTLE_INITIALIZATION = 75;
+    public static final int BATTLE_FINISH = 76;
 }

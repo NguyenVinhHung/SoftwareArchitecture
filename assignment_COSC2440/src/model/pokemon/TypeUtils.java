@@ -62,7 +62,7 @@ public class TypeUtils {
             for(int j=0; j<weakAgainst[sklType].length; j++) {
                 if(receiver.getType(i) == weakAgainst[sklType][j]) {
                     counter++;
-                } else if(receiver.getType(i) == strongAgainst[sklType][j]) {
+                } else if(j<strongAgainst[sklType].length && receiver.getType(i)==strongAgainst[sklType][j]) {
                     counter--;
                 }
             }

@@ -32,16 +32,34 @@ public class Player implements Serializable {
 
         // Randomly generate a starter pokemon.
         Random r = new Random(Calendar.getInstance().getTimeInMillis());
-        int randPoke = r.nextInt(300) + 1;
-        if (randPoke <= 100) {
-//            pokemons.add(PokemonFactory.makeBlastoise());
-            pokemons.add(PokemonFactory.makeRaichu());
-        } else if (randPoke > 100 && randPoke <= 200) {
-//            pokemons.add(PokemonFactory.makeCharizard());
-            pokemons.add(PokemonFactory.makeDragonite());
-        } else {
-//            pokemons.add(PokemonFactory.makeVenusaur());
+
+        int randPoke = r.nextInt(130) + 1;
+        if (randPoke <= 10) {
+            pokemons.add(PokemonFactory.makeBlastoise());
+        } else if (randPoke > 10 && randPoke <= 20) {
+            pokemons.add(PokemonFactory.makeCharizard());
+        } else if (randPoke > 20 && randPoke <= 30) {
+            pokemons.add(PokemonFactory.makeVenusaur());
+        } else if (randPoke > 30 && randPoke <= 40) {
+            pokemons.add(PokemonFactory.makeArbok());
+        } else if (randPoke > 40 && randPoke <= 50) {
+            pokemons.add(PokemonFactory.makeArticuno());
+        } else if (randPoke > 50 && randPoke <= 60) {
+            pokemons.add(PokemonFactory.makeZapdos());
+        } else if (randPoke > 60 && randPoke <= 70) {
+            pokemons.add(PokemonFactory.makeBeedrill());
+        } else if (randPoke > 70 && randPoke <= 80) {
             pokemons.add(PokemonFactory.makeRaticate());
+        } else if (randPoke > 80 && randPoke <= 90) {
+            pokemons.add(PokemonFactory.makeButterfree());
+        } else if (randPoke > 90 && randPoke <= 100) {
+            pokemons.add(PokemonFactory.makeDragonite());
+        } else if (randPoke > 100 && randPoke <= 110) {
+            pokemons.add(PokemonFactory.makeMortress());
+        } else if (randPoke > 110 && randPoke <= 120) {
+            pokemons.add(PokemonFactory.makePidgeot());
+        } else if (randPoke > 120 && randPoke <= 130) {
+            pokemons.add(PokemonFactory.makeRaichu());
         }
 
 //        selectedPoke = pokemons.get(r.nextInt(3));

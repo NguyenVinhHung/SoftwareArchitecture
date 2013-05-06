@@ -12,13 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-/**
- * Created with IntelliJ IDEA.
- * User: CHINHNHAN
- * Date: 4/28/13
- * Time: 9:48 AM
- * To change this template use File | Settings | File Templates.
- */
+
 public class PokemonDAOImpl implements PokemonDAO {
 
     JdbcTemplate jdbcTemplate;

@@ -21,9 +21,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-/**
- * @author HungHandsome
- */
+
 public class GameMap {
 
     public static final int WIDTH = 803;
@@ -76,11 +74,6 @@ public class GameMap {
                         if (!myPoke.isDead()) {
                             System.out.println("Handle click");
                             handleMouseClick();
-
-                        }else{
-                            System.out.println("You're dead");
-                            parent.handleEndTurnButton();
-
                         }
                     }
 
@@ -102,46 +95,42 @@ public class GameMap {
     }
 
     public void draw(Graphics g) {
-        int tileX = 0;
-        int tileY = 0;
-
         g.drawImage(FileUtility.MAP_IMG, 0, 0, WIDTH, HEIGHT, null);
 
-        // Draw tiles
-//        for(int i=0; i<mapArrays.length; i++) {
-//            tileX = 0;
-//            for(int j=0; j<mapArrays[i].length; j++) {
-//                g.drawImage(MapUtil.TILES[mapArrays[i][j]],
-//                      tileX, tileY, MapUtil.TILE_SIZE, MapUtil.TILE_SIZE, null);
-//
-//                tileX += MapUtil.TILE_SIZE;
-//            }
-//            tileY += MapUtil.TILE_SIZE;
-//        }
-
-        // Draw lines to separate tiles
-//        g.setColor(Color.white);
-//        for(int i=0, x=MapUtil.TILE_SIZE; i<mapArrays[0].length-1; i++) {
-//            g.drawLine(x, 0, x, tileY);
-//            x += MapUtil.TILE_SIZE;
-//        }
-//        for(int i=0, y=MapUtil.TILE_SIZE; i<mapArrays.length-1; i++) {
-//            g.drawLine(0, y, tileX, y);
-//            y += MapUtil.TILE_SIZE;
-//        }
+        String userName = Main.getCommunicator().getUsername();
 
         if (pokeViews1 != null) {
             for (int i = 0; i < pokeViews1.length; i++) {
-                pokeViews1[i].draw(g);
-//                System.out.println("pokeViews1 " + i + " - " + pokeViews1[i]);
+                if(!pokeModels1[i].isDead()) {
+                    g.setColor(Color.BLUE);
+                    g.fillOval(pokeViews1[i].getX(), pokeViews1[i].getY(), MapUtil.TILE_SIZE, MapUtil.TILE_SIZE);
+
+                    if(pokeModels1[i].getOwner().equals(userName)) {
+                        g.setColor(Color.GREEN);
+                        g.fillOval(pokeViews1[i].getX()+10, pokeViews1[i].getY()+10,
+                                MapUtil.TILE_SIZE-20, MapUtil.TILE_SIZE-20);
+                    }
+
+                    pokeViews1[i].draw(g);
+                }
             }
 
         }
 
         if (pokeViews2 != null) {
             for (int i = 0; i < pokeViews2.length; i++) {
-                pokeViews2[i].draw(g);
-//                System.out.println("pokeViews2 " + i + " - " + pokeViews2[i]);
+                if(!pokeModels2[i].isDead()) {
+                    g.setColor(Color.RED);
+                    g.fillOval(pokeViews2[i].getX(), pokeViews2[i].getY(), MapUtil.TILE_SIZE, MapUtil.TILE_SIZE);
+
+                    if(pokeModels2[i].getOwner().equals(userName)) {
+                        g.setColor(Color.GREEN);
+                        g.fillOval(pokeViews2[i].getX()+10, pokeViews2[i].getY()+10,
+                                MapUtil.TILE_SIZE-20, MapUtil.TILE_SIZE-20);
+                    }
+
+                    pokeViews2[i].draw(g);
+                }
             }
         }
 
@@ -184,6 +173,10 @@ public class GameMap {
 
         for (int i = 0; i < enemyTeam.length; i++) {
             if (selectedX == enemyTeam[i].getX() && selectedY == enemyTeam[i].getY()) {
+                if(enemyTeam[i].getModel().isDead()) {
+                    continue;
+                }
+
                 request = Services.BATTLE_ATK;
                 enemyIndex = i;
                 enemy = enemyTeam[i];
@@ -270,6 +263,10 @@ public class GameMap {
 
     public void setMyTurn(boolean myTurn) {
         this.myTurn = myTurn;
+
+        if(myTurn && myPoke.isDead()) {
+            parent.handleEndTurnButton();
+        }
     }
 
     public PokeInBattleInfo[] getPokeModels1() {

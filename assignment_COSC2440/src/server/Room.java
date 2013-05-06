@@ -308,14 +308,16 @@ public class Room {
             String pokeName = pokemon.getName();
 
             pokeInBattle1[i] = new PokeInBattleInfo(sc.getUsername(),
-                    PokemonFactory.getPokeIconURL(pokeName), MoveUtil.START_POSITIONS_T1[i], TEAM_1, pokemon.getHp());
+                    PokemonFactory.getPokeIconURL(pokeName),
+                    MoveUtil.START_POSITIONS_T1[i], TEAM_1, pokemon.getHp(), pokemon.getHp());
         }
         for (int i = 0; i < pokeInBattle2.length; i++) {
             SocketCommunicator sc = t2.get(i);
             Pokemon pokemon = sc.getPlayer().getSelectedPoke();
             String pokeName = pokemon.getName();
             pokeInBattle2[i] = new PokeInBattleInfo(sc.getUsername(),
-                    PokemonFactory.getPokeIconURL(pokeName), MoveUtil.START_POSITIONS_T2[i], TEAM_2, pokemon.getHp());
+                    PokemonFactory.getPokeIconURL(pokeName),
+                    MoveUtil.START_POSITIONS_T2[i], TEAM_2, pokemon.getHp(), pokemon.getHp());
         }
 
         orderOfPlayers = new ArrayList<SocketCommunicator>();
@@ -385,6 +387,17 @@ public class Room {
                 - PokeUtil.calculateDamage(SkillFactory.makeDefaultSkill(atkPoke.getType(0)), atkPoke, enemyPoke));
 
         System.out.println("Room " + enemyInfo.getOwner() + "->" + enemyInfo.getHp() + "-> " + enemyInfo.isDead());
+
+        int i=0;
+        for (; i<enemyTeamInfo.length; i++) {
+            if (!enemyTeamInfo[i].isDead()) {
+                break;
+            }
+        }
+
+        if(i == enemyTeamInfo.length) {
+            return new String[] {""+request.getTeam()};
+        }
 
         return new String[]{atkPoke.getName(), enemyPoke.getName()};
     }

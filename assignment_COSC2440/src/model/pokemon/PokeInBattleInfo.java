@@ -23,7 +23,7 @@ public class PokeInBattleInfo implements Serializable {
     private int i;
     private int j;
     private int hp;
-    private boolean isDead;
+    private int maxHp;
 
     public PokeInBattleInfo(String owner, String imgURL, int i, int j) {
         this.owner = owner;
@@ -32,13 +32,14 @@ public class PokeInBattleInfo implements Serializable {
         this.j = j;
     }
 
-    public PokeInBattleInfo(String owner, String imgURL, Move move, int teamNo, int hp) {
+    public PokeInBattleInfo(String owner, String imgURL, Move move, int teamNo, int hp, int maxHp) {
         this.owner = owner;
         imageURL = imgURL;
         this.i = move.i;
         this.j = move.j;
         this.teamNo = teamNo;
         this.hp = hp;
+        this.maxHp = maxHp;
     }
 
 //    public void moveAnim(int fromI, int fromJ, int toI, int toJ) {
@@ -87,17 +88,14 @@ public class PokeInBattleInfo implements Serializable {
 
     public void setHp(int hp) {
         this.hp = hp;
-        if(this.hp <= 0){
-            setDead(true);
-        }
+    }
+
+    public int getMaxHp() {
+        return maxHp;
     }
 
     public boolean isDead() {
-        return isDead;
-    }
-
-    public void setDead(boolean dead) {
-        isDead = dead;
+        return hp <= 0;
     }
 
     @Override

@@ -68,6 +68,11 @@ public class BattleListenerThread extends Thread {
                     endTurn();
                     break;
                 }
+                case Services.BATTLE_FINISH: {
+                    System.out.println("client - BATTLE_FINISH");
+                    finishBattle();
+                    break;
+                }
             }
         }
 //        } catch (IOException e) {
@@ -107,5 +112,11 @@ public class BattleListenerThread extends Thread {
 
     private void endTurn() {
         matchPanel.setCurrPlayerName((String)communicator.read());
+
+    }
+
+    private void finishBattle() {
+        int winTeam = (Integer)communicator.read();
+        matchPanel.finishBattle(winTeam);
     }
 }

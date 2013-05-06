@@ -99,6 +99,11 @@ public class OnlinePlayerList {
         return hostName;
     }
 
+    public void removeRoom(String host) {
+        Room r = rooms.remove(host);
+        r.close();
+    }
+
     public void notifyAllPlayers(int msg, SocketCommunicator except) {
         notifyWaitingPlayers(msg);
         for(Room r : rooms.values()) {

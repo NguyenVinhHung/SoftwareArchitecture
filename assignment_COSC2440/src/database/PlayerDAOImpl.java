@@ -13,13 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-/**
- * Created with IntelliJ IDEA.
- * User: CHINHNHAN
- * Date: 4/27/13
- * Time: 3:40 PM
- * To change this template use File | Settings | File Templates.
- */
+
 public class PlayerDAOImpl implements PlayerDAO {
 
     private JdbcTemplate jdbcTemplate;
