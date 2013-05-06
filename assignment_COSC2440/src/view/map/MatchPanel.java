@@ -134,15 +134,20 @@ public class MatchPanel extends JPanel implements KeyListener, SocketClosable {
                 if(!map.isMyTurn()) {
                     return;
                 }
+                handleEndTurnButton();
 
-                battleCommunicator.sendRequestHeader(Services.BATTLE_END_TURN);
-                battleCommunicator.flushOutput();
+
             }
         });
 
         endTurnBtn.setBounds(GameMap.WIDTH + 10 - CHATBOX_W - 150, CHATTYPER_Y + 80, 100, 40);
 
         add(endTurnBtn);
+    }
+
+    public void handleEndTurnButton(){
+        battleCommunicator.sendRequestHeader(Services.BATTLE_END_TURN);
+        battleCommunicator.flushOutput();
     }
 
     private void initBattleSocket() {

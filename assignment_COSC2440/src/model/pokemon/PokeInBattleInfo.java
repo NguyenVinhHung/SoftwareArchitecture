@@ -23,6 +23,7 @@ public class PokeInBattleInfo implements Serializable {
     private int i;
     private int j;
     private int hp;
+    private boolean isDead;
 
     public PokeInBattleInfo(String owner, String imgURL, int i, int j) {
         this.owner = owner;
@@ -86,6 +87,17 @@ public class PokeInBattleInfo implements Serializable {
 
     public void setHp(int hp) {
         this.hp = hp;
+        if(this.hp <= 0){
+            setDead(true);
+        }
+    }
+
+    public boolean isDead() {
+        return isDead;
+    }
+
+    public void setDead(boolean dead) {
+        isDead = dead;
     }
 
     @Override

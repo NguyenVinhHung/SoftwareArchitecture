@@ -1,9 +1,9 @@
 package server;
 
+import model.Player;
 import model.pokemon.*;
 import server.battlehandler.BattleServer;
 import server.chathandler.ChatServer;
-import model.Player;
 import server.waitingroomhandler.WaitingRoomServer;
 import utility.MoveUtil;
 
@@ -27,19 +27,15 @@ public class Room {
     public static final int REMOVE_ONLY_PLAYER = 1;
     public static final int REMOVE_PLAYER_AND_ROOM = 2;
     public static final int REMOVE_PLAYER_AND_CHANGE_HOST = 3;
-
     public static final int WAITING_STATE = 0;
     public static final int PLAYING_STATE = 1;
     public static final int ENDING_STATE = 2;
-
     private ChatServer chatServer;
     private int chatServerPort;
-
     private WaitingRoomServer waitingRoomServer;
     private BattleServer battleServer;
     private int roomServerPort;
-//    private int battleServerPort;
-
+    //    private int battleServerPort;
     private Map<String, SocketCommunicator> team1;
     private Map<String, SocketCommunicator> team2;
     private ArrayList<SocketCommunicator> orderOfPlayers;
@@ -288,7 +284,7 @@ public class Room {
     }
 
     public SocketCommunicator nextTurn() {
-        if (currentTurn < orderOfPlayers.size()-1) {
+        if (currentTurn < orderOfPlayers.size() - 1) {
             return orderOfPlayers.get(++currentTurn);
         } else {
             currentTurn = 0;
@@ -324,11 +320,11 @@ public class Room {
 
         orderOfPlayers = new ArrayList<SocketCommunicator>();
 
-        for(int i=0; i<team1.size() || i<team2.size(); i++) {
-            if(i<team1.size()) {
+        for (int i = 0; i < team1.size() || i < team2.size(); i++) {
+            if (i < team1.size()) {
                 orderOfPlayers.add(t1.get(i));
             }
-            if(i<team2.size()) {
+            if (i < team2.size()) {
                 orderOfPlayers.add(t2.get(i));
             }
         }
@@ -369,17 +365,17 @@ public class Room {
         SocketCommunicator atkSc = getCurrentPlayer();
         Pokemon atkPoke = atkSc.getPlayer().getSelectedPoke();
 
-        Map<String, SocketCommunicator> enemyTeam = (request.getTeam()==TEAM_1) ? team2 : team1;
+        Map<String, SocketCommunicator> enemyTeam = (request.getTeam() == TEAM_1) ? team2 : team1;
 
         SocketCommunicator enemy = enemyTeam.get(request.getEnemyName());
         Pokemon enemyPoke = enemy.getPlayer().getSelectedPoke();
 
-        PokeInBattleInfo[] enemyTeamInfo = (request.getTeam()==TEAM_1) ?
+        PokeInBattleInfo[] enemyTeamInfo = (request.getTeam() == TEAM_1) ?
                 request.getPokeModels2() : request.getPokeModels1();
         PokeInBattleInfo enemyInfo = null;
 
-        for(PokeInBattleInfo p : enemyTeamInfo) {
-            if(p.getOwner().equals(enemy.getUsername())) {
+        for (PokeInBattleInfo p : enemyTeamInfo) {
+            if (p.getOwner().equals(enemy.getUsername())) {
                 enemyInfo = p;
                 break;
             }
@@ -388,7 +384,9 @@ public class Room {
         enemyInfo.setHp(enemyInfo.getHp()
                 - PokeUtil.calculateDamage(SkillFactory.makeDefaultSkill(atkPoke.getType(0)), atkPoke, enemyPoke));
 
-        return new String[] {atkPoke.getName(), enemyPoke.getName()};
+        System.out.println("Room " + enemyInfo.getOwner() + "->" + enemyInfo.getHp() + "-> " + enemyInfo.isDead());
+
+        return new String[]{atkPoke.getName(), enemyPoke.getName()};
     }
 
     public void close() {

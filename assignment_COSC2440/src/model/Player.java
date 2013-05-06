@@ -20,7 +20,6 @@ import java.util.Random;
 public class Player implements Serializable {
 
     private static final long serialVersionUID = 1111111111111111111L;
-
     private Pokemon selectedPoke;
     private String username;
     private String pw;
@@ -34,12 +33,15 @@ public class Player implements Serializable {
         // Randomly generate a starter pokemon.
         Random r = new Random(Calendar.getInstance().getTimeInMillis());
         int randPoke = r.nextInt(300) + 1;
-        if(randPoke <= 100) {
-            pokemons.add(PokemonFactory.makeBlastoise());
-        } else if(randPoke>100 && randPoke<=200) {
-            pokemons.add(PokemonFactory.makeCharizard());
+        if (randPoke <= 100) {
+//            pokemons.add(PokemonFactory.makeBlastoise());
+            pokemons.add(PokemonFactory.makeRaichu());
+        } else if (randPoke > 100 && randPoke <= 200) {
+//            pokemons.add(PokemonFactory.makeCharizard());
+            pokemons.add(PokemonFactory.makeDragonite());
         } else {
-            pokemons.add(PokemonFactory.makeVenusaur());
+//            pokemons.add(PokemonFactory.makeVenusaur());
+            pokemons.add(PokemonFactory.makeRaticate());
         }
 
 //        selectedPoke = pokemons.get(r.nextInt(3));
@@ -58,7 +60,7 @@ public class Player implements Serializable {
         this.pokemons = pokemons;
 
 //        selectedPoke = pokemons.get(r.nextInt(3));
-        if(pokemons != null) {
+        if (pokemons != null) {
             selectedPoke = pokemons.get(0);
         }
 
@@ -70,7 +72,7 @@ public class Player implements Serializable {
     }
 
     public SelectedPokeInfo makeSelectedPokeInfo(boolean host) {
-        if(selectedPoke == null) {
+        if (selectedPoke == null) {
             System.out.println("Selected pokemon is null");
             return null;
         }
@@ -94,6 +96,14 @@ public class Player implements Serializable {
         return pokemons;
     }
 
+    public void setPokemons(List<Pokemon> pokemons) {
+        this.pokemons = pokemons;
+
+        if (pokemons != null) {
+            selectedPoke = pokemons.get(0);
+        }
+    }
+
     public Pokemon getPokemon(int idx) {
         return pokemons.get(idx);
     }
@@ -104,13 +114,5 @@ public class Player implements Serializable {
 
     public void setSelectedPoke(Pokemon selectedPoke) {
         this.selectedPoke = selectedPoke;
-    }
-
-    public void setPokemons(List<Pokemon> pokemons) {
-        this.pokemons = pokemons;
-
-        if(pokemons != null) {
-            selectedPoke = pokemons.get(0);
-        }
     }
 }
